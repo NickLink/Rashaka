@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="inner_padding_big">25dp</dimen>
+    <dimen name="inner_padding">15dp</dimen>
+    <dimen name="inner_padding_small">10dp</dimen>
+    <dimen name="inner_padding_tiny">8dp</dimen>
+
+
+    <dimen name="text_size_tiny">9sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_mid">14sp</dimen>
+    <dimen name="text_size_standart">15sp</dimen>
+    <dimen name="text_size_bigger">18sp</dimen>
+
+
+    <dimen name="button_height">45dp</dimen>
+    <dimen name="button_width">145dp</dimen>
+    <dimen name="button_width_mid">190dp</dimen>
+    <dimen name="button_width_big">240dp</dimen>
+
+    <dimen name="button_stroke">1dp</dimen>
+    <dimen name="buttons_corners">4dp</dimen>
+
+</resources>

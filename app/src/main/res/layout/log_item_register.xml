@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/login_background">
+
+
+    <FrameLayout
+        android:id="@+id/signin_name_button"
+        style="@style/FrameBigEmpty"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <rashakacom.rashaka.utils.helpers.views.edittext.ClearableEditText
+            android:id="@+id/log_name"
+            style="@style/LoginEditText"
+            android:hint="NAME"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/signin_lname_button"
+        style="@style/FrameBigEmpty"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        app:layout_constraintTop_toBottomOf="@+id/signin_name_button">
+
+        <rashakacom.rashaka.utils.helpers.views.edittext.ClearableEditText
+            android:id="@+id/log_lname"
+            style="@style/LoginEditText"
+            android:hint="LAST NAME"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/signin_email_button"
+        style="@style/FrameBigEmpty"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        app:layout_constraintTop_toBottomOf="@+id/signin_lname_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <rashakacom.rashaka.utils.helpers.views.edittext.ClearableEditText
+            android:id="@+id/log_email"
+            style="@style/LoginEditText"
+            android:hint="EMAIL"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/signin_phone_button"
+        style="@style/FrameBigEmpty"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        app:layout_constraintTop_toBottomOf="@+id/signin_email_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <rashakacom.rashaka.utils.helpers.views.edittext.ClearableEditText
+            android:id="@+id/log_password"
+            style="@style/LoginEditText"
+            android:hint="PHONE NUMBER"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/register_button"
+        style="@style/FrameMidBreeze"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        app:layout_constraintTop_toBottomOf="@+id/signin_phone_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/signin_button_text"
+            style="@style/LoginEditText"
+            android:text="REGISTER"
+            android:textColor="@color/light_black"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/terms_title"
+        style="@style/MidWhiteText"
+        android:text="TERMS AND CONDITIONS"
+        android:layout_marginTop="@dimen/inner_padding_big"
+        app:layout_constraintTop_toBottomOf="@+id/register_button"
+        app:layout_constraintLeft_toLeftOf="@+id/signin_phone_button"/>
+
+    <CheckBox
+        android:id="@+id/checkbox_terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        app:layout_constraintTop_toBottomOf="@+id/terms_title"
+        app:layout_constraintLeft_toLeftOf="@+id/terms_title"
+        android:buttonTint="@color/text_white"/>
+
+    <TextView
+        android:id="@+id/terms_text"
+        style="@style/MidWhiteText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_tiny"
+        android:text="fvnns ksjr vksu vks fd kjfssdv sgsvsfs asgsegsvsv sg vsggvsf  kjn sfkj j sfkj sfkjsn frsuvksu vskuv "
+        app:layout_constraintLeft_toRightOf="@+id/checkbox_terms"
+        app:layout_constraintTop_toTopOf="@+id/checkbox_terms"
+        app:layout_constraintRight_toRightOf="@+id/signin_phone_button"/>
+
+</android.support.constraint.ConstraintLayout>

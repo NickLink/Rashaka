@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_menu_home"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_news"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_menu_news"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_plus"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title=""
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_share"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_menu_share"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_recipes"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_menu_recipes"
+        app:showAsAction="always" />
+
+</menu>

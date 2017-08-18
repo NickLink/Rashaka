@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Rashaka</string>
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_news">News</string>
+    <string name="bottom_menu_share">ShareApp</string>
+    <string name="bottom_menu_recipes">Recipes</string>
+</resources>
