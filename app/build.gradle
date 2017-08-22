@@ -61,5 +61,7 @@ dependencies {
 
     //Fragment Stack Controller
     compile 'com.ncapdevi:frag-nav:2.1.0'
-    
+
+    //Bottom Bar controller
+    compile 'com.roughike:bottom-bar:2.3.1'
 }

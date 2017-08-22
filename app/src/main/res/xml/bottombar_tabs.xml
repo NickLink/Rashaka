@@ -1,0 +1,22 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home"
+        title="@string/bottom_menu_home" />
+    <tab
+        id="@+id/tab_news"
+        icon="@drawable/ic_home"
+        title="@string/bottom_menu_news" />
+    <tab
+        id="@+id/tab_plus"
+        icon="@drawable/ic_tab_plus"
+        title="" />
+    <tab
+        id="@+id/tab_share"
+        icon="@drawable/ic_home"
+        title="@string/bottom_menu_share" />
+    <tab
+        id="@+id/tab_recipes"
+        icon="@drawable/ic_home"
+        title="@string/bottom_menu_recipes" />
+</tabs>
