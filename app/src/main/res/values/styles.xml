@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -45,7 +45,17 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="InfoBlackText" parent="InfoWhiteText">
+        <item name="android:textColor">@color/light_black</item>
+    </style>
+
+    <style name="InfoBlackTextBold" parent="InfoBlackText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="LoginEditText" parent="RobotoThin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">@dimen/text_size_standart</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
@@ -54,13 +64,31 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="LoginEditTextItem" parent="RobotoThin">
+        <item name="android:layout_width">@dimen/button_width_big</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_size_standart</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textColorHint">@color/text_white_hint</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:background">@drawable/ripple_border_empty</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">@dimen/inner_padding_tiny</item>
+        <item name="android:paddingRight">@dimen/text_size_tiny</item>
+
+    </style>
+    <!--<item name="android:background">@android:color/transparent</item>-->
+
     <style name="MidWhiteText" parent="RobotoThin">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/text_white</item>
     </style>
 
     <style name="TextMidWhiteSel" parent="RobotoThin">
-        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/text_white_selector</item>
     </style>
 

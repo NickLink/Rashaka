@@ -2,39 +2,46 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/login_parent_layout"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              android:background="@drawable/login_background">
 
+
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding_big"
+        android:id="@+id/login_image_top"
+        android:layout_width="163dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="@dimen/inner_padding"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/login_top_image"/>
 
     <LinearLayout
-        android:id="@+id/login_bottom_images"
-        android:layout_width="match_parent"
+        android:id="@+id/login_images_bottom"
+        android:layout_width="0dp"
         android:layout_height="55dp"
         android:orientation="horizontal"
         android:weightSum="5"
+        android:layout_marginLeft="@dimen/inner_padding"
+        android:layout_marginRight="@dimen/inner_padding"
+        android:layout_marginBottom="@dimen/inner_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="@dimen/inner_padding"
+        android:layout_marginEnd="@dimen/inner_padding">
 
         <ImageView
-            android:id="@+id/login_partner_image_1"
+            android:id="@+id/login_partner_image_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@color/buttons_white"/>
 
         <ImageView
-            android:id="@+id/login_partner_image_2"
+            android:id="@+id/login_partner_image_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -48,8 +55,20 @@
         style="@style/InfoWhiteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/login_bottom_images"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:text="@string/login_in_partnership_with"
+        app:layout_constraintBottom_toTopOf="@+id/login_images_bottom"
+        app:layout_constraintLeft_toLeftOf="@+id/login_images_bottom"
+        android:layout_marginBottom="@dimen/text_size_tiny"/>
+
+    <FrameLayout
+        android:id="@+id/login_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

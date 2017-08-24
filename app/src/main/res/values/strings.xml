@@ -4,4 +4,8 @@
     <string name="bottom_menu_news">News</string>
     <string name="bottom_menu_share">ShareApp</string>
     <string name="bottom_menu_recipes">Recipes</string>
+    <string name="login_in_partnership_with">In Partnership with:</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="close">Close</string>
 </resources>

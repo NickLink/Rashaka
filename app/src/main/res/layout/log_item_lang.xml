@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/item_lang_layout"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:background="@drawable/login_background">
-    <!--android:background="@drawable/login_background"-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/content_main"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/lang_ar_button"
-        style="@style/FrameSmallEmpty"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_top_margin"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/InfoWhiteText"
-            android:layout_gravity="center"
-            android:text="AR"/>
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/lang_ar_button"
+            style="@style/FrameSmallEmpty">
 
-    <FrameLayout
-        android:id="@+id/lang_en_button"
-        style="@style/FrameSmallEmpty"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/lang_ar_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent">
+            <TextView
+                style="@style/InfoWhiteText"
+                android:layout_gravity="center"
+                android:text="AR"/>
+        </FrameLayout>
 
-        <TextView
-            style="@style/InfoWhiteText"
-            android:layout_gravity="center"
-            android:text="EN"/>
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/lang_en_button"
+            style="@style/FrameSmallEmpty"
+            android:layout_marginTop="@dimen/inner_padding_tiny">
 
-</android.support.constraint.ConstraintLayout>
+            <TextView
+                style="@style/InfoWhiteText"
+                android:layout_gravity="center"
+                android:text="EN"/>
+        </FrameLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -4,9 +4,12 @@ package rashakacom.rashaka.utils.helpers.views.edittext;
  * Created by User on 20.07.2017.
  */
 
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
+import rashakacom.rashaka.utils.Support;
 
 public class TextWatcherAdapter implements TextWatcher {
 
@@ -26,6 +29,15 @@ public class TextWatcherAdapter implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        if(s.length() < 4){
+            Support.setRedOutline(view);
+            view.setTextColor(Color.RED);
+        } else {
+            Support.setWhiteOutline(view);
+            view.setTextColor(Color.WHITE);
+        }
+
         listener.onTextChanged(view, s.toString());
     }
 

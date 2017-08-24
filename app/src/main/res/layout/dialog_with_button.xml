@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/rounded_corners_white"
+              android:layout_gravity="center"
+              android:orientation="vertical"
+              android:layout_marginLeft="@dimen/inner_padding_big"
+              android:layout_marginRight="@dimen/inner_padding_big"
+              android:paddingBottom="@dimen/inner_padding"
+              android:paddingLeft="@dimen/inner_padding"
+              android:paddingRight="@dimen/inner_padding"
+              android:paddingTop="@dimen/inner_padding_tiny">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        style="@style/InfoBlackTextBold"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/inner_padding"
+        android:text="@string/title"/>
+
+    <TextView
+        android:id="@+id/dialog_text"
+        style="@style/InfoBlackText"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/inner_padding_small"
+        android:text="@string/description"/>
+
+    <FrameLayout
+        android:layout_marginTop="12dp"
+        android:id="@+id/dialog_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:background="@drawable/ripple_border_empty"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/dialog_button_text"
+            style="@style/InfoBlackText"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="@string/close"/>
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -4,8 +4,9 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import rashakacom.rashaka.utils.rest.models.BaseResponse;
-import rashakacom.rashaka.utils.rest.models.LabelsDataItem;
+import rashakacom.rashaka.utils.rest.models.LabelItem;
 import rashakacom.rashaka.utils.rest.models.LoginData;
 import rashakacom.rashaka.utils.rest.models.PartnersDataItem;
 import rashakacom.rashaka.utils.rest.models.RestResponse;
@@ -27,36 +28,42 @@ public interface JService {
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)
-    Call<BaseResponse> signIn(@Field(RestKeys.KEY_EMAIL) @NonNull String email,
-                              @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
-                              @Field(RestKeys.KEY_PHONE) @NonNull String phone,
-                              @Field(RestKeys.KEY_F_NAME) @NonNull String fName,
-                              @Field(RestKeys.KEY_L_NAME) @NonNull String lName);
+    Observable<BaseResponse> signIn(
+            @Field(RestKeys.KEY_EMAIL) @NonNull String email,
+            @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
+            @Field(RestKeys.KEY_PHONE) @NonNull String phone,
+            @Field(RestKeys.KEY_F_NAME) @NonNull String fName,
+            @Field(RestKeys.KEY_L_NAME) @NonNull String lName);
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_LOGIN)
-    Call<RestResponse<LoginData>> logIn(@Field(RestKeys.KEY_EMAIL) @NonNull String email,
-                                        @Field(RestKeys.KEY_PASSWORD) @NonNull String password);
+    Observable<RestResponse<LoginData>> logIn(
+            @Field(RestKeys.KEY_EMAIL) @NonNull String email,
+            @Field(RestKeys.KEY_PASSWORD) @NonNull String password);
 
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_UPDATE_PASSWORD)
-    Call<BaseResponse> updatePassword(@Field(RestKeys.KEY_EMAIL) @NonNull String email,
-                                      @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
-                                      @Field(RestKeys.KEY_NEW_PASSWORD) @NonNull String newPassword);
+    Call<BaseResponse> updatePassword(
+            @Field(RestKeys.KEY_EMAIL) @NonNull String email,
+            @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
+            @Field(RestKeys.KEY_NEW_PASSWORD) @NonNull String newPassword);
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_FORGOT_PASSWORD)
-    Call<BaseResponse> forgotPassword(@Field(RestKeys.KEY_EMAIL) @NonNull String email);
+    Call<BaseResponse> forgotPassword(
+            @Field(RestKeys.KEY_EMAIL) @NonNull String email);
 
     @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_LABELS + "/{" + RestKeys.KEY_LANGUAGE + "}")
-    Call<RestResponse<List<LabelsDataItem>>> getLabelsItems(@Path(RestKeys.KEY_LANGUAGE) String lang);
+    Observable<RestResponse<List<LabelItem>>> getLabelsItems(
+            @Path(RestKeys.KEY_LANGUAGE) String lang);
 
     @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_PARTNERS)
-    Call<RestResponse<List<PartnersDataItem>>> getPartnersItems(@Path(RestKeys.KEY_LANGUAGE) String lang);
+    Observable<RestResponse<List<PartnersDataItem>>> getPartnersItems(); //@Path(RestKeys.KEY_LANGUAGE) String lang
 
     @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_TERMS + "/{" + RestKeys.KEY_LANGUAGE + "}")
-    Call<RestResponse<TermsData>> getTerms(@Path(RestKeys.KEY_LANGUAGE) String lang);
+    Observable<RestResponse<TermsData>> getTerms(
+            @Path(RestKeys.KEY_LANGUAGE) String lang);
 
     @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
     Call<RestResponse<UserData>> getUser(

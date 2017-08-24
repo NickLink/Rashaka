@@ -4,32 +4,42 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import butterknife.ButterKnife;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.fragments.main_home.HomeBaseFragment;
+import rashakacom.rashaka.utils.Support;
 
-public class MainActivity extends AppCompatActivity implements BaseFragment.FragmentNavigation, FragNavController.TransactionListener, FragNavController.RootFragmentListener {
+public class MainActivity extends AppCompatActivity implements MainRouter, BaseFragment.FragmentNavigation, FragNavController.TransactionListener, FragNavController.RootFragmentListener {
 
     private BottomBar mBottomBar;
     private FragNavController mNavController;
 
-    private final int INDEX_RECENTS = FragNavController.TAB1;
-    private final int INDEX_FAVORITES = FragNavController.TAB2;
-    private final int INDEX_NEARBY = FragNavController.TAB3;
-    private final int INDEX_FRIENDS = FragNavController.TAB4;
-    private final int INDEX_FOOD = FragNavController.TAB5;
+    private final int INDEX_HOME = FragNavController.TAB1;
+    private final int INDEX_NEWS = FragNavController.TAB2;
+    private final int INDEX_PLUS = FragNavController.TAB3;
+    private final int INDEX_SHARE = FragNavController.TAB4;
+    private final int INDEX_RECIPE = FragNavController.TAB5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        Support.setStatusBarColor(this, R.color.main_statusbar_color);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        mBottomBar.selectTabAtPosition(INDEX_NEARBY);
+        mBottomBar.selectTabAtPosition(INDEX_PLUS);
         mNavController = FragNavController.newBuilder(savedInstanceState, getSupportFragmentManager(), R.id.main_content)
                 .transactionListener(this)
                 .rootFragmentListener(this, 5)
@@ -40,19 +50,19 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Frag
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
                     case R.id.tab_home:
-                        mNavController.switchTab(INDEX_RECENTS);
+                        mNavController.switchTab(INDEX_HOME);
                         break;
                     case R.id.tab_news:
-                        mNavController.switchTab(INDEX_FAVORITES);
+                        mNavController.switchTab(INDEX_NEWS);
                         break;
                     case R.id.tab_plus:
-                        mNavController.switchTab(INDEX_NEARBY);
+                        mNavController.switchTab(INDEX_PLUS);
                         break;
                     case R.id.tab_share:
-                        mNavController.switchTab(INDEX_FRIENDS);
+                        mNavController.switchTab(INDEX_SHARE);
                         break;
                     case R.id.tab_recipes:
-                        mNavController.switchTab(INDEX_FOOD);
+                        mNavController.switchTab(INDEX_RECIPE);
                         break;
                 }
             }
@@ -72,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Frag
         if (!mNavController.isRootFragment()) {
             mNavController.popFragment();
         } else {
-            super.onBackPressed();
+            finish();
+            //super.onBackPressed();
         }
     }
 
@@ -112,16 +123,20 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Frag
     @Override
     public Fragment getRootFragment(int index) {
         switch (index) {
-//            case INDEX_RECENTS:
-//                return RecentsFragment.newInstance(0);
-//            case INDEX_FAVORITES:
-//                return FavoritesFragment.newInstance(0);
-//            case INDEX_NEARBY:
-//                return NearbyFragment.newInstance(0);
-//            case INDEX_FRIENDS:
-//                return FriendsFragment.newInstance(0);
-//            case INDEX_FOOD:
-//                return FoodFragment.newInstance(0);
+            case INDEX_HOME:
+                return new HomeBaseFragment();
+            case INDEX_NEWS:
+                return new HomeBaseFragment();
+                //return FavoritesFragment.newInstance(0);
+            case INDEX_PLUS:
+                return new HomeBaseFragment();
+                //return NearbyFragment.newInstance(0);
+            case INDEX_SHARE:
+                return new HomeBaseFragment();
+                //return FriendsFragment.newInstance(0);
+            case INDEX_RECIPE:
+                return new HomeBaseFragment();
+                //return FoodFragment.newInstance(0);
         }
         throw new IllegalStateException("Need to send an index that we know");
     }

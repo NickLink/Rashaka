@@ -2,9 +2,13 @@ package rashakacom.rashaka;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 
+import rashakacom.rashaka.utils.database.RashakaBase;
+import rashakacom.rashaka.utils.database.RashakaBaseImpl;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -13,16 +17,16 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class RaApp extends MultiDexApplication {
 
-    private static Context sContext;
-    private static SharedPreferences sPref;
+    private static RaApp mInstance;
+    private static ConnectivityManager mCM;
+    private static RashakaBase mBase;
+    private static SharedPreferences mPref;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        sContext = this;
-        sPref = sContext.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE);
-
+        mInstance = this;
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/roboto_regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -32,12 +36,34 @@ public class RaApp extends MultiDexApplication {
     }
 
     public static Context getContext() {
-        return sContext;
+        return mInstance;
+    }
+
+    public static ConnectivityManager getCM() {
+        if (mCM == null)
+            mCM = (ConnectivityManager) mInstance.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return mCM;
+    }
+
+    public static RashakaBase getBase() {
+        if (mBase == null)
+            mBase = new RashakaBaseImpl(mInstance);
+        return mBase;
+    }
+
+    public static SharedPreferences getPref() {
+        if (mPref == null)
+            mPref = PreferenceManager.getDefaultSharedPreferences(mInstance);
+        return mPref;
     }
 
     @NonNull
     public static String getResourceString(int id) {
-        return sContext.getString(id);
+        return mInstance.getString(id);
+    }
+
+    public static String getLabel(String key){
+        return mBase.getCachedLabelByKey(key);
     }
 
 }

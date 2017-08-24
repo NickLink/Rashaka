@@ -8,12 +8,14 @@ import android.accounts.NetworkErrorException;
 import android.support.annotation.NonNull;
 
 import com.google.gson.JsonParseException;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.concurrent.TimeoutException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by com on 01.08.16.
@@ -47,14 +49,11 @@ public class Rest {
 
         sRetrofit = new Retrofit.Builder()
                 .baseUrl(RestKeys.PATH_MAIN)
-//                .addConverterFactory(GsonConverterFactory.create(
-//                        new GsonBuilder()
-//                                .registerTypeAdapter(CinemaMain.class, new CinemaMainDeserializer())
-//                                .registerTypeAdapter(CinemaDetails.class, new CinemaDetailsDeserializer())
-//                                .setFieldNamingStrategy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-//                                .create()))
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okClient)
                 .build();
+
     }
 
     private static void initService() {

@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LabelsDataItem {
+public class LabelItem {
 
     @SerializedName("key_word")
     @Expose
@@ -28,7 +28,7 @@ public class LabelsDataItem {
 
     @Override
     public String toString() {
-        return "LabelsDataItem{" +
+        return "LabelItem{" +
                 "keyWord='" + keyWord + '\'' +
                 ", title='" + title + '\'' +
                 '}';
