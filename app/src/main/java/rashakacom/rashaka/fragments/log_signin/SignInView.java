@@ -12,5 +12,4 @@ public interface SignInView {
     void setViewsValues();
     void setViewsOk();
 
-    void goMainActivity();
 }

@@ -25,7 +25,7 @@ import rashakacom.rashaka.utils.helpers.views.passw.PasswordEditText;
  */
 
 @Layout(id = R.layout.log_item_signin)
-public class SignInFragment extends SuperFragment implements SignInView{
+public class SignInFragment extends SuperFragment implements SignInView {
 
     private LoginRouter myRouter;
     private SignInPresenter mPresenter;
@@ -38,7 +38,7 @@ public class SignInFragment extends SuperFragment implements SignInView{
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         mPresenter.onStop();
     }
@@ -70,6 +70,9 @@ public class SignInFragment extends SuperFragment implements SignInView{
             }
         });
 
+        //TODO Put Login data
+        mSigninEmail.setText("nick.oliinyk@gmail.com");
+        mSigninPassword.setText("M1111111");
     }
 
     @NonNull
@@ -101,11 +104,6 @@ public class SignInFragment extends SuperFragment implements SignInView{
     public void setViewsOk() {
         Support.setWhiteOutline(mSigninEmail);
         Support.setWhiteOutline(mSigninPassword);
-    }
-
-    @Override
-    public void goMainActivity() {
-        //myRouter.goMainActivity();
     }
 
     @BindView(R.id.signin_email_edittext)
