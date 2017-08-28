@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+        android:fromDegrees="@integer/progress_rotate"
+        android:toDegrees="@integer/progress_rotate">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+           android:innerRadiusRatio="2.3"
+           android:shape="ring"
+           android:thickness="@dimen/progress_thickness">
+        <solid android:color="@color/progress_green"/>
+    </shape>
+</rotate>
