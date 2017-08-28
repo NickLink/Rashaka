@@ -12,8 +12,8 @@ import rashakacom.rashaka.utils.helpers.structure.SuperFragment;
 public abstract class BaseFragment extends SuperFragment {
     public static final String ARGS_INSTANCE = "com.ncapdevi.sample.argsInstance";
 
-//    Button mButton;
-    FragmentNavigation mFragmentNavigation;
+    //    Button mButton;
+    protected FragmentNavigation mFragmentNavigation;
 //    int mInt = 0;
 
 //    @Override
@@ -41,6 +41,6 @@ public abstract class BaseFragment extends SuperFragment {
     }
 
     public interface FragmentNavigation {
-        public void pushFragment(Fragment fragment);
+        void pushFragment(Fragment fragment);
     }
 }

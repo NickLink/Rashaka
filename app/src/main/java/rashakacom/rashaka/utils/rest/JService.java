@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import io.reactivex.Observable;
+import rashakacom.rashaka.utils.rest.fake_models.FakeNews;
 import rashakacom.rashaka.utils.rest.models.BaseResponse;
 import rashakacom.rashaka.utils.rest.models.LabelItem;
 import rashakacom.rashaka.utils.rest.models.LoginData;
@@ -25,6 +26,10 @@ import retrofit2.http.Path;
  */
 
 public interface JService {
+    //TODO Fake api for free news
+    @GET("https://newsapi.org/v1/articles" + "?" + "source=national-geographic&sortBy=top&apiKey=c9c34b7c95b2456498a9abb788523d02")
+    Observable<FakeNews> getFakeNews();
+
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)

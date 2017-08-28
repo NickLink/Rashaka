@@ -1,22 +1,22 @@
 <tabs>
     <tab
         id="@+id/tab_home"
-        icon="@drawable/ic_home"
+        icon="@drawable/icon_bottom_home"
         title="@string/bottom_menu_home" />
     <tab
         id="@+id/tab_news"
-        icon="@drawable/ic_home"
+        icon="@drawable/icon_bottom_news"
         title="@string/bottom_menu_news" />
     <tab
         id="@+id/tab_plus"
-        icon="@drawable/ic_tab_plus"
+        icon="@drawable/icon_bottom_plus"
         title="" />
     <tab
         id="@+id/tab_share"
-        icon="@drawable/ic_home"
+        icon="@drawable/icon_bottom_share"
         title="@string/bottom_menu_share" />
     <tab
         id="@+id/tab_recipes"
-        icon="@drawable/ic_home"
+        icon="@drawable/icon_bottom_recipe"
         title="@string/bottom_menu_recipes" />
 </tabs>

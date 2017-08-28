@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import rashakacom.rashaka.MainRouter;
-import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 
 /**
@@ -25,8 +24,6 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
 
     @Override
     public void onViewReady() {
-        getView().setValues(RaApp.getBase().loadLoggedUser().getFirstName(),
-                RaApp.getBase().loadLoggedUser().getEmail(),
-                RaApp.getBase().loadLoggedUser().getTocken());
+        getView().setLangValue();
     }
 }

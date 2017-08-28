@@ -37,15 +37,13 @@
             android:id="@+id/login_partner_image_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@color/buttons_white"/>
+            android:layout_weight="1"/>
 
         <ImageView
             android:id="@+id/login_partner_image_1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@color/buttons_white"/>
+            android:layout_weight="1"/>
 
 
     </LinearLayout>

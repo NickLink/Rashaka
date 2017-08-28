@@ -5,4 +5,8 @@ package rashakacom.rashaka;
  */
 
 public interface MainRouter {
+
+    void showError(String error);
+
+    //void pushFragment(BaseFragment fragment);
 }

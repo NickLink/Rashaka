@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -29,6 +29,27 @@
         <item name="android:background">@drawable/button_breeze_selector</item>
     </style>
 
+    <style name="FrameMainBase">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+    <style name="FrameMainButton" parent="FrameMainBase">
+        <item name="layout_columnWeight">1</item>
+        <item name="layout_gravity">fill</item>
+        <item name="android:background">@drawable/ripple_empty_gray</item>
+        <item name="android:layout_height">@dimen/main_button_height</item>
+        <item name="android:padding">@dimen/inner_padding_big</item>
+    </style>
+
+    <style name="FrameMainStatus" parent="FrameMainBase">
+        <item name="android:clickable">false</item>
+        <item name="android:layout_height">@dimen/main_status_button_height</item>
+        <item name="android:padding">@dimen/inner_padding</item>
+        <item name="android:background">@drawable/ripple_empty_white</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
     <style name="RobotoThin">
         <item name="fontPath">fonts/roboto_thin.ttf</item>
         <item name="android:layout_width">wrap_content</item>
@@ -45,12 +66,16 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="InfoBlackText" parent="InfoWhiteText">
+    <style name="InfoLightBlackText" parent="InfoWhiteText">
         <item name="android:textColor">@color/light_black</item>
     </style>
 
-    <style name="InfoBlackTextBold" parent="InfoBlackText">
+    <style name="InfoLightBlackTextBold" parent="InfoLightBlackText">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="InfoGrayText" parent="InfoWhiteText">
+        <item name="android:textColor">@color/text_gray</item>
     </style>
 
     <style name="LoginEditText" parent="RobotoThin">

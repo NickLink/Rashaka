@@ -7,4 +7,5 @@ package rashakacom.rashaka.fragments.main_home;
 public interface HomeBaseView {
 
     void setValues(String one, String two, String three);
+    void setLangValue();
 }

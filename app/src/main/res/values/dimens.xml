@@ -2,7 +2,8 @@
 <resources>
 
     <dimen name="inner_padding_giant">45dp</dimen>
-    <dimen name="inner_padding_big">25dp</dimen>
+    <dimen name="inner_padding_bigger">25dp</dimen>
+    <dimen name="inner_padding_big">20dp</dimen>
     <dimen name="inner_padding">15dp</dimen>
     <dimen name="inner_padding_small">10dp</dimen>
     <dimen name="inner_padding_tiny">8dp</dimen>
@@ -10,17 +11,22 @@
     <dimen name="inner_padding_text">2dp</dimen>
 
 
-    <dimen name="text_size_tiny">9sp</dimen>
-    <dimen name="text_size_small">12sp</dimen>
-    <dimen name="text_size_mid">14sp</dimen>
-    <dimen name="text_size_standart">15sp</dimen>
-    <dimen name="text_size_bigger">18sp</dimen>
+    <dimen name="text_size_tiny">8sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_mid">12sp</dimen>
+    <dimen name="text_size_standart">13sp</dimen>
+    <dimen name="text_size_bigger">17sp</dimen>
+    <dimen name="text_size_big">22sp</dimen>
+    <dimen name="text_size_giant">26sp</dimen>
 
 
     <dimen name="button_height">32dp</dimen>
     <dimen name="button_width">145dp</dimen>
     <dimen name="button_width_mid">190dp</dimen>
     <dimen name="button_width_big">240dp</dimen>
+
+    <dimen name="main_status_button_height">105dp</dimen>
+    <dimen name="main_button_height">110dp</dimen>
 
     <dimen name="button_stroke">1px</dimen>
     <dimen name="buttons_corners">4dp</dimen>
@@ -32,5 +38,7 @@
 
     <dimen name="round_corners_small">2dp</dimen>
     <dimen name="action_bar_height">50dp</dimen>
+    
+    <dimen name="progress_thickness">7dp</dimen>
 
 </resources>
