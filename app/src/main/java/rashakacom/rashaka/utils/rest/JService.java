@@ -30,6 +30,12 @@ public interface JService {
     @GET("https://newsapi.org/v1/articles" + "?" + "source=national-geographic&sortBy=top&apiKey=c9c34b7c95b2456498a9abb788523d02")
     Observable<FakeNews> getFakeNews();
 
+    @GET("https://newsapi.org/v1/articles" + "?" + "source=al-jazeera-english&sortBy=top&apiKey=c9c34b7c95b2456498a9abb788523d02")
+    Observable<FakeNews> getFakeNews2();
+
+    @GET("https://newsapi.org/v1/articles" + "?" + "source=ars-technica&sortBy=top&apiKey=c9c34b7c95b2456498a9abb788523d02")
+    Observable<FakeNews> getFakeNews3();
+
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@color/background_white"
+                                            android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/inner_padding"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/very_light_gray">
+
+            <ImageView
+                android:id="@+id/profile_gray_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_profile_plus"/>
+
+            <ImageView
+                android:id="@+id/profile_top_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+        </FrameLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/inner_padding"
+            android:layout_marginTop="-30dp"
+            android:src="@drawable/icon_profile_pencil"
+            />
+        <!--app:civ_border_width="2dp"-->
+        <!--app:civ_border_color="#FF000000"-->
+
+        <TextView
+            android:id="@+id/profile_name"
+            style="@style/InfoLightBlackTextBold"
+            android:textSize="@dimen/text_size_big"
+            android:layout_marginStart="@dimen/inner_padding"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:text="Name"/>
+
+        <TextView
+            android:id="@+id/profile_email"
+            style="@style/InfoLightBlackTextBold"
+            android:layout_marginStart="@dimen/inner_padding"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:text="example@gmail.com"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inner_padding_bigger"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/inner_padding"
+            android:paddingStart="@dimen/inner_padding">
+
+            <TextView
+                android:id="@+id/profile_user_information"
+                style="@style/InfoLightBlackTextBold"
+                android:text="USER INFORMATION"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/inner_padding_tiny"
+                android:background="@color/light_gray"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.GridLayout
+            android:id="@+id/main_buttons_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inner_padding_bigger"
+            android:horizontalSpacing="2dp"
+            android:paddingEnd="@dimen/inner_padding_bigger"
+            android:paddingStart="@dimen/inner_padding_bigger"
+            android:verticalSpacing="2dp"
+            app:columnCount="2">
+
+            <FrameLayout
+                android:id="@+id/profile_gender_button"
+                style="@style/FrameProfile">
+
+                <TextView
+                    android:id="@+id/profile_gender_text"
+                    style="@style/ProfileBoldSmallText"
+                    android:layout_gravity="center"
+                    android:text="GENDER"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/profile_dob_button"
+                style="@style/FrameProfile">
+
+                <TextView
+                    android:id="@+id/profile_dob_text"
+                    style="@style/ProfileBoldSmallText"
+                    android:layout_gravity="center"
+                    android:text="DATE OF BIRTH"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/profile_height_button"
+                style="@style/FrameProfile">
+
+                <TextView
+                    android:id="@+id/profile_height_text"
+                    style="@style/ProfileBoldSmallText"
+                    android:layout_gravity="center"
+                    android:text="HEIGHT"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/profile_weight_button"
+                style="@style/FrameProfile">
+
+                <TextView
+                    android:id="@+id/profile_weight_text"
+                    style="@style/ProfileBoldSmallText"
+                    android:layout_gravity="center"
+                    android:text="WEIGHT"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/profile_weight_g_button"
+                style="@style/FrameProfile">
+
+                <TextView
+                    android:id="@+id/profile_weight_g_text"
+                    style="@style/ProfileBoldSmallText"
+                    android:layout_gravity="center"
+                    android:text="SET WEIGHT GOAL"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/profile_steps_g_button"
+                style="@style/FrameProfile">
+
+                <TextView
+                    android:id="@+id/profile_steps_g_text"
+                    style="@style/ProfileBoldSmallText"
+                    android:layout_gravity="center"
+                    android:text="SET STEPS GOAL"/>
+            </FrameLayout>
+        </android.support.v7.widget.GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inner_padding_bigger"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/inner_padding"
+            android:paddingStart="@dimen/inner_padding">
+
+            <TextView
+                android:id="@+id/profile_weekly_summary"
+                style="@style/InfoLightBlackTextBold"
+                android:text="WEEKLY SUMMARY"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/inner_padding_tiny"
+                android:background="@color/light_gray"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:paddingEnd="@dimen/inner_padding"
+            android:paddingStart="@dimen/inner_padding">
+
+            <ProgressBar
+                android:id="@+id/profile_active_mins_progress"
+                style="@style/GreenProgressBar"
+                android:layout_alignParentBottom="true"
+                android:max="100"
+                android:progress="60"/>
+
+            <TextView
+                android:id="@+id/profile_active_mins_text"
+                style="@style/ProfileBoldSmallText"
+                android:layout_above="@+id/profile_active_mins_progress"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/inner_padding_tiny"
+                android:text="AVERAGE DAILY ACTIVE MINS"
+                android:textColor="@color/progress_bar_green"/>
+
+            <TextView
+                android:id="@+id/profile_active_mins_def"
+                style="@style/ProfileBoldSmallText"
+                android:layout_alignBaseline="@+id/profile_active_mins_text"
+                android:layout_alignParentEnd="true"
+                android:text="MINS"
+                android:textColor="@color/progress_bar_green"/>
+
+            <TextView
+                android:id="@+id/profile_active_mins_value"
+                style="@style/ProfileBoldSmallText"
+                android:layout_alignBaseline="@+id/profile_active_mins_text"
+                android:layout_marginEnd="@dimen/inner_padding_micro"
+                android:layout_toStartOf="@+id/profile_active_mins_def"
+                android:text="65"
+                android:textColor="@color/progress_bar_green"
+                android:textSize="@dimen/text_size_big"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:paddingEnd="@dimen/inner_padding"
+            android:paddingStart="@dimen/inner_padding">
+
+            <ProgressBar
+                android:id="@+id/profile_steps_progress"
+                style="@style/GreenProgressBar"
+                android:layout_alignParentBottom="true"
+                android:max="100"
+                android:progress="45"/>
+
+            <TextView
+                android:id="@+id/profile_steps_text"
+                style="@style/ProfileBoldSmallText"
+                android:layout_above="@+id/profile_steps_progress"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/inner_padding_tiny"
+                android:text="AVERAGE DAILY STEPS"
+                android:textColor="@color/progress_bar_green"/>
+
+            <TextView
+                android:id="@+id/profile_steps_def"
+                style="@style/ProfileBoldSmallText"
+                android:layout_alignBaseline="@+id/profile_steps_text"
+                android:layout_alignParentEnd="true"
+                android:text="STEPS"
+                android:textColor="@color/progress_bar_green"/>
+
+            <TextView
+                android:id="@+id/profile_steps_value"
+                style="@style/ProfileBoldSmallText"
+                android:layout_alignBaseline="@+id/profile_steps_text"
+                android:layout_marginEnd="@dimen/inner_padding_micro"
+                android:layout_toStartOf="@+id/profile_steps_def"
+                android:text="6506"
+                android:textColor="@color/progress_bar_green"
+                android:textSize="@dimen/text_size_big"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

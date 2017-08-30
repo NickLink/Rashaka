@@ -19,10 +19,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rashakacom.rashaka.fragments.log_lang.LangFragment;
-import rashakacom.rashaka.fragments.log_pass.PassFragment;
-import rashakacom.rashaka.fragments.log_register.RegisterFragment;
-import rashakacom.rashaka.fragments.log_signin.SignInFragment;
+import rashakacom.rashaka.fragments.login.lang.LangFragment;
+import rashakacom.rashaka.fragments.login.passw.PassFragment;
+import rashakacom.rashaka.fragments.login.register.RegisterFragment;
+import rashakacom.rashaka.fragments.login.signin.SignInFragment;
 import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.rest.models.PartnersDataItem;

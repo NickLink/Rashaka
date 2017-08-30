@@ -11,8 +11,8 @@
     <dimen name="inner_padding_text">2dp</dimen>
 
 
-    <dimen name="text_size_tiny">8sp</dimen>
-    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_tiny">9sp</dimen>
+    <dimen name="text_size_small">11sp</dimen>
     <dimen name="text_size_mid">12sp</dimen>
     <dimen name="text_size_standart">13sp</dimen>
     <dimen name="text_size_bigger">17sp</dimen>
@@ -30,6 +30,8 @@
 
     <dimen name="button_stroke">1px</dimen>
     <dimen name="buttons_corners">4dp</dimen>
+    <dimen name="buttons_corners_c8">8dp</dimen>
+    <dimen name="buttons_corners_c12">12dp</dimen>
 
     <dimen name="login_top_margin">170dp</dimen>
     <dimen name="login_top_margin_extra">185dp</dimen>

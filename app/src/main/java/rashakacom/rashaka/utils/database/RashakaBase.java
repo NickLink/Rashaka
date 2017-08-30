@@ -24,6 +24,6 @@ public interface RashakaBase {
 
     String getCachedLabelByKey(String key);
 
-    void saveLoggedUser(LoginData mData);
-    LoginData loadLoggedUser();
+    void setLoggedUser(LoginData mData);
+    LoginData getLoggedUser();
 }

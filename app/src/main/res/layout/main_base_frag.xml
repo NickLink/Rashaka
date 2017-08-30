@@ -14,12 +14,16 @@
         <FrameLayout
             android:id="@+id/main_calendar_parent"
             android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:background="@color/colorAccent"
+            android:layout_height="70dp"
+            android:background="@color/background_white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <rashakacom.rashaka.utils.helpers.views.calendar.OneWeek
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"/>
         </FrameLayout>
 
         <LinearLayout
@@ -205,7 +209,7 @@
 
         <android.support.v7.widget.GridLayout
             android:id="@+id/main_buttons_parent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:horizontalSpacing="2dp"
             android:verticalSpacing="2dp"

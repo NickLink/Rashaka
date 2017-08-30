@@ -72,7 +72,7 @@ public class RashakaBaseImpl implements RashakaBase {
 
     @Override
     public void saveLabelList(List<LabelItem> labelList) {
-        Log.e(TAG, "saveLabelList");
+        //Log.e(TAG, "saveLabelList");
         if (labelList != null && labelList.size() != 0) {
             db.beginTransaction();
             try {
@@ -110,7 +110,7 @@ public class RashakaBaseImpl implements RashakaBase {
         LabelItem item = null;
         if (cursor.moveToFirst()) {
             item = new LabelItem(key, cursor.getString(cursor.getColumnIndex(LABEL_COLUMN_TITLE)));
-            Log.e(TAG, "LabelItem item-> " + item.toString());
+            //Log.e(TAG, "LabelItem item-> " + item.toString());
         }
         if (item != null)
             return item.getTitle();
@@ -119,22 +119,24 @@ public class RashakaBaseImpl implements RashakaBase {
 
     @Override
     public String getCachedLabelByKey(String key) {
-        if (labelCache.containsKey(key))
+        if (labelCache.containsKey(key)) {
+            //Log.e("TAG", "Cache hit");
             return labelCache.get(key);
-        else {
+        } else {
             String value = getLabelByKey(key);
             labelCache.put(key, value);
+            //Log.e("TAG", "Cache missed");
             return value;
         }
     }
 
     @Override
-    public void saveLoggedUser(LoginData mData) {
+    public void setLoggedUser(LoginData mData) {
         RaApp.getPref().edit().putString(PREFS_USER, gson.toJson(mData)).commit();
     }
 
     @Override
-    public LoginData loadLoggedUser() {
+    public LoginData getLoggedUser() {
         String userData = RaApp.getPref().getString(PREFS_USER, null);
         if (!TextUtils.isEmpty(userData))
             return gson.fromJson(userData, LoginData.class);

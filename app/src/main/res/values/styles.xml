@@ -9,6 +9,23 @@
     </style>
 
     <!--VIEW ELEMENTS PART-->
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/progress_bar_green</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="GreenProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/inner_padding_small</item>
+        <item name="android:progressDrawable">@drawable/horizontal_progress_green</item>
+    </style>
+
+    <style name="GreenRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/light_gray</item>
+        <item name="colorControlActivated">@color/progress_bar_green</item>
+    </style>
+
     <style name="FrameBase">
         <item name="android:clickable">true</item>
         <item name="android:background">@drawable/ripple_border_empty</item>
@@ -27,6 +44,17 @@
     <style name="FrameMidBreeze" parent="FrameBase">
         <item name="android:layout_width">@dimen/button_width_mid</item>
         <item name="android:background">@drawable/button_breeze_selector</item>
+    </style>
+
+    <style name="FrameProfile" parent="FrameBase">
+        <item name="layout_columnWeight">1</item>
+        <item name="layout_gravity">fill</item>
+        <item name="android:layout_marginTop">@dimen/inner_padding_micro</item>
+        <item name="android:layout_marginBottom">@dimen/inner_padding_micro</item>
+        <item name="android:layout_marginStart">@dimen/inner_padding_tiny</item>
+        <item name="android:layout_marginEnd">@dimen/inner_padding_tiny</item>
+        <item name="android:background">@drawable/ripple_empty_gray_corners</item>
+
     </style>
 
     <style name="FrameMainBase">
@@ -74,6 +102,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="ProfileBoldSmallText" parent="InfoLightBlackTextBold">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
     <style name="InfoGrayText" parent="InfoWhiteText">
         <item name="android:textColor">@color/text_gray</item>
     </style>
@@ -115,6 +147,24 @@
     <style name="TextMidWhiteSel" parent="RobotoThin">
         <item name="android:textSize">@dimen/text_size_small</item>
         <item name="android:textColor">@color/text_white_selector</item>
+    </style>
+
+    <style name="TabLayoutStyle" >
+        <item name="android:background">@color/light_gray</item>
+        <item name="tabIndicatorColor">@color/light_black</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabGravity">center</item>
+        <item name="tabSelectedTextColor">@color/text_white</item>
+        <item name="tabTextColor">@color/text_white</item>
+        <item name="tabPaddingStart">10dp</item>
+        <item name="tabPaddingEnd">10dp</item>
+        <item name="tabMaxWidth">150dp</item>
+        <item name="tabMinWidth">150dp</item>
+    </style>
+
+    <style name="TabLayoutStyleText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

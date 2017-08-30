@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import io.reactivex.disposables.CompositeDisposable;
 import rashakacom.rashaka.utils.helpers.structure.helpers.OnDestroyListener;
 
 /**
@@ -14,6 +15,11 @@ public abstract class SuperPresenter<View, Router> implements
 
     private View mView;
     private Router mRouter;
+    private CompositeDisposable mCompositeDisposable;
+
+    public SuperPresenter() {
+        mCompositeDisposable = new CompositeDisposable();
+    }
 
     public abstract void onStart(@Nullable Bundle bundle);
 
@@ -41,5 +47,9 @@ public abstract class SuperPresenter<View, Router> implements
 
     public void setRouter(@NonNull Router router) {
         mRouter = router;
+    }
+
+    public void onStop() {
+        mCompositeDisposable.clear();
     }
 }

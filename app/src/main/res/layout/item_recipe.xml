@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/cardview_outline"
+              android:layout_margin="@dimen/inner_padding_micro"
+              android:padding="@dimen/inner_padding_tiny"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/favorite_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"/>
+
+    <TextView
+        android:id="@+id/favorite_item_text"
+        style="@style/InfoLightBlackText"
+        android:layout_marginTop="@dimen/inner_padding_small"/>
+</LinearLayout>

@@ -16,16 +16,17 @@
 
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
+            <!--android:launchMode="singleTask"-->
+
 
         </activity>
 
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -33,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--android:launchMode="singleTask"-->
 
     </application>
 

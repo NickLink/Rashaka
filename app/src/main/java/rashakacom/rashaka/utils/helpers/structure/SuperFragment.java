@@ -1,9 +1,9 @@
 package rashakacom.rashaka.utils.helpers.structure;
 
+import android.arch.lifecycle.LifecycleFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,7 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
  * Created by User on 17.08.2017.
  */
 
-public abstract class SuperFragment extends Fragment {
+public abstract class SuperFragment extends LifecycleFragment {
 
     private static final UUID sFragmentId = UUID.randomUUID();
 
@@ -44,6 +44,13 @@ public abstract class SuperFragment extends Fragment {
         getPresenter().setView(this);
         getPresenter().setRouter(getActivity());
         getPresenter().onViewReady();
+    }
+
+    @Override
+    public void onStop() {
+        getPresenter().onStop();
+        super.onStop();
+
     }
 
     @Override
