@@ -10,6 +10,8 @@ public interface ProfileView {
 
     void setLangValue();
 
+    void selectImage();
+
     void setProfileBackground(String background);
     void setProfileImage(String image);
 

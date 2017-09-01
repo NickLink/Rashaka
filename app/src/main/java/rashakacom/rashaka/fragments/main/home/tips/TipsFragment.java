@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
@@ -20,7 +18,7 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
  * Created by User on 24.08.2017.
  */
 
-@Layout(id = R.layout.fr_main_share)
+@Layout(id = R.layout.fr_home_tips)
 public class TipsFragment extends BaseFragment implements TipsView {
 
     private MainRouter myRouter;
@@ -70,14 +68,14 @@ public class TipsFragment extends BaseFragment implements TipsView {
 
     @Override
     public void setValues(String one, String two, String three) {
-        share_title.setText(one);
-        share_text.setText(two);
+//        share_title.setText(one);
+//        share_text.setText(two);
     }
 
-    @BindView(R.id.share_title)
-    TextView share_title;
-
-    @BindView(R.id.share_text)
-    TextView share_text;
+//    @BindView(R.id.share_title)
+//    TextView share_title;
+//
+//    @BindView(R.id.share_text)
+//    TextView share_text;
 
 }

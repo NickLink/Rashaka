@@ -33,14 +33,17 @@
     <dimen name="buttons_corners_c8">8dp</dimen>
     <dimen name="buttons_corners_c12">12dp</dimen>
 
+    <dimen name="round_corners_small">2dp</dimen>
+
     <dimen name="login_top_margin">170dp</dimen>
     <dimen name="login_top_margin_extra">185dp</dimen>
     <dimen name="login_topimage_width">163dp</dimen>
     <dimen name="login_topimage_heigth">137dp</dimen>
 
-    <dimen name="round_corners_small">2dp</dimen>
+
     <dimen name="action_bar_height">50dp</dimen>
     
     <dimen name="progress_thickness">7dp</dimen>
+    <dimen name="recycler_divider">1dp</dimen>
 
 </resources>

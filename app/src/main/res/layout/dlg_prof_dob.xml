@@ -13,25 +13,13 @@
         android:layout_height="wrap_content"
         android:text="DATE OF BIRTH"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/main_button_divider"
-        android:layout_marginTop="@dimen/inner_padding_small"/>
-
     <DatePicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/inner_padding"
         android:id="@+id/dob_calendar">
     </DatePicker>
-
-    <!--<CalendarView-->
-        <!---->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-
-
-    <!--</CalendarView>-->
 
     <View
         android:layout_width="match_parent"

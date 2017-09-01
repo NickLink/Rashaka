@@ -1,11 +1,20 @@
 package rashakacom.rashaka.fragments.settings.profile;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +25,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,6 +38,9 @@ import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.fragments.settings.profile.crop.CropFragment;
+import rashakacom.rashaka.utils.Consts;
+import rashakacom.rashaka.utils.Utility;
 import rashakacom.rashaka.utils.database.SharedViewModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -38,6 +56,12 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     private ProfilePresenter mPresenter;
     private SharedViewModel model;
 
+    //-----------------------------------------------------
+
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask = null, userChoosenSource = null;
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -51,7 +75,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(true);
 
-        model = ViewModelProviders.of(this).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
         //model.select(new UserData());
 
     }
@@ -76,6 +100,18 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        //TODO Set background & user images
+        mProfileGrayPlus.setOnClickListener(view18 -> {
+            userChoosenSource = Consts.backImage;
+            mPresenter.onBackgroundPlusClick();
+        });
+        mProfileImage.setOnClickListener(view17 -> {
+            userChoosenSource = Consts.userImage;
+            mPresenter.onProfileImageClick();
+        });
+
+        mProfileTopBackground.setOnClickListener(view19 -> mPresenter.onBackgroundImageClick());
+
         //TODO User info dialogs click
         mProfileGenderButton.setOnClickListener(view1 -> mPresenter.onGenderClick());
         mProfileDobButton.setOnClickListener(view16 -> mPresenter.onDobClick());
@@ -86,24 +122,30 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
 
         model.getSelected().observe(this, o -> {
-            if(!TextUtils.isEmpty(o.getSex())){
+            if (!TextUtils.isEmpty(o.getSex())) {
                 mProfileGenderText.setText(o.getSex().equals("0")
                         ? RaApp.getLabel("key_male")
                         : RaApp.getLabel("key_female"));
             }
-            if(!TextUtils.isEmpty(o.getBirthday())) {
+            if (!TextUtils.isEmpty(o.getBirthday())) {
                 mProfileDobText.setText(o.getBirthday());
             }
 
             if (!TextUtils.isEmpty(o.getHight()))
                 mProfileHeightText.setText(o.getHight());
 
-            if(!TextUtils.isEmpty(o.getWeight())){
+            if (!TextUtils.isEmpty(o.getWeight())) {
                 mProfileWeightText.setText(o.getWeight());
             }
 
             mProfileWeightGText.setText("123");
             mProfileStepsGText.setText("9999");
+            if(!TextUtils.isEmpty(o.getBackground())){
+                setProfileBackground(o.getBackground());
+            }
+            if(!TextUtils.isEmpty(o.getImage())){
+                setProfileImage((o.getImage()));
+            }
 
         });
 
@@ -134,11 +176,13 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     @Override
     public void setProfileBackground(String background) {
+        mProfileTopBackground.setVisibility(View.VISIBLE);
         Picasso.with(getActivity()).load(background).into(mProfileTopBackground);
     }
 
     @Override
     public void setProfileImage(String image) {
+        mProfileImage.setVisibility(View.VISIBLE);
         Picasso.with(getActivity()).load(image).into(mProfileImage);
     }
 
@@ -163,6 +207,118 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (userChoosenTask.equals("Take Photo"))
+                        cameraIntent();
+                    else if (userChoosenTask.equals("Choose from Library"))
+                        galleryIntent();
+                } else {
+                    //code for deny
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void selectImage() {
+        Log.e("TAG", "selectImage - >");
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                boolean result = Utility.checkPermission(getActivity());
+
+                if (items[item].equals("Take Photo")) {
+                    userChoosenTask = "Take Photo";
+                    if (result)
+                        cameraIntent();
+
+                } else if (items[item].equals("Choose from Library")) {
+                    userChoosenTask = "Choose from Library";
+                    if (result)
+                        galleryIntent();
+
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+    }
+
+    private void cameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        goCrop(Uri.fromFile(destination));
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+
+        Bitmap bm = null;
+        if (data != null) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        goCrop(data.getData());
+    }
+
+    private void goCrop(Uri uri) {
+        mFragmentNavigation.pushFragment(CropFragment.newInstance(userChoosenSource, uri.toString()));
+    }
+
+    //--------------------------------------------
 
     @BindView(R.id.profile_gray_plus)
     ImageView mProfileGrayPlus;

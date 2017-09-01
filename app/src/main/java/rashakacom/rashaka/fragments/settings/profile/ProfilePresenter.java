@@ -35,6 +35,21 @@ public class ProfilePresenter extends SuperPresenter<ProfileView, MainRouter> {
                 RaApp.getBase().getLoggedUser().getEmail());
     }
 
+    public void onBackgroundPlusClick(){
+        getView().selectImage();
+    }
+
+    public void onBackgroundImageClick(){
+
+    }
+
+    public void onProfileImageClick(){
+        getView().selectImage();
+    }
+
+
+
+    //TODO Settings buttons
     public void onGenderClick() {
         BottomSheetDialogFragment bottomSheetDialogFragment = new GenderDialog();
         getView().setBottomDialog(bottomSheetDialogFragment);
@@ -60,4 +75,6 @@ public class ProfilePresenter extends SuperPresenter<ProfileView, MainRouter> {
 
     public void onStepsGClick() {
     }
+
+
 }

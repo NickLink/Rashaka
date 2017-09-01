@@ -18,7 +18,7 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
  * Created by User on 24.08.2017.
  */
 
-@Layout(id = R.layout.fr_main_share)
+@Layout(id = R.layout.fr_home_bmi)
 public class BMIFragment extends BaseFragment implements BMIView {
 
     private MainRouter myRouter;

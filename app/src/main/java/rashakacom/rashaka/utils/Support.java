@@ -1,6 +1,8 @@
 package rashakacom.rashaka.utils;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
@@ -16,6 +18,7 @@ import android.view.WindowManager;
 import java.util.regex.Matcher;
 
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 
 import static rashakacom.rashaka.utils.Consts.CHECK_NAME_LENGTH;
 import static rashakacom.rashaka.utils.Consts.CHECK_PASS_LENGTH;
@@ -28,6 +31,8 @@ import static rashakacom.rashaka.utils.Consts.CHECK_PHONE_LENGTH;
 public class Support {
 
     public static final int Outline = 1;
+
+    public static final int MEDIA_TYPE_IMAGE = 901;
 
 
     public static void setRedOutline(View view) {
@@ -104,6 +109,16 @@ public class Support {
         }
     }
 
+    public static boolean isCameraPermission() {
+        return (ContextCompat.checkSelfPermission(
+                RaApp.getContext(),
+                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
+    }
 
+    public static boolean isWritePermission() {
+        return ContextCompat.checkSelfPermission(
+                RaApp.getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
 
 }

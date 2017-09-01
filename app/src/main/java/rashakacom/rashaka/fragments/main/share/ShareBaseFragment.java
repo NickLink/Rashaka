@@ -32,11 +32,6 @@ public class ShareBaseFragment extends BaseFragment implements ShareBaseView {
         mPresenter = new ShareBasePresenter();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mPresenter.onStop();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

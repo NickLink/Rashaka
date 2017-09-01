@@ -18,6 +18,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class RaApp extends MultiDexApplication {
 
     private static RaApp mInstance;
+    private static Context mContext;
     private static ConnectivityManager mCM;
     private static RashakaBase mBase;
     private static SharedPreferences mPref;
@@ -26,6 +27,7 @@ public class RaApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
+        mContext = getContext();
         mInstance = this;
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/roboto_regular.ttf")
@@ -36,7 +38,7 @@ public class RaApp extends MultiDexApplication {
     }
 
     public static Context getContext() {
-        return mInstance;
+        return mContext; //mInstance
     }
 
     public static ConnectivityManager getCM() {

@@ -42,5 +42,6 @@ public abstract class BaseFragment extends SuperFragment {
 
     public interface FragmentNavigation {
         void pushFragment(Fragment fragment);
+        void popFragment();
     }
 }

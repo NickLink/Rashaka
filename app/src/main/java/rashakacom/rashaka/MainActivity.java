@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
 
         Support.setStatusBarColor(this, R.color.main_statusbar_color);
 
-        if(RaApp.getBase().getLangType().equals("ar")){
+        if (RaApp.getBase().getLangType().equals("ar")) {
             ViewCompat.setLayoutDirection(findViewById(R.id.main_parent_layout), ViewCompat.LAYOUT_DIRECTION_RTL);
         }
 
@@ -129,7 +129,8 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_profile:
-                mNavController.switchTab(INDEX_PROFILE);;
+                mNavController.switchTab(INDEX_PROFILE);
+                ;
                 Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT)
                         .show();
                 break;
@@ -157,7 +158,12 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         if (!mNavController.isRootFragment()) {
             mNavController.popFragment();
         } else {
-            finish();
+            if (mNavController.getCurrentFrag() instanceof ProfileFragment ||
+                    mNavController.getCurrentFrag() instanceof SettingsFragment ||
+                    mNavController.getCurrentFrag() instanceof NotificationFragment) {
+                mBottomBar.selectTabAtPosition(INDEX_HOME);
+            } else
+                finish();
             //super.onBackPressed();
         }
     }
@@ -174,6 +180,13 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     public void pushFragment(Fragment fragment) {
         if (mNavController != null) {
             mNavController.pushFragment(fragment);
+        }
+    }
+
+    @Override
+    public void popFragment() {
+        if (mNavController != null) {
+            mNavController.popFragment();
         }
     }
 
@@ -229,22 +242,22 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         snackbar.show();
     }
 
-    private ProfileFragment getProfileFragment(){
-        if(profileFragment == null){
+    private ProfileFragment getProfileFragment() {
+        if (profileFragment == null) {
             profileFragment = new ProfileFragment();
         }
         return profileFragment;
     }
 
-    private SettingsFragment getSettingsFragment(){
-        if(settingsFragment == null){
+    private SettingsFragment getSettingsFragment() {
+        if (settingsFragment == null) {
             settingsFragment = new SettingsFragment();
         }
         return settingsFragment;
     }
 
-    private NotificationFragment getNotificationFragment(){
-        if(notificationFragment == null){
+    private NotificationFragment getNotificationFragment() {
+        if (notificationFragment == null) {
             notificationFragment = new NotificationFragment();
         }
         return notificationFragment;

@@ -22,4 +22,15 @@ public class Consts {
 
     public static final int ANIMATION_LEFT = 1;
     public static final int ANIMATION_RIGHT = 2;
+
+    //TODO CROP IMAGE DATA
+    public static final String backImage = "backImage.jpg";
+    public static final String userImage = "userImage.jpg";
+
+    public static final String KEY_TYPE = "KEY_TYPE";
+    public static final String KEY_URI = "KEY_URI";
+    public static final String KEY_X = "KEY_X";
+    public static final String KEY_Y = "KEY_Y";
+    public static final int[] backDim = {800, 250};
+    public static final int[] userDim = {200, 200};
 }

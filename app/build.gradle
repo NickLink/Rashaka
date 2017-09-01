@@ -44,13 +44,21 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile 'junit:junit:4.12'
+
+    //Support App part
     compile "com.android.support:appcompat-v7:${supportAppCompatVersion}"
     compile "com.android.support:gridlayout-v7:${supportAppCompatVersion}"
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
+
+
+    //Google Maps part
+    compile "com.google.android.gms:play-services-maps:$playLibVersion"
+    compile "com.google.android.gms:play-services-places:$playLibVersion"
+    compile "com.google.android.gms:play-services-location:$playLibVersion"
 
     //REST libs
     compile 'com.google.code.gson:gson:2.7'
@@ -86,6 +94,9 @@ dependencies {
 
     //Rounded imageview
     compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    //ImageCropper
+    compile 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
 
     //ViewModel extension
     compile "android.arch.lifecycle:runtime:1.0.0-alpha9"

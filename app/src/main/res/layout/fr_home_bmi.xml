@@ -13,7 +13,6 @@
         android:src="@drawable/main_button_exercise"/>
 
     <TextView
-        android:id="@+id/exercise_page_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/inner_padding"
@@ -21,30 +20,10 @@
         android:textSize="32sp"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/exercise_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+
     </android.support.v7.widget.RecyclerView>
-
-    <include layout="@layout/item_exercise"
-             android:id="@+id/exercise_item"
-        android:visibility="gone"/>
-
-    <FrameLayout
-        android:id="@+id/map_container"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/light_gray"
-        android:visibility="gone">
-
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/map_view"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            >
-        </com.google.android.gms.maps.MapView>
-    </FrameLayout>
-
-
 
 </LinearLayout>

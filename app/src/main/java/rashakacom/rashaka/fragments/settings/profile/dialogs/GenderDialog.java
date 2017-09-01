@@ -46,7 +46,7 @@ public class GenderDialog extends BottomSheetDialogFragment {
         View contentView = View.inflate(getContext(), R.layout.dlg_prof_gender, null);
         dialog.setContentView(contentView);
 
-        model = ViewModelProviders.of(getParentFragment()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();

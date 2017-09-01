@@ -14,6 +14,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MySwitchStyle">
+        <item name="colorControlActivated">@color/progress_bar_green</item>
+    </style>
+
 
     <style name="GreenProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
         <item name="android:layout_width">match_parent</item>
@@ -92,6 +96,16 @@
         <item name="android:textSize">@dimen/text_size_standart</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="InfoBreezeBtnText" parent="InfoWhiteText">
+        <item name="android:background">@drawable/button_breeze_selector_c12</item>
+        <item name="android:paddingTop">@dimen/inner_padding_micro</item>
+        <item name="android:paddingBottom">@dimen/inner_padding_micro</item>
+        <item name="android:paddingStart">@dimen/inner_padding</item>
+        <item name="android:paddingEnd">@dimen/inner_padding</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:clickable">true</item>
     </style>
 
     <style name="InfoLightBlackText" parent="InfoWhiteText">
