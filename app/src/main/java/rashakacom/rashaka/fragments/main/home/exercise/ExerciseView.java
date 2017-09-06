@@ -10,6 +10,6 @@ import rashakacom.rashaka.utils.rest.fake_models.Article;
 
 public interface ExerciseView {
 
-    void setLangValue();
+    void setViewsValues();
     void setAdapterData(List<Article> list);
 }

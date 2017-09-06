@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/item_exercise_parent"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingStart="@dimen/inner_padding"
+              android:paddingEnd="@dimen/inner_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/inner_padding_tiny"
+        android:paddingBottom="@dimen/inner_padding_tiny">
+
+        <TextView
+            android:id="@+id/item_time"
+            style="@style/InfoLightBlackTextBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="06:00"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/inner_padding_small">
+
+            <TextView
+                android:id="@+id/item_text"
+                style="@style/InfoLightBlackText"
+                android:maxLines="2"
+                android:text="First of all, you asked where to put the onClickListener - you should put it in the onBindViewHolder."/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/recycler_divider"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/inner_padding_small"
+            android:layout_marginTop="@dimen/inner_padding_micro"
+            android:layout_marginBottom="@dimen/inner_padding_micro"
+            android:background="@color/main_button_divider"/>
+
+        <TextView
+            android:id="@+id/item_start_button"
+            style="@style/InfoBreezeBtnText"
+            android:layout_marginStart="@dimen/inner_padding_small"
+            android:text="Edit"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recycler_divider"
+        android:background="@color/main_button_divider"/>
+
+</LinearLayout>

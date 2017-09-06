@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import butterknife.ButterKnife;
@@ -27,7 +26,6 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new NotificationPresenter();
     }

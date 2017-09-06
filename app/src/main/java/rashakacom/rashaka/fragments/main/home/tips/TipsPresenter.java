@@ -24,6 +24,6 @@ public class TipsPresenter extends SuperPresenter<TipsView, MainRouter> {
 
     @Override
     public void onViewReady() {
-
+        getView().setViewsValues();
     }
 }

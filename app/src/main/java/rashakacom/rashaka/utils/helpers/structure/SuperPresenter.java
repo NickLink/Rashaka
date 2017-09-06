@@ -15,7 +15,7 @@ public abstract class SuperPresenter<View, Router> implements
 
     private View mView;
     private Router mRouter;
-    private CompositeDisposable mCompositeDisposable;
+    protected CompositeDisposable mCompositeDisposable;
 
     public SuperPresenter() {
         mCompositeDisposable = new CompositeDisposable();

@@ -8,7 +8,6 @@ import io.reactivex.Observable;
 import rashakacom.rashaka.utils.rest.fake_models.FakeNews;
 import rashakacom.rashaka.utils.rest.models.BaseResponse;
 import rashakacom.rashaka.utils.rest.models.LabelItem;
-import rashakacom.rashaka.utils.rest.models.LoginData;
 import rashakacom.rashaka.utils.rest.models.PartnersDataItem;
 import rashakacom.rashaka.utils.rest.models.RestResponse;
 import rashakacom.rashaka.utils.rest.models.TermsData;
@@ -48,7 +47,7 @@ public interface JService {
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_LOGIN)
-    Observable<RestResponse<LoginData>> logIn(
+    Observable<RestResponse<UserData>> logIn(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password);
 
@@ -62,7 +61,7 @@ public interface JService {
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_FORGOT_PASSWORD)
-    Call<BaseResponse> forgotPassword(
+    Observable<BaseResponse> forgotPassword(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email);
 
     @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_LABELS + "/{" + RestKeys.KEY_LANGUAGE + "}")

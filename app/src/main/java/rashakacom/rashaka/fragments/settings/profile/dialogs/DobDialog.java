@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
-import rashakacom.rashaka.utils.database.SharedViewModel;
+import rashakacom.rashaka.utils.database.SharedUserModel;
 import rashakacom.rashaka.utils.rest.models.UserData;
 
 /**
@@ -21,7 +21,7 @@ import rashakacom.rashaka.utils.rest.models.UserData;
 
 public class DobDialog extends BottomSheetDialogFragment {
 
-    private SharedViewModel model;
+    private SharedUserModel model;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
@@ -43,7 +43,7 @@ public class DobDialog extends BottomSheetDialogFragment {
         View contentView = View.inflate(getContext(), R.layout.dlg_prof_dob, null);
         dialog.setContentView(contentView);
 
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();

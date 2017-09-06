@@ -36,7 +36,6 @@ public class LatestFragment extends BaseFragment implements LatestView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new LatestPresenter();
     }
@@ -92,7 +91,6 @@ public class LatestFragment extends BaseFragment implements LatestView {
 
     @Override
     public void setAdapterData(List<Article> list) {
-        Log.e("TAG", "setAdapterData(List<Article> list)");
         mRecyclerFavorite.setAdapter(new RecipeRecyclerAdapter(getActivity(), list));
     }
 

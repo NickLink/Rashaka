@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:id="@+id/item_exercise_parent"
+              android:id="@+id/item_parent"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -17,35 +17,87 @@
         android:paddingBottom="@dimen/inner_padding_tiny">
 
         <ImageView
-            android:id="@+id/item_plus_button"
+            android:id="@+id/item_bell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_bell_small"/>
 
         <LinearLayout
+            android:id="@+id/item_click_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_marginStart="@dimen/inner_padding_small">
 
-            <TextView
-                android:id="@+id/item_share_title"
-                style="@style/InfoLightBlackTextBold"
-                android:textSize="@dimen/text_size_giant"
-                android:text="08:00"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_time"
+                    style="@style/InfoLightBlackTextBold"
+                    android:layout_marginStart="@dimen/inner_padding_small"
+                    android:textSize="@dimen/text_size_giant"
+                    android:text="08:00"/>
+
+                <TextView
+                    android:id="@+id/item_time_am"
+                    style="@style/InfoLightBlackTextBold"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/inner_padding_micro"
+                    android:layout_gravity="top"
+                    android:text="AM"/>
+
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/item_share_text"
-                    style="@style/InfoLightBlackText"
-                    android:textSize="@dimen/text_size_small"
-                    android:layout_marginTop="@dimen/inner_padding_micro"
-                    android:text="M  T  W  T  F  S  S"/>
+                    android:id="@+id/item_day_Mon"
+                    style="@style/AlarmDaySelectText"
+                    android:text="M"/>
+
+                <TextView
+                    android:id="@+id/item_day_Tue"
+                    style="@style/AlarmDaySelectText"
+                    android:text="T"/>
+
+                <TextView
+                    android:id="@+id/item_day_Wed"
+                    style="@style/AlarmDaySelectText"
+                    android:text="W"/>
+
+                <TextView
+                    android:id="@+id/item_day_Thu"
+                    style="@style/AlarmDaySelectText"
+                    android:text="T"/>
+
+                <TextView
+                    android:id="@+id/item_day_Fri"
+                    style="@style/AlarmDaySelectText"
+                    android:text="F"/>
+
+                <TextView
+                    android:id="@+id/item_day_Sat"
+                    style="@style/AlarmDaySelectText"
+                    android:text="S"/>
+
+                <TextView
+                    android:id="@+id/item_day_Sun"
+                    style="@style/AlarmDaySelectText"
+                    android:text="S"/>
+
+
+
+
             </LinearLayout>
         </LinearLayout>
 

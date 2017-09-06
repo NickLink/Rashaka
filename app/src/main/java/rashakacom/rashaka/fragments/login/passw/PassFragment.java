@@ -19,6 +19,7 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 import rashakacom.rashaka.utils.helpers.views.email.EmailEditText;
 
 import static rashakacom.rashaka.utils.Consts.ANIMATION_RIGHT;
+import static rashakacom.rashaka.utils.Support.emailOk;
 
 /**
  * Created by User on 17.08.2017.
@@ -46,7 +47,8 @@ public class PassFragment extends SuperFragment implements PassView {
         mResetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.onResetPass();
+                if(emailOk(mPasswordEmail.getText().toString()))
+                    mPresenter.onResetPass(mPasswordEmail.getText().toString());
             }
         });
 

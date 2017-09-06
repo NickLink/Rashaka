@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -27,7 +30,6 @@ public class WeightFragment extends BaseFragment implements WeightView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new WeightPresenter();
     }
@@ -58,6 +60,11 @@ public class WeightFragment extends BaseFragment implements WeightView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        mWeightButtonPlus.setOnClickListener(view1 -> mPresenter.onPlusClick());
+
+        mWeightButtonMinus.setOnClickListener(view12 -> mPresenter.onMinusClick());
+
+        mWeightButtonSave.setOnClickListener(view13 -> mPresenter.onSaveClick());
     }
 
     @NonNull
@@ -67,15 +74,35 @@ public class WeightFragment extends BaseFragment implements WeightView {
     }
 
     @Override
-    public void setValues(String one, String two, String three) {
-//        share_title.setText(one);
-//        share_text.setText(two);
+    public void setViewsValues() {
+        mPageTitle.setText(RaApp.getLabel("key_track_weight"));
+        mCurrentWeightText.setText(RaApp.getLabel("key_current_weight"));
     }
 
-//    @BindView(R.id.share_title)
-//    TextView share_title;
-//
-//    @BindView(R.id.share_text)
-//    TextView share_text;
+    @Override
+    public void setBigWeightText(String text) {
+        mWeightBigText.setText(text);
+    }
+
+
+    @BindView(R.id.page_title)
+    TextView mPageTitle;
+
+    @BindView(R.id.current_weight_text)
+    TextView mCurrentWeightText;
+
+    @BindView(R.id.weight_button_plus)
+    ImageView mWeightButtonPlus;
+
+    @BindView(R.id.weight_button_minus)
+    ImageView mWeightButtonMinus;
+
+    @BindView(R.id.weight_big_text)
+    TextView mWeightBigText;
+
+    @BindView(R.id.weight_button_save)
+    TextView mWeightButtonSave;
+
+
 
 }

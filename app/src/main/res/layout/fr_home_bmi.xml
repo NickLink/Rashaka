@@ -10,13 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/inner_padding"
-        android:src="@drawable/main_button_exercise"/>
+        android:src="@drawable/main_button_bmi"/>
 
     <TextView
+        android:id="@+id/page_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/inner_padding"
-        android:text="Track Exercise"
+        android:text="My BMI"
         android:textSize="32sp"/>
 
     <android.support.v7.widget.RecyclerView

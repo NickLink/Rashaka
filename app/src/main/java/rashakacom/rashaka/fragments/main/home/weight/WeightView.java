@@ -6,5 +6,7 @@ package rashakacom.rashaka.fragments.main.home.weight;
 
 public interface WeightView {
 
-    void setValues(String one, String two, String three);
+    void setViewsValues();
+
+    void setBigWeightText(String text);
 }

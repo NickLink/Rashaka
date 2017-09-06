@@ -31,7 +31,7 @@ public class ExercisePresenter extends SuperPresenter<ExerciseView, MainRouter> 
 
     @Override
     public void onViewReady() {
-        getView().setLangValue();
+        getView().setViewsValues();
         mCompositeDisposable.add(Rest.call().getFakeNews3().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> handleResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));

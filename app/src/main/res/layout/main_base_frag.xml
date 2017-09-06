@@ -229,8 +229,8 @@
                     android:text="Track Exercise"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/icon_main_button_size"
+                    android:layout_height="@dimen/icon_main_button_size"
                     android:layout_gravity="bottom|center_horizontal"
                     android:src="@drawable/main_button_exercise"/>
             </FrameLayout>
@@ -246,8 +246,8 @@
                     android:text="Track Weight"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/icon_main_button_size"
+                    android:layout_height="@dimen/icon_main_button_size"
                     android:layout_gravity="bottom|center_horizontal"
                     android:src="@drawable/main_button_weight"/>
             </FrameLayout>
@@ -263,8 +263,8 @@
                     android:text="Fitness Tips"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/icon_main_button_size"
+                    android:layout_height="@dimen/icon_main_button_size"
                     android:layout_gravity="bottom|center_horizontal"
                     android:src="@drawable/main_button_tips"/>
             </FrameLayout>
@@ -280,8 +280,8 @@
                     android:text="My BMI"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/icon_main_button_size"
+                    android:layout_height="@dimen/icon_main_button_size"
                     android:layout_gravity="bottom|center_horizontal"
                     android:src="@drawable/main_button_bmi"/>
             </FrameLayout>

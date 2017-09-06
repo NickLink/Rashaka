@@ -15,7 +15,7 @@ import java.util.List;
 
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.rest.models.LabelItem;
-import rashakacom.rashaka.utils.rest.models.LoginData;
+import rashakacom.rashaka.utils.rest.models.UserData;
 
 import static rashakacom.rashaka.utils.Consts.LANG_EN;
 import static rashakacom.rashaka.utils.Consts.PREFS_LANG;
@@ -131,15 +131,15 @@ public class RashakaBaseImpl implements RashakaBase {
     }
 
     @Override
-    public void setLoggedUser(LoginData mData) {
+    public void setLoggedUser(UserData mData) {
         RaApp.getPref().edit().putString(PREFS_USER, gson.toJson(mData)).commit();
     }
 
     @Override
-    public LoginData getLoggedUser() {
+    public UserData getLoggedUser() {
         String userData = RaApp.getPref().getString(PREFS_USER, null);
         if (!TextUtils.isEmpty(userData))
-            return gson.fromJson(userData, LoginData.class);
+            return gson.fromJson(userData, UserData.class);
         else
             return null;
     }

@@ -26,7 +26,7 @@ public class BMIPresenter extends SuperPresenter<BMIView, MainRouter> {
 
     @Override
     public void onViewReady() {
-
+        getView().setViewsValues();
     }
 
     public void onStop() {

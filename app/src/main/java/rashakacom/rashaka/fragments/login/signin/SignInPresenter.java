@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
@@ -13,19 +12,13 @@ import rashakacom.rashaka.utils.rest.Rest;
 import rashakacom.rashaka.utils.rest.models.LoginData;
 import rashakacom.rashaka.utils.rest.models.RestResponse;
 import rashakacom.rashaka.utils.rest.models.RestUtils;
+import rashakacom.rashaka.utils.rest.models.UserData;
 
 /**
  * Created by User on 22.08.2017.
  */
 
 public class SignInPresenter extends SuperPresenter<SignInView, LoginRouter> {
-
-    private CompositeDisposable mCompositeDisposable;
-
-    public SignInPresenter() {
-        mCompositeDisposable = new CompositeDisposable();
-
-    }
 
     @Override
     public void onStart(@Nullable Bundle bundle) {
@@ -52,11 +45,11 @@ public class SignInPresenter extends SuperPresenter<SignInView, LoginRouter> {
                 .subscribe(response -> handleResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));
     }
 
-    private void handleResponse(RestResponse<LoginData> response) {
+    private void handleResponse(RestResponse<UserData> response) { //LoginData
         if(response != null && response.getStatus()){
             //TODO Go login
+
             RaApp.getBase().setLoggedUser(response.getMData());
-            //getView().goMainActivity();
             getRouter().goMainActivity();
         } else {
             handleError(response.getMessage());
@@ -67,7 +60,4 @@ public class SignInPresenter extends SuperPresenter<SignInView, LoginRouter> {
         getRouter().showError(error);
     }
 
-    public void onStop() {
-        mCompositeDisposable.clear();
-    }
 }

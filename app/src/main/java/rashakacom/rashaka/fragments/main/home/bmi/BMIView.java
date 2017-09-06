@@ -6,5 +6,5 @@ package rashakacom.rashaka.fragments.main.home.bmi;
 
 public interface BMIView {
 
-    void setValues(String one, String two, String three);
+    void setViewsValues();
 }

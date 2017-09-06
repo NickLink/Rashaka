@@ -24,6 +24,7 @@
     <dimen name="button_width">145dp</dimen>
     <dimen name="button_width_mid">190dp</dimen>
     <dimen name="button_width_big">240dp</dimen>
+    <dimen name="button_plus">100dp</dimen>
 
     <dimen name="main_status_button_height">105dp</dimen>
     <dimen name="main_button_height">110dp</dimen>
@@ -35,6 +36,7 @@
 
     <dimen name="round_corners_small">2dp</dimen>
 
+    <dimen name="top_margin_80">80dp</dimen>
     <dimen name="login_top_margin">170dp</dimen>
     <dimen name="login_top_margin_extra">185dp</dimen>
     <dimen name="login_topimage_width">163dp</dimen>
@@ -45,5 +47,9 @@
     
     <dimen name="progress_thickness">7dp</dimen>
     <dimen name="recycler_divider">1dp</dimen>
+    <dimen name="icon_main_button_size">50dp</dimen>
+
+    <dimen name="days_size_small">20dp</dimen>
+    <dimen name="days_size_normal">36dp</dimen>
 
 </resources>

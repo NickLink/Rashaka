@@ -24,6 +24,6 @@ public class SettingsPresenter extends SuperPresenter<SettingsView, MainRouter> 
 
     @Override
     public void onViewReady() {
-
+        getView().setViewsValues();
     }
 }

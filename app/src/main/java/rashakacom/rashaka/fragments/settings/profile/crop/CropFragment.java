@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,7 +25,7 @@ import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.Consts;
-import rashakacom.rashaka.utils.database.SharedViewModel;
+import rashakacom.rashaka.utils.database.SharedUserModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 import rashakacom.rashaka.utils.rest.models.UserData;
@@ -44,7 +43,7 @@ public class CropFragment extends BaseFragment implements CropView {
 
     private MainRouter myRouter;
     private CropPresenter mPresenter;
-    private SharedViewModel model;
+    private SharedUserModel model;
     private Uri mCropImageUri;
     private int x, y;
 
@@ -60,7 +59,6 @@ public class CropFragment extends BaseFragment implements CropView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new CropPresenter();
     }
@@ -92,7 +90,7 @@ public class CropFragment extends BaseFragment implements CropView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
 
         //TODO Get arguments
         if (getArguments() != null) {
@@ -116,7 +114,6 @@ public class CropFragment extends BaseFragment implements CropView {
                     }
                 }
             });
-
 
             if (!TextUtils.isEmpty(uri)) {
                 mCropImageUri = Uri.parse(uri);

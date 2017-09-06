@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -48,7 +47,6 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new ExercisePresenter();
     }
@@ -74,7 +72,7 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
     }
 
     @Override
-    public void setLangValue() {
+    public void setViewsValues() {
         mExerciseTitle.setText(RaApp.getLabel("key_track_exercise"));
 
     }

@@ -6,5 +6,5 @@ package rashakacom.rashaka.fragments.settings.settings;
 
 public interface SettingsView {
 
-    void setValues(String one, String two, String three);
+    void setViewsValues();
 }

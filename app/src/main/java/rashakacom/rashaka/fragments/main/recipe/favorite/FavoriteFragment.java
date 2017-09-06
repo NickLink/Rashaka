@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -36,7 +35,6 @@ public class FavoriteFragment extends BaseFragment implements FavoriteView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new FavoritePresenter();
     }
@@ -94,7 +92,6 @@ public class FavoriteFragment extends BaseFragment implements FavoriteView {
 
     @Override
     public void setAdapterData(List<Article> list) {
-        Log.e("TAG", "setAdapterData(List<Article> list)");
         mRecyclerFavorite.setAdapter(new RecipeRecyclerAdapter(getActivity(), list));
     }
 

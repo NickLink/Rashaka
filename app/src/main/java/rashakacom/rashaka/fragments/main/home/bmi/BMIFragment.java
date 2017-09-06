@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -27,7 +29,6 @@ public class BMIFragment extends BaseFragment implements BMIView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new BMIPresenter();
     }
@@ -73,13 +74,13 @@ public class BMIFragment extends BaseFragment implements BMIView {
     }
 
     @Override
-    public void setValues(String one, String two, String three) {
-//        share_title.setText(one);
-//        share_text.setText(two);
+    public void setViewsValues() {
+        mPageTitle.setText(RaApp.getLabel("key_track_weight"));
     }
 
-//    @BindView(R.id.share_title)
-//    TextView share_title;
+    @BindView(R.id.page_title)
+    TextView mPageTitle;
+
 //
 //    @BindView(R.id.share_text)
 //    TextView share_text;

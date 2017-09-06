@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
@@ -40,7 +39,6 @@ public class RegisterFragment extends SuperFragment implements RegisterView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (LoginRouter) getActivity();
         mPresenter = new RegisterPresenter();
     }
@@ -87,7 +85,6 @@ public class RegisterFragment extends SuperFragment implements RegisterView {
             }
         });
 
-        Log.e("TAG", "RegisterFragment onViewCreated");
     }
 
     @NonNull
@@ -167,13 +164,11 @@ public class RegisterFragment extends SuperFragment implements RegisterView {
     @Override
     public void onResume(){
         super.onResume();
-        Log.e("TAG", "RegisterFragment onResume");
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.e("TAG", "RegisterFragment onPause");
     }
 
 

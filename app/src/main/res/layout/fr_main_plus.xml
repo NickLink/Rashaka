@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+             android:background="@color/main_button_gray">
+
+
+        <LinearLayout
+            android:id="@+id/plus_button_drink"
+            style="@style/PlusGrayButtons"
+            android:layout_marginTop="@dimen/top_margin_80">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_plus_drink_alarm"/>
+            <TextView
+                style="@style/InfoLightBlackText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_padding_small"
+                android:text="Drink Alarm"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/plus_button_sleep"
+            android:layout_below="@+id/plus_button_drink"
+            style="@style/PlusGrayButtons">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_plus_log_sleep"/>
+            <TextView
+                style="@style/InfoLightBlackText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_padding_small"
+                android:text="Log Sleep"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/plus_button_food"
+            style="@style/PlusGrayButtons"
+            android:layout_below="@+id/plus_button_sleep">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_plus_log_food"/>
+            <TextView
+                style="@style/InfoLightBlackText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_padding_small"
+                android:text="Log Food"/>
+        </LinearLayout>
+
+
+
+</RelativeLayout>

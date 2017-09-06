@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.main.home.HomeBaseFragment;
 import rashakacom.rashaka.fragments.main.news.NewsBaseFragment;
+import rashakacom.rashaka.fragments.main.plus.PlusBaseFragment;
 import rashakacom.rashaka.fragments.main.recipe.RecipeBaseFragment;
 import rashakacom.rashaka.fragments.main.share.ShareBaseFragment;
 import rashakacom.rashaka.fragments.settings.notification.NotificationFragment;
@@ -218,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
             case INDEX_NEWS:
                 return new NewsBaseFragment();
             case INDEX_PLUS:
-                return new HomeBaseFragment();
+                return new PlusBaseFragment();
             case INDEX_SHARE:
                 return new ShareBaseFragment();
             case INDEX_RECIPE:

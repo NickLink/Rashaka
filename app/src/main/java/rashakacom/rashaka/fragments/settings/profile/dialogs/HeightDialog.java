@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
-import rashakacom.rashaka.utils.database.SharedViewModel;
+import rashakacom.rashaka.utils.database.SharedUserModel;
 import rashakacom.rashaka.utils.helpers.views.picker.MyNumberPicker;
 import rashakacom.rashaka.utils.rest.models.UserData;
 
@@ -21,7 +21,7 @@ import rashakacom.rashaka.utils.rest.models.UserData;
 
 public class HeightDialog extends BottomSheetDialogFragment {
 
-    private SharedViewModel model;
+    private SharedUserModel model;
 
     private int height_main = -1;
     private int height_extra = -1;
@@ -47,7 +47,7 @@ public class HeightDialog extends BottomSheetDialogFragment {
         View contentView = View.inflate(getContext(), R.layout.dlg_prof_height, null);
         dialog.setContentView(contentView);
 
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         CoordinatorLayout.Behavior behavior = params.getBehavior();

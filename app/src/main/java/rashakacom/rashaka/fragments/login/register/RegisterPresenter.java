@@ -3,10 +3,8 @@ package rashakacom.rashaka.fragments.login.register;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
@@ -22,12 +20,6 @@ import rashakacom.rashaka.utils.rest.models.TermsData;
  */
 
 public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter> {
-
-    private CompositeDisposable mCompositeDisposable;
-
-    public RegisterPresenter() {
-        mCompositeDisposable = new CompositeDisposable();
-    }
 
     @Override
     public void onStart(@Nullable Bundle bundle) {
@@ -53,7 +45,6 @@ public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter>
 
     private void handleError(Throwable error) {
         getRouter().showError(RestUtils.ErrorMessages(error));
-        Log.e("TAG", "onTermsClicked handleError " + error.getLocalizedMessage());
     }
 
     private void handleResponse(TermsData mData) {
@@ -116,7 +107,6 @@ public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter>
     private void registerError(Throwable error) {
         //TODO Registration failed
         getRouter().showError(RestUtils.ErrorMessages(error));
-        Log.e("TAG", "onRegisterClick registerError " + error.getLocalizedMessage());
     }
 
     private void registerResponse(BaseResponse baseResponse) {
@@ -124,15 +114,10 @@ public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter>
         if (baseResponse.getStatus()) {
             getRouter().showError(baseResponse.getMessage());
             getView().goSign();
-            Log.e("TAG", "onRegisterClick successful " + baseResponse.getMessage());
         } else {
             getRouter().showError(baseResponse.getMessage());
-            Log.e("TAG", "onRegisterClick registerError server response " + baseResponse.getMessage());
         }
 
     }
 
-    public void onStop() {
-        mCompositeDisposable.clear();
-    }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import butterknife.ButterKnife;
@@ -27,7 +26,6 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new SettingsPresenter();
     }
@@ -67,10 +65,10 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     }
 
     @Override
-    public void setValues(String one, String two, String three) {
-//        share_title.setText(one);
-//        share_text.setText(two);
+    public void setViewsValues() {
+
     }
+
 
 //    @BindView(R.id.share_title)
 //    TextView share_title;

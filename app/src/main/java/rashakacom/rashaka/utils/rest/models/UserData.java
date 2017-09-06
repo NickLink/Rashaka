@@ -74,6 +74,9 @@ public class UserData {
     @Expose
     private String stepsGoal;
 
+    private transient long updated;
+
+
     @Override
     public String toString() {
         return "UserData{" +

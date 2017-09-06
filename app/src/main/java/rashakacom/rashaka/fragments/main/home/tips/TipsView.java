@@ -6,5 +6,5 @@ package rashakacom.rashaka.fragments.main.home.tips;
 
 public interface TipsView {
 
-    void setValues(String one, String two, String three);
+    void setViewsValues();
 }

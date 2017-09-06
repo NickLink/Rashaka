@@ -41,7 +41,7 @@ import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.settings.profile.crop.CropFragment;
 import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.Utility;
-import rashakacom.rashaka.utils.database.SharedViewModel;
+import rashakacom.rashaka.utils.database.SharedUserModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -54,7 +54,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     private MainRouter myRouter;
     private ProfilePresenter mPresenter;
-    private SharedViewModel model;
+    private SharedUserModel model;
 
     //-----------------------------------------------------
 
@@ -65,7 +65,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "RegisterFragment onAttach");
         myRouter = (MainRouter) getActivity();
         mPresenter = new ProfilePresenter();
     }
@@ -75,7 +74,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(true);
 
-        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
         //model.select(new UserData());
 
     }
@@ -122,6 +121,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
 
         model.getSelected().observe(this, o -> {
+            Log.e("TAG", "model.getSelected().observe");
+
             if (!TextUtils.isEmpty(o.getSex())) {
                 mProfileGenderText.setText(o.getSex().equals("0")
                         ? RaApp.getLabel("key_male")
@@ -177,13 +178,18 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     @Override
     public void setProfileBackground(String background) {
         mProfileTopBackground.setVisibility(View.VISIBLE);
+        Picasso.with(getActivity()).invalidate(background);
         Picasso.with(getActivity()).load(background).into(mProfileTopBackground);
     }
 
     @Override
     public void setProfileImage(String image) {
         mProfileImage.setVisibility(View.VISIBLE);
-        Picasso.with(getActivity()).load(image).into(mProfileImage);
+        Picasso.with(getActivity()).invalidate(image);
+        Picasso.with(getActivity())
+                .load(image)
+                .into(mProfileImage);
+
     }
 
     @Override

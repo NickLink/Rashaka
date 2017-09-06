@@ -3,6 +3,7 @@ package rashakacom.rashaka.utils.database;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import rashakacom.rashaka.utils.rest.models.UserData;
 
@@ -10,15 +11,16 @@ import rashakacom.rashaka.utils.rest.models.UserData;
  * Created by User on 30.08.2017.
  */
 
-public class SharedViewModel extends ViewModel {
+public class SharedUserModel extends ViewModel {
 
     private MutableLiveData<UserData> selected = new MutableLiveData<>();
 
-    public SharedViewModel() {
+    public SharedUserModel() {
         selected.setValue(new UserData());
     }
 
     public void select(UserData item) {
+        Log.e("TAG", "SharedUserModel select");
         selected.setValue(item);
     }
 
