@@ -28,7 +28,7 @@ import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.database.SharedUserModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 
 
 /**
@@ -157,7 +157,7 @@ public class CropFragment extends BaseFragment implements CropView {
         }
 
 
-        UserData data = model.getSelected().getValue();
+        UserProfile data = model.getSelected().getValue();
         if(type.equals(Consts.backImage)){
             data.setBackground(Uri.fromFile(f).toString());
         }

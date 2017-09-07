@@ -9,10 +9,10 @@ import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.models.LoginData;
 import rashakacom.rashaka.utils.rest.models.RestResponse;
 import rashakacom.rashaka.utils.rest.models.RestUtils;
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.login.UserLogin;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 
 /**
  * Created by User on 22.08.2017.
@@ -42,15 +42,34 @@ public class SignInPresenter extends SuperPresenter<SignInView, LoginRouter> {
     public void onSignInClick(String email, String passw) {
         mCompositeDisposable.add(Rest.call().logIn(email, passw).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> handleResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));
+                .subscribe(response -> handleLoginResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));
     }
 
-    private void handleResponse(RestResponse<UserData> response) { //LoginData
-        if(response != null && response.getStatus()){
-            //TODO Go login
+    public void onLoginCall(String userId, String tocken){
+        mCompositeDisposable.add(Rest.call().getUserById(userId, tocken).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> handleGetUserResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));
+    }
 
-            RaApp.getBase().setLoggedUser(response.getMData());
+    private void handleGetUserResponse(RestResponse<UserProfile> response) {
+        if(response != null && response.getStatus()) {
+            //TODO Save Profile data
+            RaApp.getBase().setProfileUser(response.getMData());
+            //TODO Go MainActivity
             getRouter().goMainActivity();
+        } else {
+            handleError(response.getMessage());
+        }
+    }
+
+    private void handleLoginResponse(RestResponse<UserLogin> response) { //LoginData
+        if(response != null && response.getStatus()){
+            //TODO Save login data
+            RaApp.getBase().setLoggedUser(response.getMData());
+
+            //TODO Go login
+            onLoginCall(RaApp.getBase().getLoggedUser().getId(), RaApp.getBase().getLoggedUser().getTocken());
+
         } else {
             handleError(response.getMessage());
         }

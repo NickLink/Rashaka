@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 
 /**
  * Created by User on 30.08.2017.
@@ -13,18 +13,18 @@ import rashakacom.rashaka.utils.rest.models.UserData;
 
 public class SharedUserModel extends ViewModel {
 
-    private MutableLiveData<UserData> selected = new MutableLiveData<>();
+    private MutableLiveData<UserProfile> selected = new MutableLiveData<>();
 
     public SharedUserModel() {
-        selected.setValue(new UserData());
+        selected.setValue(new UserProfile());
     }
 
-    public void select(UserData item) {
+    public void select(UserProfile item) {
         Log.e("TAG", "SharedUserModel select");
         selected.setValue(item);
     }
 
-    public LiveData<UserData> getSelected() {
+    public LiveData<UserProfile> getSelected() {
         if (selected == null)
             selected = new MutableLiveData<>();
         return selected;

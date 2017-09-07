@@ -8,7 +8,10 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.AlignmentSpan;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -119,6 +122,12 @@ public class Support {
         return ContextCompat.checkSelfPermission(
                 RaApp.getContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static SpannableString getArMenu(String key){
+        SpannableString s = new SpannableString(RaApp.getLabel(key));
+        s.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), 0, s.length(), 0);
+        return s;
     }
 
 }

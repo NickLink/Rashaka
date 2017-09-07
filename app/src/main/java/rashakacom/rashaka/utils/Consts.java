@@ -7,6 +7,7 @@ package rashakacom.rashaka.utils;
 public class Consts {
     public static final String PREFS_LANG = "PREFS_LANG";
     public static final String PREFS_USER = "PREFS_USER";
+    public static final String PROFILE_USER = "PROFILE_USER";
 
     public static final String LANG_EN = "en";
     public static final String LANG_AR = "ar";

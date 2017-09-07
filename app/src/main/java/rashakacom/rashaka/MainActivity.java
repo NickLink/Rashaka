@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ import rashakacom.rashaka.fragments.settings.notification.NotificationFragment;
 import rashakacom.rashaka.fragments.settings.profile.ProfileFragment;
 import rashakacom.rashaka.fragments.settings.settings.SettingsFragment;
 import rashakacom.rashaka.utils.Support;
+
+import static rashakacom.rashaka.utils.Support.getArMenu;
 
 public class MainActivity extends AppCompatActivity implements MainRouter, BaseFragment.FragmentNavigation, FragNavController.TransactionListener, FragNavController.RootFragmentListener {
 
@@ -122,6 +125,15 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_main, menu);
+        if(RaApp.getBase().getLangType().equals("ar")){
+            menu.findItem(R.id.action_profile).setTitle(getArMenu("key_profile"));
+            menu.findItem(R.id.action_notification).setTitle(getArMenu("key_notifications"));
+            menu.findItem(R.id.action_settings).setTitle(getArMenu("key_settings"));
+        } else {
+            menu.findItem(R.id.action_profile).setTitle(RaApp.getLabel("key_profile"));
+            menu.findItem(R.id.action_notification).setTitle(RaApp.getLabel("key_notifications"));
+            menu.findItem(R.id.action_settings).setTitle(RaApp.getLabel("key_settings"));
+        }
         return true;
     }
 
@@ -131,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
             // action with ID action_refresh was selected
             case R.id.action_profile:
                 mNavController.switchTab(INDEX_PROFILE);
-                ;
                 Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT)
                         .show();
                 break;
@@ -157,14 +168,20 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     @Override
     public void onBackPressed() {
         if (!mNavController.isRootFragment()) {
+            Log.e("TAG", "mNavController.popFragment()");
             mNavController.popFragment();
         } else {
             if (mNavController.getCurrentFrag() instanceof ProfileFragment ||
                     mNavController.getCurrentFrag() instanceof SettingsFragment ||
                     mNavController.getCurrentFrag() instanceof NotificationFragment) {
+                Log.e("TAG", "SETTINGS FRAGMENT INSTANCE!!!!");
                 mBottomBar.selectTabAtPosition(INDEX_HOME);
-            } else
+                mNavController.switchTab(INDEX_HOME);
+            } else {
+                Log.e("TAG", "Just finish()");
                 finish();
+            }
+
             //super.onBackPressed();
         }
     }

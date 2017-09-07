@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/click"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/inner_padding"
+                android:paddingStart="@dimen/inner_padding">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/InfoLightBlackTextBold"
+        android:layout_marginTop="@dimen/inner_padding_small"
+        android:text="STEPS"/>
+
+    <TextView
+        android:id="@+id/date"
+        style="@style/InfoLightBlackText"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="@dimen/inner_padding_micro"
+        android:text="12/12/2017"
+        android:textSize="@dimen/text_size_small"/>
+
+    <TextView
+        android:id="@+id/time"
+        style="@style/InfoLightBlackText"
+        android:layout_alignBaseline="@+id/date"
+        android:layout_marginStart="@dimen/inner_padding_tiny"
+        android:layout_toEndOf="@+id/date"
+        android:text="10:31 am"
+        android:textColor="@color/outline_blue"
+        android:textSize="@dimen/text_size_small"/>
+
+    <LinearLayout
+        android:id="@+id/text_show_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/text"
+            style="@style/InfoLightBlackText"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:text="@string/long_useless_text"
+            android:textSize="@dimen/text_size_small"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/icon_show_more"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/divider_size"
+        android:layout_below="@+id/text_show_layout"
+        android:layout_marginTop="@dimen/inner_padding_small"
+        android:background="@color/light_gray"/>
+
+</RelativeLayout>

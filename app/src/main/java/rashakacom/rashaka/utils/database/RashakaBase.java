@@ -3,7 +3,8 @@ package rashakacom.rashaka.utils.database;
 import java.util.List;
 
 import rashakacom.rashaka.utils.rest.models.LabelItem;
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.login.UserLogin;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 
 /**
  * Created by User on 23.08.2017.
@@ -24,6 +25,9 @@ public interface RashakaBase {
 
     String getCachedLabelByKey(String key);
 
-    void setLoggedUser(UserData mData);
-    UserData getLoggedUser();
+    void setLoggedUser(UserLogin mData);
+    UserLogin getLoggedUser();
+
+    void setProfileUser(UserProfile mData);
+    UserProfile getProfileUser();
 }

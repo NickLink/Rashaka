@@ -15,11 +15,13 @@ import java.util.List;
 
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.rest.models.LabelItem;
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.login.UserLogin;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 
 import static rashakacom.rashaka.utils.Consts.LANG_EN;
 import static rashakacom.rashaka.utils.Consts.PREFS_LANG;
 import static rashakacom.rashaka.utils.Consts.PREFS_USER;
+import static rashakacom.rashaka.utils.Consts.PROFILE_USER;
 import static rashakacom.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_COLUMN_KEY;
 import static rashakacom.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_COLUMN_TITLE;
 import static rashakacom.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_TABLE_NAME;
@@ -131,15 +133,29 @@ public class RashakaBaseImpl implements RashakaBase {
     }
 
     @Override
-    public void setLoggedUser(UserData mData) {
+    public void setLoggedUser(UserLogin mData) {
         RaApp.getPref().edit().putString(PREFS_USER, gson.toJson(mData)).commit();
     }
 
     @Override
-    public UserData getLoggedUser() {
+    public UserLogin getLoggedUser() {
         String userData = RaApp.getPref().getString(PREFS_USER, null);
         if (!TextUtils.isEmpty(userData))
-            return gson.fromJson(userData, UserData.class);
+            return gson.fromJson(userData, UserLogin.class);
+        else
+            return null;
+    }
+
+    @Override
+    public void setProfileUser(UserProfile mData) {
+        RaApp.getPref().edit().putString(PROFILE_USER, gson.toJson(mData)).commit();
+    }
+
+    @Override
+    public UserProfile getProfileUser() {
+        String userData = RaApp.getPref().getString(PROFILE_USER, null);
+        if (!TextUtils.isEmpty(userData))
+            return gson.fromJson(userData, UserProfile.class);
         else
             return null;
     }

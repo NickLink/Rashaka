@@ -14,7 +14,7 @@ import android.widget.TextView;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.database.SharedUserModel;
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 
 /**
  * Created by User on 30.08.2017.
@@ -86,7 +86,7 @@ public class GenderDialog extends BottomSheetDialogFragment {
 
     //TODO - Decide later what todo save in dialog or from parent fragment
     private void doSave(int sex) {
-        UserData data = model.getSelected().getValue();
+        UserProfile data = model.getSelected().getValue();
         data.setSex(String.valueOf(sex));
         model.select(data);
         dismiss();

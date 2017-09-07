@@ -171,6 +171,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
         while (!recoverQueue.isEmpty()){
             int pos = recoverQueue.poll();
             if (pos > -1) {
+                Log.e("TAG", "notifyItemChanged ---->>>");
                 recyclerView.getAdapter().notifyItemChanged(pos);
             }
         }

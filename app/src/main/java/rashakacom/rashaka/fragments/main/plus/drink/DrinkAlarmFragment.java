@@ -152,9 +152,9 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
     private void clearSwiped(int pos){
         Log.e("TAG", "clearSwiped ======= " + pos);
         list.remove(pos);
-        mRecyclerView.getAdapter().notifyDataSetChanged();
-
-        //mRecyclerView.getAdapter().notifyItemRemoved(pos);
+        //mRecyclerView.getAdapter().notifyDataSetChanged();
+        swipeHelper.clearSwipe();
+        mRecyclerView.getAdapter().notifyItemRemoved(pos);
 
 
         //mRecyclerView.getRecycledViewPool().clear();

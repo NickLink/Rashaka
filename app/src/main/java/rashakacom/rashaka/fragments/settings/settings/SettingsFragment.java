@@ -4,11 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -56,6 +62,12 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        mNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                //TODO Notification switch
+            }
+        });
     }
 
     @NonNull
@@ -66,14 +78,49 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
 
     @Override
     public void setViewsValues() {
-
+        mGeneralTitle.setText(RaApp.getLabel("key_general"));
+        mAccountTitle.setText(RaApp.getLabel("key_rashaka_account"));
+        mPasswordTitle.setText(RaApp.getLabel("key_password"));
+        mNotificationTitle.setText(RaApp.getLabel("key_caps_notification"));
+        mProfileTitle.setText(RaApp.getLabel("key_profile"));
+        mUserinfoTitle.setText(RaApp.getLabel("key_user_info"));
     }
 
 
-//    @BindView(R.id.share_title)
-//    TextView share_title;
-//
-//    @BindView(R.id.share_text)
-//    TextView share_text;
+
+
+    @BindView(R.id.general_title)
+    TextView mGeneralTitle;
+
+    @BindView(R.id.account_title)
+    TextView mAccountTitle;
+
+    @BindView(R.id.rashaka_email)
+    EditText mRashakaEmail;
+
+    @BindView(R.id.password_title)
+    TextView mPasswordTitle;
+
+    @BindView(R.id.rashaka_password)
+    EditText mRashakaPassword;
+
+    @BindView(R.id.notification_title)
+    TextView mNotificationTitle;
+
+    @BindView(R.id.notification_text)
+    TextView mNotificationText;
+
+    @BindView(R.id.notification_switch)
+    SwitchCompat mNotificationSwitch;
+
+    @BindView(R.id.profile_title)
+    TextView mProfileTitle;
+
+    @BindView(R.id.userinfo_title)
+    TextView mUserinfoTitle;
+
+    @BindView(R.id.userinfo_text)
+    TextView mUserinfoText;
+
 
 }

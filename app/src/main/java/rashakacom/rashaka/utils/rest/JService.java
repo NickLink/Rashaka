@@ -11,7 +11,8 @@ import rashakacom.rashaka.utils.rest.models.LabelItem;
 import rashakacom.rashaka.utils.rest.models.PartnersDataItem;
 import rashakacom.rashaka.utils.rest.models.RestResponse;
 import rashakacom.rashaka.utils.rest.models.TermsData;
-import rashakacom.rashaka.utils.rest.models.UserData;
+import rashakacom.rashaka.utils.rest.models.login.UserLogin;
+import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -36,6 +37,7 @@ public interface JService {
     Observable<FakeNews> getFakeNews3();
 
 
+    //TODO Real Application API Calls
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)
     Observable<BaseResponse> signIn(
@@ -47,7 +49,7 @@ public interface JService {
 
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_LOGIN)
-    Observable<RestResponse<UserData>> logIn(
+    Observable<RestResponse<UserLogin>> logIn(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password);
 
@@ -76,10 +78,10 @@ public interface JService {
             @Path(RestKeys.KEY_LANGUAGE) String lang);
 
     @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
-    Call<RestResponse<UserData>> getUser(
-            @Header(RestKeys.HEADER_API_KEY) String apiKey,
-            @Header(RestKeys.HEADER_CONTENT) String contentType,
-            @Path(RestKeys.KEY_USER) int userId);
+    Observable<RestResponse<UserProfile>> getUserById(
+            @Path(RestKeys.KEY_USER) String userId,
+            @Header(RestKeys.HEADER_API_KEY) String apiKey
+            );
 
     @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY + "/{" + RestKeys.KEY_USER + "}")
     Call<BaseResponse> postDaily(

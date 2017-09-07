@@ -8,4 +8,6 @@
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="close">Close</string>
+
+    <string name="long_useless_text">If you consider Swipeable items in lists, the logic is a bit different for Android and iOS. In Android you don\'t need to confirm deletion with a click.</string>
 </resources>
