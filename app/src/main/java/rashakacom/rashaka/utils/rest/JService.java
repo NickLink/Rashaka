@@ -2,6 +2,7 @@ package rashakacom.rashaka.utils.rest;
 
 import android.support.annotation.NonNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -15,9 +16,11 @@ import rashakacom.rashaka.utils.rest.models.login.UserLogin;
 import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -106,6 +109,14 @@ public interface JService {
             @Field(RestKeys.KEY_BIRTHDAY) @NonNull String birthday,
             @Field(RestKeys.KEY_IMAGE) @NonNull String image,
             @Field(RestKeys.KEY_BACKGROUND) @NonNull String background);
+
+    @Multipart
+    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> updateUserHashMap(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Header(RestKeys.HEADER_CONTENT) String contentType,
+            @Path(RestKeys.KEY_USER) String userId,
+            @FieldMap HashMap<String, Object> authData);
 
 
 //    @FormUrlEncoded

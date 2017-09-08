@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -119,35 +118,20 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         mProfileWeightGButton.setOnClickListener(view14 -> mPresenter.onWeightGClick());
         mProfileStepsGButton.setOnClickListener(view15 -> mPresenter.onStepsGClick());
 
+        //TODO Save all this sh..t
+        mProfileSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.onSaveClick();
+            }
+        });
+
 
         model.getSelected().observe(this, o -> {
+
+            mPresenter.onProfileDataChanged(o);
+
             Log.e("TAG", "model.getSelected().observe");
-
-            if (!TextUtils.isEmpty(o.getSex())) {
-                mProfileGenderText.setText(o.getSex().equals("0")
-                        ? RaApp.getLabel("key_male")
-                        : RaApp.getLabel("key_female"));
-            }
-            if (!TextUtils.isEmpty(o.getBirthday())) {
-                mProfileDobText.setText(o.getBirthday());
-            }
-
-            if (!TextUtils.isEmpty(o.getHight()))
-                mProfileHeightText.setText(o.getHight());
-
-            if (!TextUtils.isEmpty(o.getWeight())) {
-                mProfileWeightText.setText(o.getWeight());
-            }
-
-            mProfileWeightGText.setText("123");
-            mProfileStepsGText.setText("9999");
-            if(!TextUtils.isEmpty(o.getBackground())){
-                setProfileBackground(o.getBackground());
-            }
-            if(!TextUtils.isEmpty(o.getImage())){
-                setProfileImage((o.getImage()));
-            }
-
         });
 
     }
@@ -196,6 +180,36 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     public void setProfileInfo(String name, String email) {
         mProfileName.setText(name);
         mProfileEmail.setText(email);
+    }
+
+    @Override
+    public void setProfileGenderText(String text) {
+        mProfileGenderText.setText(text);
+    }
+
+    @Override
+    public void setProfileDobText(String text) {
+        mProfileDobText.setText(text);
+    }
+
+    @Override
+    public void setProfileHeightText(String text) {
+        mProfileHeightText.setText(text);
+    }
+
+    @Override
+    public void setProfileWeightText(String text) {
+        mProfileWeightText.setText(text);
+    }
+
+    @Override
+    public void setProfileWeightGText(String text) {
+        mProfileWeightGText.setText(text);
+    }
+
+    @Override
+    public void setProfileStepsGText(String text) {
+        mProfileStepsGText.setText(text);
     }
 
     @Override
@@ -334,6 +348,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     @BindView(R.id.profile_image)
     CircleImageView mProfileImage;
+
+    @BindView(R.id.profile_save)
+    CircleImageView mProfileSave;
 
     @BindView(R.id.profile_name)
     TextView mProfileName;

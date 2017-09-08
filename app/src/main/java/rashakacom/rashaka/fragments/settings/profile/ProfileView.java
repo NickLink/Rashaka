@@ -17,6 +17,14 @@ public interface ProfileView {
 
     void setProfileInfo(String name, String email);
 
+    void setProfileGenderText(String text);
+    void setProfileDobText(String text);
+    void setProfileHeightText(String text);
+    void setProfileWeightText(String text);
+    void setProfileWeightGText(String text);
+    void setProfileStepsGText(String text);
+
+
     void setActiveBar(int max, int progress);
     void setStepsBar(int max, int progress);
 

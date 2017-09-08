@@ -56,8 +56,8 @@ public class RestKeys {
     //Headers
     public static final String HEADER_API_KEY = "API-KEY";
     public static final String HEADER_CONTENT = "Content-Type";
-    public static final String HEADER_CONTENT_VALUE = "application/json";
-
+    public static final String HEADER_JSON_VALUE = "application/json";
+    public static final String HEADER_MULTI_VALUE = "multipart/form-data";
 
 
 }
