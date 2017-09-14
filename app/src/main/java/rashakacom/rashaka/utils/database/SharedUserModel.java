@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
+import rashakacom.rashaka.domain.profile.UserProfile;
 
 /**
  * Created by User on 30.08.2017.

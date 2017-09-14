@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import rashakacom.rashaka.R;
-import rashakacom.rashaka.utils.rest.fake_models.FakeNotification;
+import rashakacom.rashaka.domain.fake_models.FakeNotification;
 
 /**
  * Created by User on 29.08.2017.

@@ -20,8 +20,8 @@ import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 import rashakacom.rashaka.utils.helpers.views.CustomLayoutManager;
-import rashakacom.rashaka.utils.rest.fake_models.FakeDataSource;
-import rashakacom.rashaka.utils.rest.fake_models.FakeNotification;
+import rashakacom.rashaka.domain.fake_models.FakeDataSource;
+import rashakacom.rashaka.domain.fake_models.FakeNotification;
 
 /**
  * Created by User on 24.08.2017.

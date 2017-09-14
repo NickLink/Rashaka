@@ -9,8 +9,8 @@ import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.fake_models.FakeNews;
-import rashakacom.rashaka.utils.rest.models.RestUtils;
+import rashakacom.rashaka.domain.fake_models.FakeNews;
+import rashakacom.rashaka.utils.rest.RestUtils;
 
 /**
  * Created by User on 24.08.2017.

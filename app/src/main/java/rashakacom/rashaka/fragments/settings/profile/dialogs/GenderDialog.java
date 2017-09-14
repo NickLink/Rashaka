@@ -14,7 +14,7 @@ import android.widget.TextView;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.database.SharedUserModel;
-import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
+import rashakacom.rashaka.domain.profile.UserProfile;
 
 /**
  * Created by User on 30.08.2017.

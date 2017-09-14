@@ -28,7 +28,7 @@ import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.database.SharedUserModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
-import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
+import rashakacom.rashaka.domain.profile.UserProfile;
 
 
 /**

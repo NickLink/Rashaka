@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.main.recipe.RecipeRecyclerAdapter;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
-import rashakacom.rashaka.utils.rest.fake_models.Article;
+import rashakacom.rashaka.domain.fake_models.Article;
 
 /**
  * Created by User on 24.08.2017.

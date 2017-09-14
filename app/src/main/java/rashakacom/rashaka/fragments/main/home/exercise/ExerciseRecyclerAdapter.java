@@ -13,7 +13,7 @@ import java.util.List;
 
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.utils.helpers.structure.helpers.SelectAdapterListener;
-import rashakacom.rashaka.utils.rest.fake_models.Article;
+import rashakacom.rashaka.domain.fake_models.Article;
 
 /**
  * Created by User on 29.08.2017.

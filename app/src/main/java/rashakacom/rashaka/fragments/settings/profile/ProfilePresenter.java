@@ -6,6 +6,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.text.TextUtils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -17,8 +18,8 @@ import rashakacom.rashaka.fragments.settings.profile.dialogs.HeightDialog;
 import rashakacom.rashaka.fragments.settings.profile.dialogs.WeightDialog;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.models.BaseResponse;
-import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
+import rashakacom.rashaka.domain.BaseResponse;
+import rashakacom.rashaka.domain.profile.UserProfile;
 
 /**
  * Created by User on 24.08.2017.
@@ -85,13 +86,17 @@ public class ProfilePresenter extends SuperPresenter<ProfileView, MainRouter> {
 
 
     public void onSaveClick() {
+        Map<String, Object> data = new HashMap<String, Object>();
+        //data.put("first_name", "Barsik");
+        data.put("birthday", "2000-01-01");
+
         //TODO Save profile data
         mCompositeDisposable.add(
                 Rest.call().updateUserHashMap(
-                        "api_key - tocken",
-                        "multiform part",
-                        "userId",
-                        new HashMap<String, Object>()
+                        RaApp.getBase().getLoggedUser().getTocken(),
+                        //RestKeys.HEADER_MULTI_VALUE,
+                        RaApp.getBase().getLoggedUser().getId(),
+                        "2000-01-01"
 
                 )
                         .subscribeOn(Schedulers.io())

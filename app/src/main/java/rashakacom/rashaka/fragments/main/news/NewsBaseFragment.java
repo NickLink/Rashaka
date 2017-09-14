@@ -4,21 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.fragments.BaseFragment;
-import rashakacom.rashaka.fragments.main.news.item.NewsItemFragment;
+import rashakacom.rashaka.fragments.main.news.gallery.GalleryFragment;
+import rashakacom.rashaka.fragments.main.news.latest.LatestFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
-import rashakacom.rashaka.utils.rest.fake_models.Article;
 
 /**
  * Created by User on 24.08.2017.
@@ -38,15 +36,11 @@ public class NewsBaseFragment extends BaseFragment implements NewsBaseView {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        mPresenter.onStop();
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(true);
+
+
     }
 
 //    @Override
@@ -69,12 +63,53 @@ public class NewsBaseFragment extends BaseFragment implements NewsBaseView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        mNewsGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mResultTabs.addTab(mResultTabs.newTab().setText("Latest News"));
+        mResultTabs.addTab(mResultTabs.newTab().setText("Gallery"));
+        mResultTabs.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        setupViewPager(mViewPager);
+
+        mResultTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mFragmentNavigation.pushFragment(new NewsItemFragment());
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
+
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mResultTabs.getTabAt(position).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void setupViewPager(ViewPager mViewPager) {
+        NewsBaseAdapter adapter = new NewsBaseAdapter(getChildFragmentManager());
+        adapter.addFragment(new LatestFragment(), LatestFragment.class.getSimpleName());
+        adapter.addFragment(new GalleryFragment(), GalleryFragment.class.getSimpleName());
+        mViewPager.setAdapter(adapter);
     }
 
     @NonNull
@@ -83,22 +118,15 @@ public class NewsBaseFragment extends BaseFragment implements NewsBaseView {
         return mPresenter;
     }
 
-
-
-    @BindView(R.id.news_grid_view)
-    GridView mNewsGridview;
-
     @Override
-    public void setAdapterData(List<Article> list) {
-        NewsGridAdapter adapter = new NewsGridAdapter(getActivity(), list);
-        mNewsGridview.setAdapter(adapter);
+    public void setValues(String one, String two, String three) {
+
     }
 
+    @BindView(R.id.result_tabs)
+    TabLayout mResultTabs;
 
-//
-//    @BindView(R.id.textView4)
-//    TextView textView4;
-//
-//    @BindView(R.id.textView3)
-//    TextView textView3;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
+
 }

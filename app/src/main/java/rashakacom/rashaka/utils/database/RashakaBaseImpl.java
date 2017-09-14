@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import rashakacom.rashaka.RaApp;
-import rashakacom.rashaka.utils.rest.models.LabelItem;
-import rashakacom.rashaka.utils.rest.models.login.UserLogin;
-import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
+import rashakacom.rashaka.domain.LabelItem;
+import rashakacom.rashaka.domain.login.UserLogin;
+import rashakacom.rashaka.domain.profile.UserProfile;
 
 import static rashakacom.rashaka.utils.Consts.LANG_EN;
 import static rashakacom.rashaka.utils.Consts.PREFS_LANG;

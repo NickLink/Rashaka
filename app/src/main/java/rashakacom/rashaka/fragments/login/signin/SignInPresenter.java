@@ -9,10 +9,10 @@ import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.models.RestResponse;
-import rashakacom.rashaka.utils.rest.models.RestUtils;
-import rashakacom.rashaka.utils.rest.models.login.UserLogin;
-import rashakacom.rashaka.utils.rest.models.profile.UserProfile;
+import rashakacom.rashaka.domain.RestResponse;
+import rashakacom.rashaka.utils.rest.RestUtils;
+import rashakacom.rashaka.domain.login.UserLogin;
+import rashakacom.rashaka.domain.profile.UserProfile;
 
 /**
  * Created by User on 22.08.2017.

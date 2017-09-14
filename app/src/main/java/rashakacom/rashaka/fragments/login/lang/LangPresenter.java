@@ -13,8 +13,8 @@ import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.models.LabelItem;
-import rashakacom.rashaka.utils.rest.models.RestUtils;
+import rashakacom.rashaka.domain.LabelItem;
+import rashakacom.rashaka.utils.rest.RestUtils;
 
 import static rashakacom.rashaka.utils.Consts.ANIMATION_LEFT;
 

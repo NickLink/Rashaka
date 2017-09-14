@@ -30,7 +30,7 @@ import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
-import rashakacom.rashaka.utils.rest.fake_models.Article;
+import rashakacom.rashaka.domain.fake_models.Article;
 
 /**
  * Created by User on 24.08.2017.

@@ -24,6 +24,10 @@ public class Consts {
     public static final int ANIMATION_LEFT = 1;
     public static final int ANIMATION_RIGHT = 2;
 
+    public static final int PAGE_SIZE = 20;
+
+    public static final String NEWS_ID = "NEWS_ID";
+
     //TODO CROP IMAGE DATA
     public static final String backImage = "backImage.jpg";
     public static final String userImage = "userImage.jpg";

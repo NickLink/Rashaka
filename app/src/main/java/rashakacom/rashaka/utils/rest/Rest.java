@@ -47,6 +47,8 @@ public class Rest {
 //				})
                 .build();
 
+
+
         sRetrofit = new Retrofit.Builder()
                 .baseUrl(RestKeys.PATH_MAIN)
                 .addConverterFactory(GsonConverterFactory.create())

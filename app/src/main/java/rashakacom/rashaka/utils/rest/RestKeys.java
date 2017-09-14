@@ -14,6 +14,7 @@ public class RestKeys {
     public static final String POINT_AUTH = "auth";
     public static final String POINT_CONTENT = "content";
     public static final String POINT_USERS = "users";
+    public static final String POINT_NEWS = "api_news";
 
 
     //Method calls
@@ -29,7 +30,8 @@ public class RestKeys {
     public static final String CALL_USER = "user";
     public static final String CALL_POST_DAILY = "daily";
 
-
+    public static final String CALL_NEWS_ALL = "all_news";
+    public static final String CALL_NEWS_ITEM = "item";
 
     //Keys used
     public static final String KEY_EMAIL = "email";
@@ -40,6 +42,7 @@ public class RestKeys {
 
     public static final String KEY_NEW_PASSWORD = "newpassword";
     public static final String KEY_LANGUAGE = "language";
+    public static final String KEY_OFFSET = "offset";
     public static final String KEY_TERMS = "terms";
     public static final String KEY_USER = "user";
 

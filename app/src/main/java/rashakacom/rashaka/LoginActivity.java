@@ -25,7 +25,7 @@ import rashakacom.rashaka.fragments.login.register.RegisterFragment;
 import rashakacom.rashaka.fragments.login.signin.SignInFragment;
 import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.Support;
-import rashakacom.rashaka.utils.rest.models.PartnersDataItem;
+import rashakacom.rashaka.domain.PartnersDataItem;
 
 import static rashakacom.rashaka.utils.Consts.ANIMATION_LEFT;
 import static rashakacom.rashaka.utils.Consts.ANIMATION_RIGHT;

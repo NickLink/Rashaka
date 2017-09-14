@@ -6,9 +6,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.models.PartnersDataItem;
-import rashakacom.rashaka.utils.rest.models.RestResponse;
-import rashakacom.rashaka.utils.rest.models.RestUtils;
+import rashakacom.rashaka.domain.PartnersDataItem;
+import rashakacom.rashaka.domain.RestResponse;
+import rashakacom.rashaka.utils.rest.RestUtils;
 
 /**
  * Created by User on 23.08.2017.

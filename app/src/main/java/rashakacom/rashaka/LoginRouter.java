@@ -2,7 +2,7 @@ package rashakacom.rashaka;
 
 import java.util.List;
 
-import rashakacom.rashaka.utils.rest.models.PartnersDataItem;
+import rashakacom.rashaka.domain.PartnersDataItem;
 
 /**
  * Created by User on 22.08.2017.

@@ -13,6 +13,7 @@
 
     <color name="buttons_white">#ffffff</color>
     <color name="background_white">#ffffff</color>
+    <color name="background_gray">#E5E5E5</color>
 
     <color name="text_white">#FFFFFF</color>
     <color name="text_white_hint">#FFFFFF</color>

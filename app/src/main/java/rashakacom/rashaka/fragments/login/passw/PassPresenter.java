@@ -8,8 +8,8 @@ import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.utils.rest.models.BaseResponse;
-import rashakacom.rashaka.utils.rest.models.RestUtils;
+import rashakacom.rashaka.domain.BaseResponse;
+import rashakacom.rashaka.utils.rest.RestUtils;
 
 /**
  * Created by User on 22.08.2017.
