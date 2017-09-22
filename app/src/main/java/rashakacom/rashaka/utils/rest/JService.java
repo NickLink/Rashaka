@@ -43,7 +43,7 @@ public interface JService {
 
     //TODO Real Application API Calls
     @FormUrlEncoded
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)
     Observable<BaseResponse> signIn(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
@@ -52,42 +52,42 @@ public interface JService {
             @Field(RestKeys.KEY_L_NAME) @NonNull String lName);
 
     @FormUrlEncoded
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_LOGIN)
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_LOGIN)
     Observable<RestResponse<UserLogin>> logIn(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password);
 
 
     @FormUrlEncoded
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_UPDATE_PASSWORD)
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_UPDATE_PASSWORD)
     Call<BaseResponse> updatePassword(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
             @Field(RestKeys.KEY_NEW_PASSWORD) @NonNull String newPassword);
 
     @FormUrlEncoded
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_FORGOT_PASSWORD)
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_FORGOT_PASSWORD)
     Observable<BaseResponse> forgotPassword(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email);
 
-    @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_LABELS + "/{" + RestKeys.KEY_LANGUAGE + "}")
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_LABELS + "/{" + RestKeys.KEY_LANGUAGE + "}")
     Observable<RestResponse<List<LabelItem>>> getLabelsItems(
             @Path(RestKeys.KEY_LANGUAGE) String lang);
 
-    @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_PARTNERS)
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_PARTNERS)
     Observable<RestResponse<List<PartnersDataItem>>> getPartnersItems(); //@Path(RestKeys.KEY_LANGUAGE) String lang
 
-    @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_TERMS + "/{" + RestKeys.KEY_LANGUAGE + "}")
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_TERMS + "/{" + RestKeys.KEY_LANGUAGE + "}")
     Observable<RestResponse<TermsData>> getTerms(
             @Path(RestKeys.KEY_LANGUAGE) String lang);
 
-    @GET(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
     Observable<RestResponse<UserProfile>> getUserById(
             @Path(RestKeys.KEY_USER) String userId,
             @Header(RestKeys.HEADER_API_KEY) String apiKey
             );
 
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY + "/{" + RestKeys.KEY_USER + "}")
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY + "/{" + RestKeys.KEY_USER + "}")
     Call<BaseResponse> postDaily(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Header(RestKeys.HEADER_CONTENT) String contentType,
@@ -96,7 +96,7 @@ public interface JService {
             @Field(RestKeys.KEY_WEIGHT_GOAL) @NonNull String weightGoal,
             @Field(RestKeys.KEY_STEPS_GOAL) @NonNull String stepsGoal);
 
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
     Call<BaseResponse> updateUser(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Header(RestKeys.HEADER_CONTENT) String contentType,
@@ -115,7 +115,7 @@ public interface JService {
 
     @Multipart
     //@FormUrlEncoded
-    @POST(RestKeys.PATH_MAIN + "/" + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
     Observable<BaseResponse> updateUserHashMap(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             //@Header(RestKeys.HEADER_CONTENT) String contentType,
@@ -126,7 +126,7 @@ public interface JService {
 
 
     //TODO News part
-    @GET(RestKeys.PATH_MAIN + "/"
+    @GET(RestKeys.PATH_MAIN
             + RestKeys.POINT_NEWS + "/"
             + RestKeys.CALL_NEWS_ALL
             + "/{" + RestKeys.KEY_LANGUAGE + "}"
@@ -136,7 +136,7 @@ public interface JService {
             @Path(RestKeys.KEY_LANGUAGE) String lang,
             @Path(RestKeys.KEY_OFFSET) String offset);
 
-    @GET(RestKeys.PATH_MAIN + "/"
+    @GET(RestKeys.PATH_MAIN
             + RestKeys.POINT_NEWS + "/"
             + RestKeys.CALL_NEWS_ITEM
             + "/{" + RestKeys.KEY_LANGUAGE + "}"
@@ -145,6 +145,11 @@ public interface JService {
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Path(RestKeys.KEY_LANGUAGE) String lang,
             @Path(RestKeys.KEY_OFFSET) String offset);
+
+
+
+
+
 
 //    @FormUrlEncoded
 //    @POST("http://lemall.cyberchisel.com/" + "/" + RestKeys.LOYALTY + "/" + RestKeys.CALL_VERIFY_PHONE)

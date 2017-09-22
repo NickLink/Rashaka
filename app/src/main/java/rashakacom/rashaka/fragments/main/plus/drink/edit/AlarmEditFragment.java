@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
@@ -72,24 +74,28 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
         mHoursPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                mPresenter.setHours(i1);
                 Log.e("TAG", "mHoursPicker -> onValueChange " + i + " i1 " + i1);
+                mPresenter.setHours(i1);
             }
         });
 
         mMinutesPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                mPresenter.setMinutes(i1);
                 Log.e("TAG", "mMinutesPicker -> onValueChange " + i + " i1 " + i1);
+                mPresenter.setMinutes(i1);
             }
         });
 
-        mAmPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                mPresenter.setAm(i1);
-                Log.e("TAG", "mAmPicker -> onValueChange " + i + " i1 " + i1);
+        mAmPicker.setOnValueChangedListener((numberPicker, i, i1) -> {
+            Log.e("TAG", "mAmPicker -> onValueChange " + i + " i1 " + i1);
+            switch (i1){
+                case 0:
+                    mPresenter.setAm(Calendar.AM);
+                    break;
+                case 1:
+                    mPresenter.setAm(Calendar.PM);
+                    break;
             }
         });
 

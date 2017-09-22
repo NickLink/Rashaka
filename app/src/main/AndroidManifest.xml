@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="rashakacom.rashaka">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -38,11 +40,16 @@
         </activity>
         <!--android:launchMode="singleTask"-->
 
+        <receiver
+            android:name="rashakacom.rashaka.fragments.main.plus.drink.edit.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCO5ZRXyah6avFks4ICg8JPIYT1w6iWz0Y"/>
 
     </application>
-
 
 </manifest>

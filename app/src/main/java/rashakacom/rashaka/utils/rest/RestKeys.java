@@ -15,6 +15,11 @@ public class RestKeys {
     public static final String POINT_CONTENT = "content";
     public static final String POINT_USERS = "users";
     public static final String POINT_NEWS = "api_news";
+    public static final String POINT_FOOD = "api_food";
+
+    public static final String POINT_STAT = "statistic";
+
+
 
 
     //Method calls
@@ -32,6 +37,13 @@ public class RestKeys {
 
     public static final String CALL_NEWS_ALL = "all_news";
     public static final String CALL_NEWS_ITEM = "item";
+
+    public static final String CALL_FOOD_ALL = "all_food";
+    public static final String CALL_FOOD_ITEM = "item";
+
+    public static final String CALL_STAT_WEIGHT = "weight_statistic";
+
+
 
     //Keys used
     public static final String KEY_EMAIL = "email";

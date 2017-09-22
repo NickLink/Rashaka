@@ -15,6 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DrinkAlarmItem {
 
+    private int id;
+
     private boolean enabled;
 
     private int hours;
@@ -36,4 +38,22 @@ public class DrinkAlarmItem {
     private boolean enSaturday;
 
     private boolean enSunday;
+
+    @Override
+    public String toString() {
+        return "DrinkAlarmItem{" +
+                "id=" + id +
+                ", enabled=" + enabled +
+                ", hours=" + hours +
+                ", minutes=" + minutes +
+                ", am=" + am +
+                ", enMonday=" + enMonday +
+                ", enTuesday=" + enTuesday +
+                ", enWednesday=" + enWednesday +
+                ", enThursday=" + enThursday +
+                ", enFriday=" + enFriday +
+                ", enSaturday=" + enSaturday +
+                ", enSunday=" + enSunday +
+                '}';
+    }
 }

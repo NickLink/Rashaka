@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,14 +57,18 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
         model = ViewModelProviders.of(getActivity()).get(DrinkAlarmModel.class);
 
-        list = new ArrayList<>();
-        DrinkAlarmItem item0 = new DrinkAlarmItem(true, 12, 12, 1, true, true, true, true, true, true, true);
-        DrinkAlarmItem item1 = new DrinkAlarmItem(true, 6, 45, 1, false, false, false, true, true, true, true);
-        DrinkAlarmItem item2 = new DrinkAlarmItem(false, 9, 00, 1, true, true, true, false, false, false, false);
-        DrinkAlarmItem item3 = new DrinkAlarmItem(false, 6, 45, 1, false, false, false, true, true, true, true);
-        list.add(item0);
-        list.add(item1);
-        list.add(item2);
+
+        list = mPresenter.loadAlarmList();
+
+//        DrinkAlarmItem item0 = new DrinkAlarmItem(0, false, 12, 12, 0, true, true, true, true, true, true, true);
+//        DrinkAlarmItem item1 = new DrinkAlarmItem(0, false, 6, 45, 0, false, false, false, true, true, true, true);
+//        DrinkAlarmItem item2 = new DrinkAlarmItem(0, false, 9, 00, 0, true, true, true, false, false, false, false);
+//        DrinkAlarmItem item3 = new DrinkAlarmItem(0, false, 6, 45, 0, false, false, false, true, true, true, true);
+//        list.add(item0);
+//        list.add(item1);
+//        list.add(item2);
+//
+//        mPresenter.setUniqueAlarmId(list);
 
     }
 
@@ -106,6 +109,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
             public void switchClick(int pos, boolean b) {
                 Log.e("TAG", "Switched to " + b + " on position " + pos);
                 list.get(pos).setEnabled(b);
+                mPresenter.setAlarm(getActivity(), list.get(pos));
             }
         }));
 
@@ -133,6 +137,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
             if (editedItemPosition != -1) {
                 list.set(editedItemPosition, o);
                 mRecyclerView.getAdapter().notifyDataSetChanged();
+                mPresenter.saveAlarmListChanges(list);
             }
         });
 

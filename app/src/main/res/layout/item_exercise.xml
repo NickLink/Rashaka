@@ -31,12 +31,14 @@
             <TextView
                 android:id="@+id/item_start_text"
                 style="@style/InfoLightBlackText"
+                android:maxLines="2"
                 android:text="Start"/>
 
             <TextView
                 android:id="@+id/item_date_text"
                 style="@style/InfoLightBlackTextBold"
                 android:layout_marginTop="@dimen/inner_padding_micro"
+                android:maxLines="1"
                 android:text="Today, May 22, 2017"/>
         </LinearLayout>
 
@@ -55,9 +57,9 @@
             android:text="Start"/>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/recycler_divider"
-        android:background="@color/main_button_divider"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/recycler_divider"-->
+        <!--android:background="@color/main_button_divider"/>-->
 
 </LinearLayout>

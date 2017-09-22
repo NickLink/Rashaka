@@ -9,7 +9,9 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +19,9 @@ import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.domain.LabelItem;
 import rashakacom.rashaka.domain.login.UserLogin;
 import rashakacom.rashaka.domain.profile.UserProfile;
+import rashakacom.rashaka.fragments.main.plus.drink.DrinkAlarmItem;
 
+import static rashakacom.rashaka.utils.Consts.ALARM_LIST;
 import static rashakacom.rashaka.utils.Consts.LANG_EN;
 import static rashakacom.rashaka.utils.Consts.PREFS_LANG;
 import static rashakacom.rashaka.utils.Consts.PREFS_USER;
@@ -88,7 +92,7 @@ public class RashakaBaseImpl implements RashakaBase {
                 db.setTransactionSuccessful();
 
             } catch (Exception e) {
-                Log.e(TAG, "saveWeather ->" + " Exception " + e.getLocalizedMessage());
+                Log.e(TAG, "saveLabelList ->" + " Exception " + e.getLocalizedMessage());
             } finally {
                 db.endTransaction();
             }
@@ -153,11 +157,25 @@ public class RashakaBaseImpl implements RashakaBase {
 
     @Override
     public UserProfile getProfileUser() {
-        String userData = RaApp.getPref().getString(PROFILE_USER, null);
-        if (!TextUtils.isEmpty(userData))
-            return gson.fromJson(userData, UserProfile.class);
+        String data = RaApp.getPref().getString(PROFILE_USER, null);
+        if (!TextUtils.isEmpty(data))
+            return gson.fromJson(data, UserProfile.class);
         else
             return null;
+    }
+
+    @Override
+    public void saveAlarmList(List<DrinkAlarmItem> list) {
+        RaApp.getPref().edit().putString(ALARM_LIST, gson.toJson(list)).commit();
+    }
+
+    @Override
+    public List<DrinkAlarmItem> loadAlarmList() {
+        String data = RaApp.getPref().getString(ALARM_LIST, null);
+        if (!TextUtils.isEmpty(data))
+            return gson.fromJson(data, new TypeToken<List<DrinkAlarmItem>>() {}.getType());
+        else
+            return new ArrayList<>();
     }
 
 
@@ -167,6 +185,5 @@ public class RashakaBaseImpl implements RashakaBase {
         String[] selectionArgs = {key};
         return db.query(LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, null);
     }
-
 
 }

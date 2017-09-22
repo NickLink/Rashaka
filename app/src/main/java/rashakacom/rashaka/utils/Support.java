@@ -18,6 +18,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 
 import rashakacom.rashaka.R;
@@ -37,6 +41,50 @@ public class Support {
 
     public static final int MEDIA_TYPE_IMAGE = 901;
 
+
+    public static String getDateFromMillis(long dateInMillis){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.US);
+        return formatter.format(new Date(dateInMillis));
+    }
+
+    public static String getCurrentStringDate(){
+        Calendar calendar = Calendar.getInstance();
+        int thisYear = calendar.get(Calendar.YEAR);
+        int thisMonth = calendar.get(Calendar.MONTH);
+        int thisDay = calendar.get(Calendar.DAY_OF_MONTH);
+        return thisDay + " " + getMonthByInt(thisMonth) + " " + thisYear;
+    }
+
+    public static String getMonthByInt(int month){
+        switch (month){
+            case Calendar.JANUARY:
+                return RaApp.getLabel("key_jan");
+            case Calendar.FEBRUARY:
+                return RaApp.getLabel("key_feb");
+            case Calendar.MARCH:
+                return RaApp.getLabel("key_march");
+            case Calendar.APRIL:
+                return RaApp.getLabel("key_april");
+            case Calendar.MAY:
+                return RaApp.getLabel("key_may");
+            case Calendar.JUNE:
+                return RaApp.getLabel("key_june");
+            case Calendar.JULY:
+                return RaApp.getLabel("key_july");
+            case Calendar.AUGUST:
+                return RaApp.getLabel("key_aug");
+            case Calendar.SEPTEMBER:
+                return RaApp.getLabel("key_sep");
+            case Calendar.OCTOBER:
+                return RaApp.getLabel("key_oct");
+            case Calendar.NOVEMBER:
+                return RaApp.getLabel("key_nov");
+            case Calendar.DECEMBER:
+                return RaApp.getLabel("key_dec");
+            default:
+                return "";
+        }
+    }
 
     public static void setRedOutline(View view) {
         try {

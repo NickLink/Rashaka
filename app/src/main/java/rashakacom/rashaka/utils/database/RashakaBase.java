@@ -5,6 +5,7 @@ import java.util.List;
 import rashakacom.rashaka.domain.LabelItem;
 import rashakacom.rashaka.domain.login.UserLogin;
 import rashakacom.rashaka.domain.profile.UserProfile;
+import rashakacom.rashaka.fragments.main.plus.drink.DrinkAlarmItem;
 
 /**
  * Created by User on 23.08.2017.
@@ -30,4 +31,7 @@ public interface RashakaBase {
 
     void setProfileUser(UserProfile mData);
     UserProfile getProfileUser();
+
+    void saveAlarmList(List<DrinkAlarmItem> list);
+    List<DrinkAlarmItem> loadAlarmList();
 }

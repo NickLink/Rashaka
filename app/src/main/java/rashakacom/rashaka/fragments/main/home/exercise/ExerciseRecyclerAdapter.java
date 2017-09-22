@@ -44,7 +44,11 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecycl
 
         holder.item_start_text.setText(mList.get(position).getTitle());
         holder.item_date_text.setText(mList.get(position).getAuthor());
-        holder.item_start_button.setText("Start");
+
+        if (position == 0)
+            holder.item_start_button.setText("Start");
+        else
+            holder.item_start_button.setText("Edit");
 
     }
 

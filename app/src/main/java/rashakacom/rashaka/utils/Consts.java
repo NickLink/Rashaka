@@ -5,9 +5,16 @@ package rashakacom.rashaka.utils;
  */
 
 public class Consts {
+    //TODO Location permission request code
+    public static final int LOCATION_PERMISSIONS_REQUEST = 992;
+
     public static final String PREFS_LANG = "PREFS_LANG";
     public static final String PREFS_USER = "PREFS_USER";
     public static final String PROFILE_USER = "PROFILE_USER";
+
+    //TODO Alarm data managment
+    public static final String ALARM_LIST = "ALARM_LIST";
+    public static final String KEY_ALARM_DATA = "KEY_ALARM_DATA";
 
     public static final String LANG_EN = "en";
     public static final String LANG_AR = "ar";

@@ -70,7 +70,7 @@ public class NewsItemFragment extends BaseFragment implements NewsItemView {
         mItemShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //TODO Click on share event
             }
         });
     }

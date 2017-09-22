@@ -35,7 +35,7 @@ android {
 ext {
     supportLibVersion = "26.0.1"
     supportAppCompatVersion = "26.0.1"
-    playLibVersion = '10.2.6'
+    playLibVersion = '11.4.0'
 }
 
 dependencies {
@@ -59,6 +59,9 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:$playLibVersion"
     compile "com.google.android.gms:play-services-places:$playLibVersion"
     compile "com.google.android.gms:play-services-location:$playLibVersion"
+
+    //Fitness
+    compile "com.google.android.gms:play-services-fitness:$playLibVersion"
 
     //REST libs
     compile 'com.google.code.gson:gson:2.7'
