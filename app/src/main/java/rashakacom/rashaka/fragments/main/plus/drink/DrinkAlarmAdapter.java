@@ -22,6 +22,8 @@ import rashakacom.rashaka.RaApp;
 
 public class DrinkAlarmAdapter extends RecyclerView.Adapter<DrinkAlarmAdapter.ViewHolder> {
 
+    private static final String TAG = DrinkAlarmAdapter.class.getSimpleName();
+
     public interface AlarmClick{
         void editClick(int pos);
         void switchClick(int pos, boolean b);
@@ -47,7 +49,7 @@ public class DrinkAlarmAdapter extends RecyclerView.Adapter<DrinkAlarmAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.e("TAG", "RECYCLER ADAPTER POSITION -> " + position);
+        Log.e(TAG, "RECYCLER ADAPTER POSITION -> " + position);
 
         holder.mItemSwitch.setChecked(mList.get(position).isEnabled());
 

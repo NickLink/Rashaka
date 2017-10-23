@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class GPS_Tracker extends Service implements LocationListener {
 
-
+    private static final String TAG = GPS_Tracker.class.getSimpleName();
     private final Context mContext;
 
     // flag for GPS status
@@ -60,7 +60,7 @@ public class GPS_Tracker extends Service implements LocationListener {
 //                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled) { //
-                Log.e("TAG", "No network provider is enabled");
+                Log.e(TAG, "No network provider is enabled");
                 this.showSettingsAlert();
                 // no network provider is enabled
             } else {
@@ -70,7 +70,7 @@ public class GPS_Tracker extends Service implements LocationListener {
 //                            LocationManager.NETWORK_PROVIDER,
 //                            MIN_TIME_BW_UPDATES,
 //                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-//                    Log.e("TAG", "Network Enabled");
+//                    Log.e(TAG, "Network Enabled");
 //                    if (locationManager != null) {
 //                        location = locationManager
 //                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -87,7 +87,7 @@ public class GPS_Tracker extends Service implements LocationListener {
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-                        Log.e("TAG", "GPS Enabled");
+                        Log.e(TAG, "GPS Enabled");
                         if (locationManager != null) {
                             location = locationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);

@@ -15,11 +15,9 @@ public class RestKeys {
     public static final String POINT_CONTENT = "content";
     public static final String POINT_USERS = "users";
     public static final String POINT_NEWS = "api_news";
-    public static final String POINT_FOOD = "api_food";
+    public static final String POINT_FOOD = "log_food";
 
     public static final String POINT_STAT = "statistic";
-
-
 
 
     //Method calls
@@ -34,15 +32,18 @@ public class RestKeys {
 
     public static final String CALL_USER = "user";
     public static final String CALL_POST_DAILY = "daily";
+    public static final String CALL_POST_DAILY_WEIGHT = "daily_weight";
+    public static final String CALL_POST_DAILY_BMI = "daily_bmi";
+    public static final String CALL_POST_DAILY_STEPS = "daily_steps";
 
     public static final String CALL_NEWS_ALL = "all_news";
     public static final String CALL_NEWS_ITEM = "item";
 
+    public static final String CALL_FOOD_NEW = "new";
     public static final String CALL_FOOD_ALL = "all_food";
     public static final String CALL_FOOD_ITEM = "item";
 
     public static final String CALL_STAT_WEIGHT = "weight_statistic";
-
 
 
     //Keys used
@@ -59,6 +60,14 @@ public class RestKeys {
     public static final String KEY_USER = "user";
 
     public static final String KEY_WEIGHT = "weight";
+    public static final String KEY_BMI = "bmi";
+    public static final String KEY_STEPS = "daily_steps";
+
+
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_DATE_TIME = "date_time";
+    public static final String KEY_FOOD_TYPE = "food_type";
+
     public static final String KEY_WEIGHT_GOAL = "weight_goal";
     public static final String KEY_STEPS_GOAL = "steps_goal";
 

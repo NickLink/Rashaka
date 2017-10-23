@@ -150,34 +150,47 @@
         <item name="android:textColor">@color/text_gray</item>
     </style>
 
-    <style name="LoginEditText" parent="RobotoThin">
+    <style name="InfoGrayTextSmall" parent="InfoGrayText">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="EditTextParent" parent="RobotoThin">
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:paddingLeft">@dimen/inner_padding_tiny</item>
+        <item name="android:paddingRight">@dimen/text_size_tiny</item>
+    </style>
+
+    <style name="LoginEditText" parent="EditTextParent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">@dimen/text_size_standart</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/text_white</item>
         <item name="android:textColorHint">@color/text_white_hint</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="LoginEditTextItem" parent="RobotoThin">
+    <style name="LoginEditTextItem" parent="EditTextParent">
         <item name="android:layout_width">@dimen/button_width_big</item>
         <item name="android:layout_height">@dimen/button_height</item>
         <item name="android:textSize">@dimen/text_size_standart</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
         <item name="android:textColor">@color/text_white</item>
         <item name="android:textColorHint">@color/text_white_hint</item>
-        <item name="android:imeOptions">actionNext</item>
         <item name="android:background">@drawable/ripple_border_empty</item>
         <item name="android:inputType">text</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:paddingLeft">@dimen/inner_padding_tiny</item>
-        <item name="android:paddingRight">@dimen/text_size_tiny</item>
 
     </style>
     <!--<item name="android:background">@android:color/transparent</item>-->
+    <style name="ChangePasswordEditText" parent="EditTextParent">
+        <item name="android:layout_width">@dimen/button_width_big</item>
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:layout_marginTop">@dimen/inner_padding_micro</item>
+        <item name="android:background">@drawable/btn_empty_gray_c4</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
 
     <style name="MidWhiteText" parent="RobotoThin">
         <item name="android:textSize">@dimen/text_size_small</item>
@@ -217,5 +230,110 @@
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/ripple_empty_gray</item>
     </style>
+
+    <style name="ChangePasswordLinearLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/inner_padding</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="WeightHorizontalText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:paddingStart">@dimen/inner_padding_small</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/weight_horizontal_back</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="Widget">
+    </style>
+    <style name="Widget.ProgressBar">
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:indeterminateDuration">3500</item>
+        <item name="android:minWidth">48dip</item>
+        <item name="android:maxWidth">48dip</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:maxHeight">48dip</item>
+    </style>
+    <style name="Widget.ProgressBar.Vertical">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/vertical_progress_bar</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:minWidth">1dip</item>
+        <item name="android:maxWidth">12dip</item>
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+
+
+        <item name="android:progress">100</item>
+    </style>
+
+    <style name="WeightBottomWhiteText" parent="InfoWhiteText">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/text_size_smaller</item>
+        <item name="android:layout_marginBottom">@dimen/inner_padding_micro</item>
+    </style>
+
+    <style name="WeightBottomWhiteView">
+        <item name="android:layout_width">4dp</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">@dimen/inner_padding_bigger</item>
+        <item name="android:background">@drawable/vertical_white_rounded</item>
+    </style>
+
+    <style name="WeightBottomRelLayout">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="BmiValueWhiteText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@drawable/bmi_value_background</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">7dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">4</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="ProgressLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">@dimen/inner_padding_bigger</item>
+        <item name="android:paddingStart">@dimen/inner_padding</item>
+        <item name="android:paddingEnd">@dimen/inner_padding</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <style name="BmiButtonText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/inner_padding_small</item>
+        <item name="android:background">@drawable/rounded_corners_white_c8</item>
+        <item name="android:paddingStart">@dimen/inner_padding_giant</item>
+        <item name="android:paddingEnd">@dimen/inner_padding_giant</item>
+        <item name="android:paddingTop">@dimen/inner_padding_micro</item>
+        <item name="android:paddingBottom">@dimen/inner_padding_micro</item>
+    </style>
+
+    <!--<item name="android:layout_marginStart">@dimen/inner_padding_bigger</item>-->
 
 </resources>

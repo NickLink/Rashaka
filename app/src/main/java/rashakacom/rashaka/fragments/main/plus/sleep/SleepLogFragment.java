@@ -4,12 +4,26 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.fragments.main.plus.sleep.dialogs.DateDialog;
+import rashakacom.rashaka.fragments.main.plus.sleep.dialogs.TimeDialog;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -22,6 +36,8 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
 
     private MainRouter myRouter;
     private SleepLogPresenter mPresenter;
+    private IncludedLayout mLayoutStart, mLayoutEnd;
+
 
     @Override
     public void onAttach(Context context) {
@@ -36,25 +52,57 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
         //setHasOptionsMenu(true);
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        mLayoutStart = new IncludedLayout();
+        mLayoutEnd = new IncludedLayout();
+
+        ButterKnife.bind(mLayoutStart, mSleepStart );
+        ButterKnife.bind(mLayoutEnd, mSleepEnd );
+
+        mLayoutStart.mItemTimeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment bottomDialog = new TimeDialog();
+                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
+            }
+        });
+        mLayoutEnd.mItemTimeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment bottomDialog = new TimeDialog();
+                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
+            }
+        });
+
+        mLayoutStart.mItemDateParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment bottomDialog = new DateDialog();
+                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
+            }
+        });
+
+        mLayoutEnd.mItemDateParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialogFragment bottomDialog = new DateDialog();
+                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
+            }
+        });
 
     }
 
@@ -65,15 +113,52 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
     }
 
     @Override
-    public void setValues(String one, String two, String three) {
-//        share_title.setText(one);
-//        share_text.setText(two);
+    public void setLangValues() {
+        mLayoutStart.mItemTopText.setText(RaApp.getLabel(LangKeys.key_sleep_start));
+        mLayoutEnd.mItemTopText.setText(RaApp.getLabel(LangKeys.key_sleep_end));
+        mLogText.setText(RaApp.getLabel(LangKeys.key_log_sleep));
+
     }
 
-//    @BindView(R.id.share_title)
-//    TextView share_title;
-//
-//    @BindView(R.id.share_text)
-//    TextView share_text;
+    @Override
+    public void setStartSleep(String startSleep) {
+        mLayoutStart.mItemBottomText.setText(startSleep);
+    }
+
+    @Override
+    public void setEndSleep(String endSleep) {
+        mLayoutEnd.mItemBottomText.setText(endSleep);
+    }
+
+    @BindView(R.id.log_sleep_start)
+    View mSleepStart;
+
+    @BindView(R.id.log_sleep_end)
+    View mSleepEnd;
+
+    @BindView(R.id.log_button)
+    FrameLayout mLogButton;
+
+    @BindView(R.id.log_text)
+    TextView mLogText;
+
+
+    static class IncludedLayout {
+
+        @BindView( R.id.item_date_parent )
+        LinearLayout mItemDateParent;
+
+        @BindView( R.id.item_icon )
+        ImageView mItemIcon;
+
+        @BindView( R.id.item_top_text )
+        TextView mItemTopText;
+
+        @BindView( R.id.item_bottom_text )
+        TextView mItemBottomText;
+
+        @BindView( R.id.item_time_text )
+        TextView mItemTimeText;
+    }
 
 }

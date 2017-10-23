@@ -9,6 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import java.util.ArrayList;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,6 +20,7 @@ import rashakacom.rashaka.utils.communications.GPS_Tracker;
 import rashakacom.rashaka.utils.communications.PointInfo;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 
+import static rashakacom.rashaka.fragments.main.home.exercise.item_fused.ExerciseItemFragment.PLAY_SERVICES_RESOLUTION_REQUEST;
 import static rashakacom.rashaka.utils.Consts.LOCATION_PERMISSIONS_REQUEST;
 
 /**
@@ -25,6 +29,7 @@ import static rashakacom.rashaka.utils.Consts.LOCATION_PERMISSIONS_REQUEST;
 
 public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, MainRouter> {
 
+    private static final String TAG = ExerciseItemPresenter.class.getSimpleName();
     private CompositeDisposable mCompositeDisposable;
     public static final float MAX_SPEED_WALK = 3.0f;
 
@@ -51,7 +56,7 @@ public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, Main
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            Log.e("TAG", " Permission do not exist - go to Ask for it !");
+            Log.e(TAG, " Permission do not exist - go to Ask for it !");
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -64,9 +69,23 @@ public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, Main
                     LOCATION_PERMISSIONS_REQUEST);
             return false;
         } else {
-            Log.e("TAG", " Permission was granted !");
+            Log.e(TAG, " Permission was granted !");
             return true;
         }
+    }
+
+    public boolean checkPlayServices(Activity activity) {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(activity);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(activity, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void stopGpsTracker(GPS_Tracker tracker){

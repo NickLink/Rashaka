@@ -14,7 +14,6 @@ public class TipsPresenter extends SuperPresenter<TipsView, MainRouter> {
 
     public TipsPresenter() {
 
-
     }
 
     @Override
@@ -25,5 +24,6 @@ public class TipsPresenter extends SuperPresenter<TipsView, MainRouter> {
     @Override
     public void onViewReady() {
         getView().setViewsValues();
+        getView().loadLink("http://www.rashaka.sa/index/pages/18/general_tips");
     }
 }

@@ -29,7 +29,6 @@ public class PassPresenter extends SuperPresenter <PassView, LoginRouter>{
     }
 
     public void onResetPass(String email){
-        //TODO API Call to reset password
         mCompositeDisposable.add(Rest.call().forgotPassword(email).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> handleResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));

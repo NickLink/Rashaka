@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -44,21 +45,13 @@ public class PassFragment extends SuperFragment implements PassView {
         ButterKnife.bind(this, view);
 
         //TODO Call reset password API
-        mResetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(emailOk(mPasswordEmail.getText().toString()))
-                    mPresenter.onResetPass(mPasswordEmail.getText().toString());
-            }
+        mResetPass.setOnClickListener(view12 -> {
+            if(emailOk(mPasswordEmail.getText().toString()))
+                mPresenter.onResetPass(mPasswordEmail.getText().toString());
         });
 
         //TODO Go to SignIn
-        mPasswordSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.onGoSignIn();
-            }
-        });
+        mPasswordSignIn.setOnClickListener(view1 -> mPresenter.onGoSignIn());
 
     }
 
@@ -80,11 +73,10 @@ public class PassFragment extends SuperFragment implements PassView {
 
     @Override
     public void setViewsValues() {
-        mPasswordEmail.setHint(RaApp.getLabel("key_email"));
-        //TODO MISSING VALUES for key_reset_password & key_add_email
-        //mPasswordResetText.setText(RaApp.getLabel("key_reset_password"));
-        //mPasswordAddText.setText(RaApp.getLabel("key_add_email"));
-        mPasswordSignIn.setText(RaApp.getLabel("key_signin"));
+        mPasswordEmail.setHint(RaApp.getLabel(LangKeys.key_email));
+        mPasswordResetText.setText(RaApp.getLabel(LangKeys.key_reset_password));
+        mPasswordAddText.setText(RaApp.getLabel(LangKeys.key_forgot_details));
+        mPasswordSignIn.setText(RaApp.getLabel(LangKeys.key_signin));
     }
 
     @BindView(R.id.password_email_edittext)

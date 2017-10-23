@@ -2,14 +2,22 @@ package rashakacom.rashaka.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.CompoundButtonCompat;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.text.Layout;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AlignmentSpan;
 import android.util.Log;
@@ -18,14 +26,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.utils.helpers.views.span.TopAlignSuperscriptSpan;
 
 import static rashakacom.rashaka.utils.Consts.CHECK_NAME_LENGTH;
 import static rashakacom.rashaka.utils.Consts.CHECK_PASS_LENGTH;
@@ -37,14 +50,100 @@ import static rashakacom.rashaka.utils.Consts.CHECK_PHONE_LENGTH;
 
 public class Support {
 
+    private static final String TAG = Support.class.getSimpleName();
     public static final int Outline = 1;
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
 
     public static final int MEDIA_TYPE_IMAGE = 901;
 
+    public static double getBMI(@NonNull String weight, @NonNull String height){
+        double mWeight, mHeight, bmi;
+        try {
+            mWeight = Double.parseDouble(weight);
+            mHeight = Double.parseDouble(height);
+            bmi = mWeight / (mHeight * mHeight / 10000);
+        } catch (Exception e){
+            bmi = 0;
+        }
+        return round(bmi, 2);
+    }
+
+    public static int getDiffYears(Date first, Date last) {
+        Calendar a = getCalendar(first);
+        Calendar b = getCalendar(last);
+        int diff = b.get(Calendar.YEAR) - a.get(Calendar.YEAR);
+        if (a.get(Calendar.MONTH) > b.get(Calendar.MONTH) ||
+                (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) && a.get(Calendar.DATE) > b.get(Calendar.DATE))) {
+            diff--;
+        }
+        return diff;
+    }
+
+    public static Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.US);
+        cal.setTime(date);
+        return cal;
+    }
+
+    public static SpannableStringBuilder getUpperCase(String text, String upper){
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        SpannableString spannableString = new SpannableString(upper);
+        spannableString.setSpan(new TopAlignSuperscriptSpan( (float)0.35 ), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+        builder.append(text);
+        builder.append(spannableString);
+        return builder;
+    }
+
+    public static void setCheckBoxColor(AppCompatCheckBox checkBox, int state, int color){
+        int states[][] = {{state}, {}};
+        int colors[] = {color, color};
+        CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(states, colors));
+    }
 
     public static String getDateFromMillis(long dateInMillis){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.US);
         return formatter.format(new Date(dateInMillis));
+    }
+
+    public static String GetDateTimeForScreen(){
+        Date presentTime_Date = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm");
+        dateFormat.setTimeZone(getDefaultTimeZone());
+        return dateFormat.format(presentTime_Date);
+    }
+
+    public static String GetDateTimeForAPI(){
+        Date presentTime_Date = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(getDefaultTimeZone());
+        return dateFormat.format(presentTime_Date);
+    }
+
+    public static TimeZone getDefaultTimeZone(){
+        TimeZone timeZone = TimeZone.getDefault();
+        Log.e(TAG, "Default TimeZone -> " + timeZone.getDisplayName());
+        return timeZone;
+    }
+
+    public static Locale getCurrentLocale(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return context.getResources().getConfiguration().getLocales().get(0);
+        } else{
+            //noinspection deprecation
+            return context.getResources().getConfiguration().locale;
+        }
+    }
+
+    public static Date getDateFromString(@NonNull String date, @NonNull String format){
+        Date d = null;
+        try {
+            SimpleDateFormat f = new SimpleDateFormat(format);
+            d = f.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            return d;
+        }
     }
 
     public static String getCurrentStringDate(){
@@ -98,7 +197,7 @@ public class Support {
             }
 
         } catch (Exception e) {
-            Log.e("TAG", "setRedOutline " + e.getLocalizedMessage());
+            Log.e("setRedOutline", "setRedOutline " + e.getLocalizedMessage());
         }
     }
 
@@ -114,7 +213,7 @@ public class Support {
             }
 
         } catch (Exception e) {
-            Log.e("TAG", "setWhiteOutline " + e.getLocalizedMessage());
+            Log.e("setWhiteOutline", "setWhiteOutline " + e.getLocalizedMessage());
         }
     }
 
@@ -172,10 +271,28 @@ public class Support {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
+    public static boolean isGPSPermission() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+                (ContextCompat.checkSelfPermission(RaApp.getContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+    }
+
     public static SpannableString getArMenu(String key){
         SpannableString s = new SpannableString(RaApp.getLabel(key));
         s.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), 0, s.length(), 0);
         return s;
+    }
+
+    public static int dpToPx(int dp){
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }

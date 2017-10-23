@@ -13,6 +13,7 @@ import rashakacom.rashaka.fragments.main.plus.drink.DrinkAlarmItem;
 
 public class DrinkAlarmModel extends ViewModel {
 
+    private static final String TAG = DrinkAlarmModel.class.getSimpleName();
     private MutableLiveData<DrinkAlarmItem> selected = new MutableLiveData<>();
 
     public DrinkAlarmModel() {
@@ -20,7 +21,7 @@ public class DrinkAlarmModel extends ViewModel {
     }
 
     public void select(DrinkAlarmItem item) {
-        Log.e("TAG", "SharedUserModel select");
+        Log.e(TAG, "SharedUserModel select");
         selected.setValue(item);
     }
 

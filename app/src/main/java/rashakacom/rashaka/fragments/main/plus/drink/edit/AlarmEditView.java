@@ -18,5 +18,5 @@ public interface AlarmEditView {
 
     void doSave(DrinkAlarmItem data);
 
-    void onCancel();
+    void onCancel(DrinkAlarmItem data);
 }

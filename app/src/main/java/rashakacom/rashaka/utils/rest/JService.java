@@ -3,15 +3,19 @@ package rashakacom.rashaka.utils.rest;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
-import rashakacom.rashaka.domain.fake_models.FakeNews;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rashakacom.rashaka.domain.BaseResponse;
 import rashakacom.rashaka.domain.LabelItem;
 import rashakacom.rashaka.domain.PartnersDataItem;
 import rashakacom.rashaka.domain.RestPageResponse;
 import rashakacom.rashaka.domain.RestResponse;
 import rashakacom.rashaka.domain.TermsData;
+import rashakacom.rashaka.domain.fake_models.FakeNews;
+import rashakacom.rashaka.domain.food.LogFood;
 import rashakacom.rashaka.domain.login.UserLogin;
 import rashakacom.rashaka.domain.news.NewsItem;
 import rashakacom.rashaka.domain.profile.UserProfile;
@@ -23,6 +27,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 
 /**
@@ -42,6 +47,8 @@ public interface JService {
 
 
     //TODO Real Application API Calls
+
+    //TODO Login part
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_SIGNIN)
     Observable<BaseResponse> signIn(
@@ -57,10 +64,9 @@ public interface JService {
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password);
 
-
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + RestKeys.POINT_AUTH + "/" + RestKeys.CALL_UPDATE_PASSWORD)
-    Call<BaseResponse> updatePassword(
+    Observable<BaseResponse> updatePassword(
             @Field(RestKeys.KEY_EMAIL) @NonNull String email,
             @Field(RestKeys.KEY_PASSWORD) @NonNull String password,
             @Field(RestKeys.KEY_NEW_PASSWORD) @NonNull String newPassword);
@@ -81,20 +87,34 @@ public interface JService {
     Observable<RestResponse<TermsData>> getTerms(
             @Path(RestKeys.KEY_LANGUAGE) String lang);
 
+    //TODO Main part
     @GET(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
     Observable<RestResponse<UserProfile>> getUserById(
             @Path(RestKeys.KEY_USER) String userId,
             @Header(RestKeys.HEADER_API_KEY) String apiKey
             );
 
-    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY + "/{" + RestKeys.KEY_USER + "}")
-    Call<BaseResponse> postDaily(
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY_WEIGHT + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> postDailyWeight(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
-            @Header(RestKeys.HEADER_CONTENT) String contentType,
-            @Path(RestKeys.KEY_USER) int userId,
-            @Field(RestKeys.KEY_WEIGHT) @NonNull String weight,
-            @Field(RestKeys.KEY_WEIGHT_GOAL) @NonNull String weightGoal,
-            @Field(RestKeys.KEY_STEPS_GOAL) @NonNull String stepsGoal);
+            @Path(RestKeys.KEY_USER) String userId,
+            @Field(RestKeys.KEY_WEIGHT) @NonNull String weight);
+
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY_BMI + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> postDailyBMI(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String userId,
+            @Field(RestKeys.KEY_BMI) @NonNull String bmi);
+
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY_STEPS + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> postDailySteps(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String userId,
+            @Field(RestKeys.KEY_STEPS) @NonNull String steps);
+
 
     @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
     Call<BaseResponse> updateUser(
@@ -114,15 +134,43 @@ public interface JService {
 
 
     @Multipart
-    //@FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
-    Observable<BaseResponse> updateUserHashMap(
+    Observable<BaseResponse> updateUserProfile(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
-            //@Header(RestKeys.HEADER_CONTENT) String contentType,
             @Path(RestKeys.KEY_USER) String userId,
-            @Part(RestKeys.KEY_BIRTHDAY) String date); //Part
+            @PartMap Map<String, RequestBody> params,
+            @Part List<MultipartBody.Part> files);
 
-    //@PartMap Map<String, Object> authData
+
+
+//    @Multipart
+//    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_USER + "/{" + RestKeys.KEY_USER + "}")
+//    Observable<BaseResponse> updateUserHashMap(
+//            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+//            //@Header(RestKeys.HEADER_CONTENT) String contentType,
+//            @Path(RestKeys.KEY_USER) String userId,
+//            @PartMap Map<String, Object> authData); //Part
+
+    //TODO Post New User Log Food
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_FOOD + "/" + RestKeys.CALL_FOOD_NEW + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> postUserLogFood(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String userId,
+            @Field(RestKeys.KEY_DESCRIPTION) @NonNull String desc,
+            @Field(RestKeys.KEY_DATE_TIME) @NonNull String date,
+            @Field(RestKeys.KEY_FOOD_TYPE) @NonNull String type);
+
+    //TODO Get All Log Food
+    @GET(RestKeys.PATH_MAIN
+            + RestKeys.POINT_FOOD + "/"
+            + RestKeys.CALL_FOOD_ALL
+            + "/{" + RestKeys.KEY_USER + "}"
+            + "/{" + RestKeys.KEY_OFFSET + "}")
+    Observable<RestPageResponse<LogFood>> getAllFoodLog(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String lang,
+            @Path(RestKeys.KEY_OFFSET) String offset);
 
 
     //TODO News part

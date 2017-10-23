@@ -26,7 +26,7 @@ import rashakacom.rashaka.utils.rest.RestUtils;
 
 public class LatestPresenter extends SuperPresenter<LatestView, MainRouter> {
 
-
+    private static final String TAG = LatestPresenter.class.getSimpleName();
     private CompositeDisposable mCompositeDisposable;
     private boolean isLoading, isLastPage;
     private int pageNum = 0;
@@ -60,7 +60,7 @@ public class LatestPresenter extends SuperPresenter<LatestView, MainRouter> {
     }
 
     private void handleResponse(RestPageResponse<List<NewsItem>> response) {
-        Log.e("TAG", "handleResponse -> " + response.toString());
+        Log.e(TAG, "handleResponse -> " + response.toString());
         isLoading = false;
 
         if (response.getStatus()) // && response.getNext_page() == -1
@@ -75,18 +75,16 @@ public class LatestPresenter extends SuperPresenter<LatestView, MainRouter> {
     }
 
     private void handleError(String error) {
-        Log.e("TAG", "handleError -> " + error);
+        Log.e(TAG, "handleError -> " + error);
         isLoading = false;
         getRouter().showError(error);
     }
 
     public void onScrolled(RecyclerView recyclerView) {
-
         int visibleItemCount = recyclerView.getLayoutManager().getChildCount();
         int totalItemCount = recyclerView.getLayoutManager().getItemCount();
         int firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager())
                 .findFirstVisibleItemPosition();
-
         if (!isLoading && !isLastPage) {
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                     && firstVisibleItemPosition >= 0

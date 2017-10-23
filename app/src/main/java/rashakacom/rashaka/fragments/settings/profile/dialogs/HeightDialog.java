@@ -23,9 +23,6 @@ public class HeightDialog extends BottomSheetDialogFragment {
 
     private SharedUserModel model;
 
-    private int height_main = -1;
-    private int height_extra = -1;
-
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
 
         @Override

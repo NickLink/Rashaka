@@ -11,10 +11,13 @@ public class Consts {
     public static final String PREFS_LANG = "PREFS_LANG";
     public static final String PREFS_USER = "PREFS_USER";
     public static final String PROFILE_USER = "PROFILE_USER";
+    public static final String PREFS_USER_LOGGED = "PREFS_USER_LOGGED";
+    public static final String PROFILE_EMAIL = "PROFILE_EMAIL";
 
     //TODO Alarm data managment
     public static final String ALARM_LIST = "ALARM_LIST";
     public static final String KEY_ALARM_DATA = "KEY_ALARM_DATA";
+    public static final int ALARM_START_VALUE = 3001;
 
     public static final String LANG_EN = "en";
     public static final String LANG_AR = "ar";
@@ -32,6 +35,7 @@ public class Consts {
     public static final int ANIMATION_RIGHT = 2;
 
     public static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE_10 = 10;
 
     public static final String NEWS_ID = "NEWS_ID";
 
@@ -45,4 +49,9 @@ public class Consts {
     public static final String KEY_Y = "KEY_Y";
     public static final int[] backDim = {800, 250};
     public static final int[] userDim = {200, 200};
+
+    public static final String BMI_LINK_ADULT = "http://demo.mbooz.com/rashaka/mobile/type/3/";
+    public static final String BMI_LINK_BOY = "http://demo.mbooz.com/rashaka/mobile/type/2/";
+    public static final String BMI_LINK_GIRL = "http://demo.mbooz.com/rashaka/mobile/type/1/";
+
 }

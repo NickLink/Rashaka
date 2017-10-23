@@ -4,8 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -16,6 +23,7 @@ import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
+import rashakacom.rashaka.utils.helpers.views.pager.WrapContentViewPager;
 
 /**
  * Created by User on 24.08.2017.
@@ -37,23 +45,18 @@ public class WeightFragment extends BaseFragment implements WeightView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setHomeButtonEnabled(false);
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+            }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -61,10 +64,57 @@ public class WeightFragment extends BaseFragment implements WeightView {
         ButterKnife.bind(this, view);
 
         mWeightButtonPlus.setOnClickListener(view1 -> mPresenter.onPlusClick());
-
         mWeightButtonMinus.setOnClickListener(view12 -> mPresenter.onMinusClick());
-
         mWeightButtonSave.setOnClickListener(view13 -> mPresenter.onSaveClick());
+
+
+        mResultTabs.addTab(mResultTabs.newTab().setText("Week"));
+        mResultTabs.addTab(mResultTabs.newTab().setText("Month"));
+        mResultTabs.addTab(mResultTabs.newTab().setText("Year"));
+        mResultTabs.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        mPresenter.setupViewPager(mViewPager, getChildFragmentManager()); //getActivity()
+
+        mResultTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                mViewPager.reMeasureCurrentPage(mViewPager.getCurrentItem());
+                mResultTabs.getTabAt(position).select();
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                mPresenter.setSeekValue(i);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     @NonNull
@@ -103,6 +153,14 @@ public class WeightFragment extends BaseFragment implements WeightView {
     @BindView(R.id.weight_button_save)
     TextView mWeightButtonSave;
 
+    @BindView(R.id.result_tabs)
+    TabLayout mResultTabs;
+
+    @BindView(R.id.viewpager)
+    WrapContentViewPager mViewPager;
+
+    @BindView(R.id.seekBar)
+    SeekBar mSeekBar;
 
 
 }

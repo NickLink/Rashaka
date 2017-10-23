@@ -17,7 +17,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class RaApp extends MultiDexApplication {
 
-    private static RaApp mInstance;
+    //private static RaApp mInstance;
     private static Context mContext;
     private static ConnectivityManager mCM;
     private static RashakaBase mBase;
@@ -27,8 +27,8 @@ public class RaApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        mContext = getContext();
-        mInstance = this;
+        mContext = this;
+        //mInstance = this;
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/roboto_regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -43,25 +43,25 @@ public class RaApp extends MultiDexApplication {
 
     public static ConnectivityManager getCM() {
         if (mCM == null)
-            mCM = (ConnectivityManager) mInstance.getSystemService(Context.CONNECTIVITY_SERVICE);
+            mCM = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         return mCM;
     }
 
     public static RashakaBase getBase() {
         if (mBase == null)
-            mBase = new RashakaBaseImpl(mInstance);
+            mBase = new RashakaBaseImpl(mContext);
         return mBase;
     }
 
     public static SharedPreferences getPref() {
         if (mPref == null)
-            mPref = PreferenceManager.getDefaultSharedPreferences(mInstance);
+            mPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         return mPref;
     }
 
     @NonNull
     public static String getResourceString(int id) {
-        return mInstance.getString(id);
+        return mContext.getString(id);
     }
 
     public static String getLabel(String key){

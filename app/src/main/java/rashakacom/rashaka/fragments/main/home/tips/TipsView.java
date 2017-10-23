@@ -7,4 +7,6 @@ package rashakacom.rashaka.fragments.main.home.tips;
 public interface TipsView {
 
     void setViewsValues();
+
+    void loadLink(String link);
 }

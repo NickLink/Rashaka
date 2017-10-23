@@ -3,6 +3,7 @@ package rashakacom.rashaka.utils.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,16 +20,23 @@ import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.domain.LabelItem;
 import rashakacom.rashaka.domain.login.UserLogin;
 import rashakacom.rashaka.domain.profile.UserProfile;
+import rashakacom.rashaka.domain.steps.StepsInMinute;
 import rashakacom.rashaka.fragments.main.plus.drink.DrinkAlarmItem;
 
 import static rashakacom.rashaka.utils.Consts.ALARM_LIST;
 import static rashakacom.rashaka.utils.Consts.LANG_EN;
 import static rashakacom.rashaka.utils.Consts.PREFS_LANG;
 import static rashakacom.rashaka.utils.Consts.PREFS_USER;
+import static rashakacom.rashaka.utils.Consts.PROFILE_EMAIL;
 import static rashakacom.rashaka.utils.Consts.PROFILE_USER;
 import static rashakacom.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_COLUMN_KEY;
 import static rashakacom.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_COLUMN_TITLE;
 import static rashakacom.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_TABLE_NAME;
+import static rashakacom.rashaka.utils.database.DatabaseContract.StepEntry.STEP_COLUMN_TIME;
+import static rashakacom.rashaka.utils.database.DatabaseContract.StepEntry.STEP_TABLE_NAME;
+import static rashakacom.rashaka.utils.database.DatabaseContract.StepsEntry.STEPS_COLUMN_STEPS;
+import static rashakacom.rashaka.utils.database.DatabaseContract.StepsEntry.STEPS_COLUMN_TIME;
+import static rashakacom.rashaka.utils.database.DatabaseContract.StepsEntry.STEPS_TABLE_NAME;
 
 /**
  * Created by User on 23.08.2017.
@@ -100,6 +108,85 @@ public class RashakaBaseImpl implements RashakaBase {
     }
 
     @Override
+    public void saveStepsInMinute(StepsInMinute stepsInMinute) {
+        Log.e(TAG, "saveStepsInMinute Call ");
+        if(stepsInMinute != null && stepsInMinute.getSteps() != 0){
+            db.beginTransaction();
+            try{
+                ContentValues values = new ContentValues();
+                values.put(STEPS_COLUMN_TIME, stepsInMinute.getTime());
+                values.put(STEPS_COLUMN_STEPS, stepsInMinute.getSteps());
+                db.insert(STEPS_TABLE_NAME, null, values);
+                db.setTransactionSuccessful();
+                Log.e(TAG, "saveStepsInMinute -> setTransactionSuccessful time > " + stepsInMinute.getTime()
+                + " steps > " + stepsInMinute.getSteps());
+            } catch (Exception e) {
+                Log.e(TAG, "saveStepsInMinute -> " + " Exception " + e.getLocalizedMessage());
+            } finally {
+                db.endTransaction();
+                Log.e(TAG, "saveStepsInMinute -> " + " finally ");
+            }
+        } else {
+            Log.e(TAG, "saveStepsInMinute -> " + " Input data Error! ");
+        }
+    }
+
+    @Override
+    public List<StepsInMinute> getSteps() {
+        List<StepsInMinute> list = new ArrayList<>();
+        Cursor cursor = getStepsCursor();
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false){
+            list.add(new StepsInMinute(
+                    cursor.getLong(cursor.getColumnIndex(STEPS_COLUMN_TIME)),
+                    cursor.getInt(cursor.getColumnIndex(STEPS_COLUMN_STEPS))
+            ));
+            cursor.moveToNext();
+        }
+        return list;
+    }
+
+    @Override
+    public void saveStep(long time) {
+        Log.e(TAG, "saveStepsInMinute Call ");
+        if(time != 0){
+            db.beginTransaction();
+            try{
+                ContentValues values = new ContentValues();
+                values.put(STEP_COLUMN_TIME, time);
+                db.insert(STEP_TABLE_NAME, null, values);
+                db.setTransactionSuccessful();
+                Log.e(TAG, "saveSteP -> setTransactionSuccessful time > " + time);
+            } catch (Exception e) {
+                Log.e(TAG, "saveSteP -> " + " Exception " + e.getLocalizedMessage());
+            } finally {
+                db.endTransaction();
+                Log.e(TAG, "saveSteP -> " + " finally ");
+            }
+        } else {
+            Log.e(TAG, "saveSteP -> " + " Input data Error! ");
+        }
+    }
+
+    @Override
+    public long getStepsCount() {
+        return DatabaseUtils.queryNumEntries(db, STEP_TABLE_NAME);
+    }
+
+    @Override
+    public long getStepsCount(long from) {
+        return DatabaseUtils.queryNumEntries(db,
+                STEP_TABLE_NAME, STEP_COLUMN_TIME + " > ?", new String[] {String.valueOf(from)});
+    }
+
+    @Override
+    public long getStepsCount(long from, long to) {
+        return DatabaseUtils.queryNumEntries(db,
+                STEP_TABLE_NAME, STEP_COLUMN_TIME + " > ? AND " + STEP_COLUMN_TIME + " < ?",
+                new String[] {String.valueOf(from), String.valueOf(to)});
+    }
+
+    @Override
     public void clearLabelTable() {
         db.delete(LABEL_TABLE_NAME, null, null);
     }
@@ -126,14 +213,34 @@ public class RashakaBaseImpl implements RashakaBase {
     @Override
     public String getCachedLabelByKey(String key) {
         if (labelCache.containsKey(key)) {
-            //Log.e("TAG", "Cache hit");
+            //Log.e(TAG, "Cache hit");
             return labelCache.get(key);
         } else {
             String value = getLabelByKey(key);
             labelCache.put(key, value);
-            //Log.e("TAG", "Cache missed");
+            //Log.e(TAG, "Cache missed");
             return value;
         }
+    }
+
+    @Override
+    public boolean isUserLogged() {
+        if(getLoggedUser() != null && getProfileUser() != null)
+            return true;
+        else
+            return false;
+        //return RaApp.getPref().getBoolean(PREFS_USER_LOGGED, false);
+    }
+
+    @Override
+    public void removeLoggedUser() {
+        RaApp.getPref().edit().remove(PREFS_USER).commit();
+        RaApp.getPref().edit().remove(PROFILE_USER).commit();
+    }
+
+    @Override
+    public void removeAllUserData() {
+
     }
 
     @Override
@@ -165,6 +272,16 @@ public class RashakaBaseImpl implements RashakaBase {
     }
 
     @Override
+    public void saveLoggedEmail(String email) {
+        RaApp.getPref().edit().putString(PROFILE_EMAIL, email).commit();
+    }
+
+    @Override
+    public String getLoggedEmail() {
+        return RaApp.getPref().getString(PROFILE_EMAIL, null);
+    }
+
+    @Override
     public void saveAlarmList(List<DrinkAlarmItem> list) {
         RaApp.getPref().edit().putString(ALARM_LIST, gson.toJson(list)).commit();
     }
@@ -184,6 +301,17 @@ public class RashakaBaseImpl implements RashakaBase {
         String selection = LABEL_COLUMN_KEY + " = ?";
         String[] selectionArgs = {key};
         return db.query(LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, null);
+    }
+
+    private Cursor getStepsCursor() {
+        //String selection = STEPS_COLUMN_TIME;
+        return db.query(LABEL_TABLE_NAME, null, null, null, null, null, STEPS_COLUMN_TIME);
+    }
+
+    private Cursor getStepsCursor(long dateFrom, long dateTo) {
+        String selection = STEPS_COLUMN_TIME + " > ?  AND " + STEPS_COLUMN_TIME + " < ?";
+        String[] selectionArgs = {String.valueOf(dateFrom), String.valueOf(dateTo)};
+        return db.query(LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, STEPS_COLUMN_TIME);
     }
 
 }

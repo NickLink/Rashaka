@@ -11,6 +11,5 @@ import rashakacom.rashaka.domain.news.NewsItem;
 public interface LatestView {
 
     void setAdapterData(List<NewsItem> list);
-
     void addAdapterData(List<NewsItem> mData);
 }

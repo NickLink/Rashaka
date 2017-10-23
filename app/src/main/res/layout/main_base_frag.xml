@@ -1,292 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            xmlns:tools="http://schemas.android.com/tools"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            android:fillViewport="true"
-                                            android:orientation="vertical">
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                              xmlns:app="http://schemas.android.com/apk/res-auto"
+                                              android:id="@+id/swipe_layout"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/main_calendar_parent"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:background="@color/background_white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:fillViewport="true">
 
-            <rashakacom.rashaka.utils.helpers.views.calendar.OneWeek
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="bottom"/>
-        </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/main_progress_parent"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:background="@color/background_white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_calendar_parent">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <FrameLayout
+                android:id="@+id/main_calendar_parent"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="70dp"
+                android:background="@color/background_white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ProgressBar
-                    android:id="@+id/progress_time"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_gravity="center"
-                    android:max="100"
-                    android:progress="70"
-                    android:indeterminate="false"
-                    android:progressDrawable="@drawable/progress_circular_green"
-                    android:background="@drawable/progress_circular_background"/>
+                <rashakacom.rashaka.utils.helpers.views.calendar.OneWeek
+                    android:id="@+id/one_week"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="bottom"/>
+            </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/main_progress_parent"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:background="@color/background_white"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_calendar_parent">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ProgressBar
+                        android:id="@+id/progress_time"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/progress_circular_background"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="70"
+                        android:progressDrawable="@drawable/progress_circular_green"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/progress_time_title"
+                            style="@style/InfoLightBlackText"
+                            android:layout_gravity="top|center_horizontal"
+                            android:background="@drawable/divider_red_line"
+                            android:text="Active Time"/>
+
+                        <TextView
+                            android:id="@+id/progress_time_value"
+                            style="@style/InfoLightBlackTextBold"
+                            android:layout_gravity="center"
+                            android:text="12,56"
+                            android:textSize="@dimen/text_size_giant"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ProgressBar
+                        android:id="@+id/progress_calories"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/progress_circular_background"
+                        android:indeterminate="false"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressDrawable="@drawable/progress_circular_green"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/progress_calories_title"
+                            style="@style/InfoLightBlackText"
+                            android:layout_gravity="top|center_horizontal"
+                            android:background="@drawable/divider_red_line"
+                            android:text="Calories"/>
+
+                        <TextView
+                            android:id="@+id/progress_calories_value"
+                            style="@style/InfoLightBlackTextBold"
+                            android:layout_gravity="center"
+                            android:text="8,53"
+                            android:textSize="@dimen/text_size_giant"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/main_status_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_progress_parent">
+
+                <FrameLayout
+                    android:id="@+id/main_status_distance"
+                    style="@style/FrameMainStatus">
 
                     <TextView
-                        android:id="@+id/progress_time_title"
+                        android:id="@+id/main_status_distance_title"
                         style="@style/InfoLightBlackText"
                         android:layout_gravity="top|center_horizontal"
-                        android:text="Active Time"
-                        android:background="@drawable/divider_red_line"/>
+                        android:background="@drawable/divider_red_line"
+                        android:text="Distance"/>
 
                     <TextView
-                        android:id="@+id/progress_time_value"
+                        android:id="@+id/main_status_distance_value"
                         style="@style/InfoLightBlackTextBold"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/text_size_giant"
-                        android:text="12,56"/>
-                </LinearLayout>
-            </FrameLayout>
+                        android:text="12,56"
+                        android:textSize="@dimen/text_size_giant"/>
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/main_status_distance_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_status_up"/>
+                </FrameLayout>
 
-                <ProgressBar
-                    android:id="@+id/progress_calories"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_gravity="center"
-                    android:max="100"
-                    android:progress="20"
-                    android:indeterminate="false"
-                    android:progressDrawable="@drawable/progress_circular_green"
-                    android:background="@drawable/progress_circular_background"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                <FrameLayout
+                    android:id="@+id/main_status_steps"
+                    style="@style/FrameMainStatus"
+                    android:clickable="true">
 
                     <TextView
-                        android:id="@+id/progress_calories_title"
+                        android:id="@+id/main_status_steps_title"
                         style="@style/InfoLightBlackText"
                         android:layout_gravity="top|center_horizontal"
-                        android:text="Calories"
-                        android:background="@drawable/divider_red_line"/>
+                        android:background="@drawable/divider_red_line"
+                        android:text="Steps"/>
 
                     <TextView
-                        android:id="@+id/progress_calories_value"
+                        android:id="@+id/main_status_steps_value"
                         style="@style/InfoLightBlackTextBold"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/text_size_giant"
-                        android:text="8,53"/>
-                </LinearLayout>
-            </FrameLayout>
+                        android:text="12,56"
+                        android:textSize="@dimen/text_size_giant"/>
 
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/main_status_steps_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_status_up"/>
+                </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/main_status_parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_progress_parent">
+                <FrameLayout
+                    android:id="@+id/main_status_weight"
+                    style="@style/FrameMainStatus">
 
-            <FrameLayout
-                android:id="@+id/main_status_distance"
-                style="@style/FrameMainStatus">
+                    <TextView
+                        android:id="@+id/main_status_weight_title"
+                        style="@style/InfoLightBlackText"
+                        android:layout_gravity="top|center_horizontal"
+                        android:background="@drawable/divider_red_line"
+                        android:text="Weight"/>
 
-                <TextView
-                    android:id="@+id/main_status_distance_title"
-                    style="@style/InfoLightBlackText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="Distance"
-                    android:background="@drawable/divider_red_line"/>
+                    <TextView
+                        android:id="@+id/main_status_weight_value"
+                        style="@style/InfoLightBlackTextBold"
+                        android:layout_gravity="center"
+                        android:text="12,56"
+                        android:textSize="@dimen/text_size_giant"/>
 
-                <TextView
-                    android:id="@+id/main_status_distance_value"
-                    style="@style/InfoLightBlackTextBold"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/text_size_giant"
-                    android:text="12,56"/>
+                    <ImageView
+                        android:id="@+id/main_status_weight_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_status_up"/>
+                </FrameLayout>
 
-                <ImageView
-                    android:id="@+id/main_status_distance_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_status_up"/>
-            </FrameLayout>
+            </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/main_status_steps"
-                style="@style/FrameMainStatus">
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/main_buttons_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="2dp"
+                android:verticalSpacing="2dp"
+                app:columnCount="2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_status_parent">
 
-                <TextView
-                    android:id="@+id/main_status_steps_title"
-                    style="@style/InfoLightBlackText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="Steps"
-                    android:background="@drawable/divider_red_line"/>
+                <FrameLayout
+                    android:id="@+id/main_button_exercise"
+                    style="@style/FrameMainButton">
 
-                <TextView
-                    android:id="@+id/main_status_steps_value"
-                    style="@style/InfoLightBlackTextBold"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/text_size_giant"
-                    android:text="12,56"/>
+                    <TextView
+                        android:id="@+id/main_button_exercise_text"
+                        style="@style/InfoGrayText"
+                        android:layout_gravity="top|center_horizontal"
+                        android:text="Track Exercise"/>
 
-                <ImageView
-                    android:id="@+id/main_status_steps_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_status_up"/>
-            </FrameLayout>
+                    <ImageView
+                        android:layout_width="@dimen/icon_main_button_size"
+                        android:layout_height="@dimen/icon_main_button_size"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_button_exercise"/>
+                </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/main_status_weight"
-                style="@style/FrameMainStatus">
+                <FrameLayout
+                    android:id="@+id/main_button_weight"
+                    style="@style/FrameMainButton">
 
-                <TextView
-                    android:id="@+id/main_status_weight_title"
-                    style="@style/InfoLightBlackText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="Weight"
-                    android:background="@drawable/divider_red_line"/>
+                    <TextView
+                        android:id="@+id/main_button_weight_text"
+                        style="@style/InfoGrayText"
+                        android:layout_gravity="top|center_horizontal"
+                        android:text="Track Weight"/>
 
-                <TextView
-                    android:id="@+id/main_status_weight_value"
-                    style="@style/InfoLightBlackTextBold"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/text_size_giant"
-                    android:text="12,56"/>
+                    <ImageView
+                        android:layout_width="@dimen/icon_main_button_size"
+                        android:layout_height="@dimen/icon_main_button_size"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_button_weight"/>
+                </FrameLayout>
 
-                <ImageView
-                    android:id="@+id/main_status_weight_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_status_up"/>
-            </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/main_button_tips"
+                    style="@style/FrameMainButton">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/main_button_tips_text"
+                        style="@style/InfoGrayText"
+                        android:layout_gravity="top|center_horizontal"
+                        android:text="Fitness Tips"/>
 
-        <android.support.v7.widget.GridLayout
-            android:id="@+id/main_buttons_parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:horizontalSpacing="2dp"
-            android:verticalSpacing="2dp"
-            app:columnCount="2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_status_parent">
+                    <ImageView
+                        android:layout_width="@dimen/icon_main_button_size"
+                        android:layout_height="@dimen/icon_main_button_size"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_button_tips"/>
+                </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/main_button_exercise"
-                style="@style/FrameMainButton">
+                <FrameLayout
+                    android:id="@+id/main_button_bmi"
+                    style="@style/FrameMainButton">
 
-                <TextView
-                    android:id="@+id/main_button_exercise_text"
-                    style="@style/InfoGrayText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="Track Exercise"/>
+                    <TextView
+                        android:id="@+id/main_button_bmi_text"
+                        style="@style/InfoGrayText"
+                        android:layout_gravity="top|center_horizontal"
+                        android:text="My BMI"/>
 
-                <ImageView
-                    android:layout_width="@dimen/icon_main_button_size"
-                    android:layout_height="@dimen/icon_main_button_size"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_button_exercise"/>
-            </FrameLayout>
+                    <ImageView
+                        android:layout_width="@dimen/icon_main_button_size"
+                        android:layout_height="@dimen/icon_main_button_size"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:src="@drawable/main_button_bmi"/>
+                </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/main_button_weight"
-                style="@style/FrameMainButton">
+            </android.support.v7.widget.GridLayout>
+        </android.support.constraint.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/main_button_weight_text"
-                    style="@style/InfoGrayText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="Track Weight"/>
-
-                <ImageView
-                    android:layout_width="@dimen/icon_main_button_size"
-                    android:layout_height="@dimen/icon_main_button_size"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_button_weight"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/main_button_tips"
-                style="@style/FrameMainButton">
-
-                <TextView
-                    android:id="@+id/main_button_tips_text"
-                    style="@style/InfoGrayText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="Fitness Tips"/>
-
-                <ImageView
-                    android:layout_width="@dimen/icon_main_button_size"
-                    android:layout_height="@dimen/icon_main_button_size"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_button_tips"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/main_button_bmi"
-                style="@style/FrameMainButton">
-
-                <TextView
-                    android:id="@+id/main_button_bmi_text"
-                    style="@style/InfoGrayText"
-                    android:layout_gravity="top|center_horizontal"
-                    android:text="My BMI"/>
-
-                <ImageView
-                    android:layout_width="@dimen/icon_main_button_size"
-                    android:layout_height="@dimen/icon_main_button_size"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:src="@drawable/main_button_bmi"/>
-            </FrameLayout>
-
-        </android.support.v7.widget.GridLayout>
-    </android.support.constraint.ConstraintLayout>
-
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

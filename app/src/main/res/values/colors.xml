@@ -23,6 +23,7 @@
 
     <color name="main_breeze">#65CBC9</color>
     <color name="main_breeze_pressed">#55BBB9</color>
+    <color name="main_breeze_dark">#33aa99</color>
     <color name="main_button_gray">#EFEFEF</color>
     <color name="main_button_divider">#A6A6A6</color>
 
@@ -37,5 +38,8 @@
 
     <color name="bottom_bar_color">#4F4F4F</color>
 
+    <color name="bmi_girl">#F4A0DE</color>
+    <color name="bmi_boy">#39BBED</color>
+    <color name="bmi_adult">#65C7C6</color>
 
 </resources>

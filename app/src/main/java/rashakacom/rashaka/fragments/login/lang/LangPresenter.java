@@ -11,9 +11,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.domain.LabelItem;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.domain.LabelItem;
 import rashakacom.rashaka.utils.rest.RestUtils;
 
 import static rashakacom.rashaka.utils.Consts.ANIMATION_LEFT;
@@ -25,6 +25,7 @@ import static rashakacom.rashaka.utils.Consts.ANIMATION_LEFT;
 
 public class LangPresenter extends SuperPresenter<LangView, LoginRouter> {
 
+    private static final String TAG = LangPresenter.class.getSimpleName();
     private CompositeDisposable mCompositeDisposable;
     private String langType;
 
@@ -67,7 +68,7 @@ public class LangPresenter extends SuperPresenter<LangView, LoginRouter> {
 
     private void handleError(Throwable error) {
         getRouter().showError(RestUtils.ErrorMessages(error));
-        Log.e("TAG", "RestUtils.ErrorMessages(error)! " + error.getLocalizedMessage());
+        Log.e(TAG, "RestUtils.ErrorMessages(error)! " + error.getLocalizedMessage());
     }
 
     public void onStop() {

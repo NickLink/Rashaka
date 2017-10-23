@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,7 +26,7 @@ import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.domain.fake_models.Article;
 import rashakacom.rashaka.fragments.BaseFragment;
-import rashakacom.rashaka.fragments.main.home.exercise.item_fused.ExerciseItemFragment;
+import rashakacom.rashaka.fragments.main.home.exercise.item.ExerciseItemFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -48,7 +52,17 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+        }
     }
 
     @Override

@@ -54,6 +54,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/inner_padding"
                 android:src="@drawable/icon_profile_save"/>
+
+            <View
+                android:id="@+id/profile_save_back"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/inner_padding"/>
+
         </RelativeLayout>
 
 

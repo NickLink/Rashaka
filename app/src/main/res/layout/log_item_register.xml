@@ -93,13 +93,13 @@
                 android:textColor="@color/light_black"/>
         </FrameLayout>
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/register_checkbox_terms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/inner_padding_giant"
             android:layout_marginTop="@dimen/inner_padding"
-            android:buttonTint="@color/text_white"
+            app:buttonTint="@color/text_white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_button"/>
 

@@ -50,21 +50,6 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,12 +60,9 @@ public class NotificationFragment extends BaseFragment implements NotificationVi
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.hasFixedSize();
 
-        mRecyclerView.setAdapter(new NotificationAdapter(getActivity(), list, new NotificationAdapter.ItemClick() {
-            @Override
-            public void itemClick(int pos) {
-                //TODO Notification item Click
-                Toast.makeText(getActivity(), "DO NOT TOUCH -> " + pos, Toast.LENGTH_SHORT).show();
-            }
+        mRecyclerView.setAdapter(new NotificationAdapter(getActivity(), list, pos -> {
+            //TODO Notification item Click
+            Toast.makeText(getActivity(), "DO NOT TOUCH -> " + pos, Toast.LENGTH_SHORT).show();
         }));
     }
 

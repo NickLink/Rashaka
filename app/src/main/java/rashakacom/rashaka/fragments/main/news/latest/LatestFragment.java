@@ -86,7 +86,6 @@ public class LatestFragment extends BaseFragment implements LatestView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
                 mPresenter.onScrolled(recyclerView);
             }
         });

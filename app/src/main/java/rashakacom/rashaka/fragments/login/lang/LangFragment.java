@@ -26,6 +26,7 @@ import static rashakacom.rashaka.utils.Consts.LANG_EN;
 
 @Layout(id = R.layout.log_item_lang)
 public class LangFragment extends SuperFragment implements LangView {
+    private static final String TAG = LangFragment.class.getSimpleName();
 
     @BindView(R.id.lang_ar_button)
     FrameLayout mArLang;
@@ -39,7 +40,7 @@ public class LangFragment extends SuperFragment implements LangView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("TAG", "LangFragment onAttach ");
+        Log.e(TAG, "LangFragment onAttach ");
         myRouter = (LoginRouter) getActivity();
         mPresenter = new LangPresenter();
     }
@@ -47,7 +48,7 @@ public class LangFragment extends SuperFragment implements LangView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.e("TAG", "LangFragment onActivityCreated ");
+        Log.e(TAG, "LangFragment onActivityCreated ");
 
     }
 
@@ -69,7 +70,7 @@ public class LangFragment extends SuperFragment implements LangView {
                 mPresenter.onLangSelected(LANG_EN);
             }
         });
-        Log.e("TAG", "LangFragment onViewCreated");
+        Log.e(TAG, "LangFragment onViewCreated");
     }
 
     @NonNull
@@ -92,19 +93,19 @@ public class LangFragment extends SuperFragment implements LangView {
     @Override
     public void onResume(){
         super.onResume();
-        Log.e("TAG", "LangFragment onResume");
+        Log.e(TAG, "LangFragment onResume");
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.e("TAG", "LangFragment onPause");
+        Log.e(TAG, "LangFragment onPause");
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.e("TAG", "LangFragment onStop");
+        Log.e(TAG, "LangFragment onStop");
         mPresenter.onStop();
     }
 }

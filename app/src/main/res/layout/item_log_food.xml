@@ -15,12 +15,26 @@
         android:paddingTop="@dimen/inner_padding_tiny"
         android:paddingBottom="@dimen/inner_padding_tiny">
 
-        <TextView
-            android:id="@+id/item_time"
-            style="@style/InfoLightBlackTextBold"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="06:00"/>
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/item_date"
+                style="@style/InfoLightBlackTextBold"
+                android:textSize="@dimen/text_size_small"
+                android:text="12 Sep"/>
+
+            <TextView
+                android:id="@+id/item_time"
+                style="@style/InfoLightBlackTextBold"
+                android:textSize="@dimen/text_size_small"
+                android:text="06:00"/>
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -28,6 +42,11 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_marginStart="@dimen/inner_padding_small">
+
+            <TextView
+                android:id="@+id/item_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/item_text"

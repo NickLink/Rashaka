@@ -8,12 +8,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.domain.BaseResponse;
+import rashakacom.rashaka.domain.TermsData;
 import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.domain.BaseResponse;
 import rashakacom.rashaka.utils.rest.RestUtils;
-import rashakacom.rashaka.domain.TermsData;
 
 /**
  * Created by User on 22.08.2017.
@@ -62,6 +62,11 @@ public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter>
     ) {
         Boolean allOk = true;
 
+        if(!isChecked){
+            getView().termsError();
+            allOk = false;
+        }
+
         if (!Support.nameOk(name)) {
             getView().nameError();
             allOk = false;
@@ -99,7 +104,7 @@ public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter>
                     lName
             ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(baseResponse -> registerResponse(baseResponse), error -> registerError(error)));
+                    .subscribe(baseResponse -> registerResponse(baseResponse, email), error -> registerError(error)));
         }
 
     }
@@ -109,10 +114,13 @@ public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter>
         getRouter().showError(RestUtils.ErrorMessages(error));
     }
 
-    private void registerResponse(BaseResponse baseResponse) {
+    private void registerResponse(BaseResponse baseResponse, String email) {
         //TODO Registration successful or not ? :)
         if (baseResponse.getStatus()) {
             getRouter().showError(baseResponse.getMessage());
+            //TODO Save succesfully created email
+            RaApp.getBase().saveLoggedEmail(email);
+
             getView().goSign();
         } else {
             getRouter().showError(baseResponse.getMessage());

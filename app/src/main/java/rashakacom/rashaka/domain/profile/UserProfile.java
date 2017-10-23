@@ -79,6 +79,13 @@ public class UserProfile {
     @Expose
     private WeeklyA weeklyA;
 
+    public UserProfile(UserProfile in){
+        this(in.id, in.email, in.password, in.firstName, in.phone, in.lastName,
+                in.sex, in.image, in.background, in.birthday, in.hight, in.weight,
+                in.weightGoal, in.stepsGoal, in.registerDate, in.status, in.tocken,
+                in.emailStatus, in.getPush, in.weeklyA);
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +

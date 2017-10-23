@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 import rashakacom.rashaka.LoginRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.SuperFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
@@ -49,30 +51,21 @@ public class SignInFragment extends SuperFragment implements SignInView {
         ButterKnife.bind(this, view);
 
         //TODO SignIn API Call
-        mSigninButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.onSignInClick(mSigninEmail.getText().toString(), mSigninPassword.getText().toString());
-            }
-        });
+        mSigninButton.setOnClickListener(view1 -> mPresenter.onSignInClick(
+                mSigninEmail.getText().toString(),
+                mSigninPassword.getText().toString())
+        );
 
-        mRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.goRegister();
-            }
-        });
+        mRegister.setOnClickListener(view12 -> mPresenter.goRegister());
 
-        mForgotPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.goForgotPass();
-            }
-        });
+        mForgotPass.setOnClickListener(view13 -> mPresenter.goForgotPass());
 
-        //TODO Put Login data
-        mSigninEmail.setText("nick.oliinyk@gmail.com");
-        mSigninPassword.setText("M1111111");
+        if(!TextUtils.isEmpty(RaApp.getBase().getLoggedEmail())){
+            mSigninEmail.setText(RaApp.getBase().getLoggedEmail());
+        }
+        //TODO Put Log in data
+//        mSigninEmail.setText("nick.oliinyk@gmail.com");
+//        mSigninPassword.setText("M1111111");
     }
 
     @NonNull
@@ -93,11 +86,11 @@ public class SignInFragment extends SuperFragment implements SignInView {
 
     @Override
     public void setViewsValues() {
-        mSigninEmail.setHint(RaApp.getLabel("key_email"));
-        mSigninPassword.setHint(RaApp.getLabel("key_password"));
-        mSigninButtonText.setText(RaApp.getLabel("key_signin"));
-        mForgotPass.setText(RaApp.getLabel("key_forgot_password"));
-        mRegister.setText(RaApp.getLabel("key_registration"));
+        mSigninEmail.setHint(RaApp.getLabel(LangKeys.key_email));
+        mSigninPassword.setHint(RaApp.getLabel(LangKeys.key_password));
+        mSigninButtonText.setText(RaApp.getLabel(LangKeys.key_signin));
+        mForgotPass.setText(RaApp.getLabel(LangKeys.key_forgot_password));
+        mRegister.setText(RaApp.getLabel(LangKeys.key_registration));
     }
 
     @Override

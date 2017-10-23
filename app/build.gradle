@@ -45,6 +45,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
+    compile "com.android.support:exifinterface:26.0.1"
 
     //Support App part
     compile "com.android.support:appcompat-v7:${supportAppCompatVersion}"
@@ -67,7 +70,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
     //Lombook
     provided 'org.projectlombok:lombok:1.16.16'
@@ -94,12 +97,20 @@ dependencies {
 
     //Picasso image loader
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okio:okio:1.13.0'
 
     //Rounded imageview
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
+    //Preloader library
+    compile 'com.wang.avi:library:2.1.3'
+
     //ImageCropper
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
+
+    //Material Calendar View
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
 
     //ViewModel extension
     compile "android.arch.lifecycle:runtime:1.0.0-alpha9"

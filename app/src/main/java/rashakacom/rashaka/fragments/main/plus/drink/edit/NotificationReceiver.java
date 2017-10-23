@@ -23,11 +23,14 @@ import static rashakacom.rashaka.utils.Consts.KEY_ALARM_DATA;
  */
 
 public class NotificationReceiver extends BroadcastReceiver {
+
+    private static final String TAG = NotificationReceiver.class.getSimpleName();
+
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
             DrinkAlarmItem alarmItem = new Gson().fromJson(intent.getStringExtra(KEY_ALARM_DATA), DrinkAlarmItem.class);
-            Log.e("TAG", "onReceive set to > " + alarmItem.toString());
+            Log.e(TAG, "onReceive set to > " + alarmItem.toString());
             Calendar c = Calendar.getInstance();
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             switch (dayOfWeek) {
@@ -61,7 +64,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                     break;
             }
         } catch (Exception e) {
-            Log.e("TAG", "onReceive Exception > " + e.toString());
+            Log.e(TAG, "onReceive Exception > " + e.toString());
         }
 
     }

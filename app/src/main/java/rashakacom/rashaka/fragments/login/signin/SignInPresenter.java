@@ -42,7 +42,7 @@ public class SignInPresenter extends SuperPresenter<SignInView, LoginRouter> {
     public void onSignInClick(String email, String passw) {
         mCompositeDisposable.add(Rest.call().logIn(email, passw).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> handleLoginResponse(response), error -> handleError(RestUtils.ErrorMessages(error))));
+                .subscribe(response -> handleLoginResponse(response, email), error -> handleError(RestUtils.ErrorMessages(error))));
     }
 
     public void onLoginCall(String userId, String tocken){
@@ -62,9 +62,10 @@ public class SignInPresenter extends SuperPresenter<SignInView, LoginRouter> {
         }
     }
 
-    private void handleLoginResponse(RestResponse<UserLogin> response) { //LoginData
+    private void handleLoginResponse(RestResponse<UserLogin> response, String email) { //LoginData
         if(response != null && response.getStatus()){
             //TODO Save login data
+            RaApp.getBase().saveLoggedEmail(email);
             RaApp.getBase().setLoggedUser(response.getMData());
 
             //TODO Go login

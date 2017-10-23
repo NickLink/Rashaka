@@ -9,7 +9,7 @@ import rashakacom.rashaka.utils.helpers.structure.SuperFragment;
  * Created by User on 21.08.2017.
  */
 
-public abstract class BaseFragment extends SuperFragment {
+public abstract class BaseFragment extends SuperFragment{
     public static final String ARGS_INSTANCE = "com.ncapdevi.sample.argsInstance";
 
     //    Button mButton;

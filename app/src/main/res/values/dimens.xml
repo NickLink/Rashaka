@@ -12,12 +12,14 @@
 
 
     <dimen name="text_size_tiny">9sp</dimen>
+    <dimen name="text_size_smaller">10sp</dimen>
     <dimen name="text_size_small">11sp</dimen>
     <dimen name="text_size_mid">12sp</dimen>
     <dimen name="text_size_standart">13sp</dimen>
     <dimen name="text_size_bigger">16sp</dimen>
     <dimen name="text_size_big">22sp</dimen>
     <dimen name="text_size_giant">26sp</dimen>
+    <dimen name="text_size_giant34">34sp</dimen>
 
 
     <dimen name="button_height">32dp</dimen>
@@ -52,5 +54,7 @@
 
     <dimen name="days_size_small">20dp</dimen>
     <dimen name="days_size_normal">36dp</dimen>
+    <dimen name="circle_progressbar_size">140dp</dimen>
+    <dimen name="circle_progressbar_size_big">220dp</dimen>
 
 </resources>

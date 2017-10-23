@@ -1,61 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/background_white">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_white">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/icon_plus_log_food"/>
-
-    <TextView
-        android:id="@+id/title"
-        style="@style/InfoLightBlackTextBold"
-        android:textSize="@dimen/text_size_giant"
-        android:layout_marginTop="@dimen/inner_padding_small"
-        android:layout_marginBottom="@dimen/inner_padding_small"
-        android:text="Log Food"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imageView"/>
-
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@+id/title">
+        android:layout_above="@+id/add_new_alarm">
 
-        <include layout="@layout/item_log_food"
-                 android:id="@+id/drink_alarm_item1"/>
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_white">
 
-        <include layout="@layout/item_log_food"
-                 android:id="@+id/drink_alarm_item2"/>
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/colapsing_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        <include layout="@layout/item_log_food"
-                 android:id="@+id/drink_alarm_item3"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <include layout="@layout/item_log_food"
-                 android:id="@+id/drink_alarm_item4"/>
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/inner_padding"
+                        android:src="@drawable/icon_plus_log_food"/>
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/InfoLightBlackTextBold"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/inner_padding_small"
+                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:text="Log Food"
+                        android:textSize="@dimen/text_size_giant"/>
+
+                    <include
+                        android:id="@+id/add_food_layout"
+                        layout="@layout/item_log_food_add"/>
+                </LinearLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 
     <FrameLayout
+        android:id="@+id/log_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_breeze"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/inner_padding">
+        android:background="@drawable/button_breeze_selector"
+        android:clickable="true"
+        android:padding="@dimen/inner_padding"
+        android:visibility="gone">
 
         <TextView
+            android:id="@+id/log_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Add New Alarm"/>
+            android:text="Log"/>
     </FrameLayout>
 
 </RelativeLayout>

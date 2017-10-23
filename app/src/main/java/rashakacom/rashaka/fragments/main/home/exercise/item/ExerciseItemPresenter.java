@@ -25,6 +25,7 @@ import static rashakacom.rashaka.utils.Consts.LOCATION_PERMISSIONS_REQUEST;
 
 public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, MainRouter> {
 
+    private static final String TAG = ExerciseItemPresenter.class.getSimpleName();
     private CompositeDisposable mCompositeDisposable;
     public static final float MAX_SPEED_WALK = 3.0f;
 
@@ -51,7 +52,7 @@ public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, Main
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            Log.e("TAG", " Permission do not exist - go to Ask for it !");
+            Log.e(TAG, " Permission do not exist - go to Ask for it !");
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -64,7 +65,7 @@ public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, Main
                     LOCATION_PERMISSIONS_REQUEST);
             return false;
         } else {
-            Log.e("TAG", " Permission was granted !");
+            Log.e(TAG, " Permission was granted !");
             return true;
         }
     }

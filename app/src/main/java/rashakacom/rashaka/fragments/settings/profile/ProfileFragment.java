@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,8 +15,13 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,8 +42,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
-import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.domain.profile.UserProfile;
+import rashakacom.rashaka.fragments.BackFragment;
 import rashakacom.rashaka.fragments.settings.profile.crop.CropFragment;
+import rashakacom.rashaka.fragments.settings.profile.dialogs.DobDialog;
+import rashakacom.rashaka.fragments.settings.profile.dialogs.GenderDialog;
+import rashakacom.rashaka.fragments.settings.profile.dialogs.HeightDialog;
+import rashakacom.rashaka.fragments.settings.profile.dialogs.StepsGoalDialog;
+import rashakacom.rashaka.fragments.settings.profile.dialogs.WeightDialog;
+import rashakacom.rashaka.fragments.settings.profile.dialogs.WeightGoalDialog;
 import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.Utility;
 import rashakacom.rashaka.utils.database.SharedUserModel;
@@ -49,11 +62,12 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
  */
 
 @Layout(id = R.layout.fr_set_profile)
-public class ProfileFragment extends BaseFragment implements ProfileView {
+public class ProfileFragment extends BackFragment implements ProfileView {
 
     private MainRouter myRouter;
     private ProfilePresenter mPresenter;
     private SharedUserModel model;
+    private static final String TAG = ProfileFragment.class.getSimpleName();
 
     //-----------------------------------------------------
 
@@ -69,29 +83,34 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
-
-        model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
-        //model.select(new UserData());
-
+    public void onBackButtonPressed() {
+        Log.e(TAG, "SettingsFragment ON BACK Pressed -> ");
+        myRouter.onBackPressed();
+        //mFragmentNavigation.popFragment();
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+        model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
+
+        model.select(new UserProfile(RaApp.getBase().getProfileUser()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackButtonPressed());
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -108,31 +127,53 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
             mPresenter.onProfileImageClick();
         });
 
-        mProfileTopBackground.setOnClickListener(view19 -> mPresenter.onBackgroundImageClick());
+        mProfileTopBackground.setOnClickListener(view19 -> {
+            userChoosenSource = Consts.backImage;
+            mPresenter.onBackgroundImageClick();
+        });
 
         //TODO User info dialogs click
-        mProfileGenderButton.setOnClickListener(view1 -> mPresenter.onGenderClick());
-        mProfileDobButton.setOnClickListener(view16 -> mPresenter.onDobClick());
-        mProfileHeightButton.setOnClickListener(view12 -> mPresenter.onHeightClick());
-        mProfileWeightButton.setOnClickListener(view13 -> mPresenter.onWeightClick());
-        mProfileWeightGButton.setOnClickListener(view14 -> mPresenter.onWeightGClick());
-        mProfileStepsGButton.setOnClickListener(view15 -> mPresenter.onStepsGClick());
+        mProfileGenderButton.setOnClickListener(view1 -> {
+            mPresenter.onDialogClick(new GenderDialog());
+            //mPresenter.onGenderClick();
+        });
+        mProfileDobButton.setOnClickListener(view16 -> {
+            mPresenter.onDialogClick(new DobDialog());
+            //mPresenter.onDobClick();
+        });
+        mProfileHeightButton.setOnClickListener(view12 -> {
+            mPresenter.onDialogClick(new HeightDialog());
+            //mPresenter.onHeightClick();
+        });
+        mProfileWeightButton.setOnClickListener(view13 -> {
+            mPresenter.onDialogClick(new WeightDialog());
+            //mPresenter.onWeightClick();
+        });
+        mProfileWeightGButton.setOnClickListener(view14 -> {
+            mPresenter.onDialogClick(new WeightGoalDialog());
+            //mPresenter.onWeightGClick();
+        });
+        mProfileStepsGButton.setOnClickListener(view15 -> {
+            mPresenter.onDialogClick(new StepsGoalDialog());
+            //mPresenter.onStepsGClick();
+        });
 
         //TODO Save all this sh..t
         mProfileSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.onSaveClick();
+                mPresenter.saveProfileUpdate(model.getSelected().getValue());
+                //mPresenter.onSaveClick();
             }
         });
 
 
         model.getSelected().observe(this, o -> {
-
             mPresenter.onProfileDataChanged(o);
-
-            Log.e("TAG", "model.getSelected().observe");
+            Log.e(TAG, "model.getSelected().observe");
         });
+
+
 
     }
 
@@ -163,7 +204,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     public void setProfileBackground(String background) {
         mProfileTopBackground.setVisibility(View.VISIBLE);
         Picasso.with(getActivity()).invalidate(background);
-        Picasso.with(getActivity()).load(background).into(mProfileTopBackground);
+        Picasso.with(getActivity())
+                .load(background)
+                .into(mProfileTopBackground);
     }
 
     @Override
@@ -173,7 +216,6 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         Picasso.with(getActivity())
                 .load(image)
                 .into(mProfileImage);
-
     }
 
     @Override
@@ -245,7 +287,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     @Override
     public void selectImage() {
-        Log.e("TAG", "selectImage - >");
+        Log.e(TAG, "selectImage - >");
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
 
@@ -338,7 +380,21 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         mFragmentNavigation.pushFragment(CropFragment.newInstance(userChoosenSource, uri.toString()));
     }
 
+    @Override
+    public void setSaveEnabled(boolean enabled) {
+        Log.e(TAG, "setSaveEnabled " + enabled);
+        mProfileSave.setEnabled(enabled);
+        if (enabled)
+            mProfileImageBack.setBackgroundColor(Color.RED);
+        else
+            mProfileImageBack.setBackgroundColor(Color.WHITE);
+    }
+
+
     //--------------------------------------------
+    @BindView(R.id.profile_save_back)
+    View mProfileImageBack;
+
 
     @BindView(R.id.profile_gray_plus)
     ImageView mProfileGrayPlus;

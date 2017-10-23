@@ -10,4 +10,16 @@ public interface HomeBaseView {
 
     void setLangValue();
     void pushFragment(BaseFragment fragment);
+
+    void stopRefresh();
+
+    void setActiveTime(String time, int progress);
+    void setCalories(String calories, int progress);
+    void setDistance(String distance);
+    void setSteps(String steps);
+    void setWeight(String weight);
+
+    boolean isRefreshing();
+
+    void showDialogSetStepsGoal(String title, String text, String button);
 }

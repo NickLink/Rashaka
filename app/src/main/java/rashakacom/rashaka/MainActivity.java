@@ -1,6 +1,8 @@
 package rashakacom.rashaka;
 
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.constraint.ConstraintLayout;
@@ -32,17 +34,23 @@ import rashakacom.rashaka.fragments.settings.notification.NotificationFragment;
 import rashakacom.rashaka.fragments.settings.profile.ProfileFragment;
 import rashakacom.rashaka.fragments.settings.settings.SettingsFragment;
 import rashakacom.rashaka.utils.Support;
+import rashakacom.rashaka.utils.dialogs.DialogBlueButton;
 
 import static rashakacom.rashaka.utils.Support.getArMenu;
 
 public class MainActivity extends AppCompatActivity implements MainRouter, BaseFragment.FragmentNavigation, FragNavController.TransactionListener, FragNavController.RootFragmentListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private BottomBar mBottomBar;
     private FragNavController mNavController;
 
     private ProfileFragment profileFragment;
     private SettingsFragment settingsFragment;
     private NotificationFragment notificationFragment;
+
+    private MainPresenter mPresenter;
+
+    private Dialog loader;
 
     private final int INDEX_HOME = FragNavController.TAB1;
     private final int INDEX_NEWS = FragNavController.TAB2;
@@ -67,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
 
         Support.setStatusBarColor(this, R.color.main_statusbar_color);
 
+        mPresenter = new MainPresenter(this);
+
         if (RaApp.getBase().getLangType().equals("ar")) {
             ViewCompat.setLayoutDirection(findViewById(R.id.main_parent_layout), ViewCompat.LAYOUT_DIRECTION_RTL);
         }
@@ -78,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        mBottomBar.selectTabAtPosition(INDEX_PLUS);
+        mBottomBar.selectTabAtPosition(INDEX_HOME);
         mNavController = FragNavController.newBuilder(savedInstanceState, getSupportFragmentManager(), R.id.main_content)
                 .transactionListener(this)
                 .rootFragmentListener(this, 8) //TODO WAS 5
@@ -119,7 +129,11 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
             }
         });
 
+        mPresenter.startService();
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
             menu.findItem(R.id.action_notification).setTitle(RaApp.getLabel("key_notifications"));
             menu.findItem(R.id.action_settings).setTitle(RaApp.getLabel("key_settings"));
         }
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -145,41 +159,40 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
                 mNavController.switchTab(INDEX_PROFILE);
                 Toast.makeText(this, "Profile selected", Toast.LENGTH_SHORT)
                         .show();
-                break;
+                return true;
             // action with ID action_settings was selected
             case R.id.action_notification:
                 mNavController.switchTab(INDEX_NOTIFICATION);
                 Toast.makeText(this, "Notification selected", Toast.LENGTH_SHORT)
                         .show();
-                break;
+                return true;
             // action with ID action_settings was selected
             case R.id.action_settings:
                 mNavController.switchTab(INDEX_SETTINGS);
                 Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT)
                         .show();
-                break;
+                return true;
             default:
                 break;
         }
-
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
         if (!mNavController.isRootFragment()) {
-            Log.e("TAG", "mNavController.popFragment()");
+            Log.e(TAG, "mNavController.popFragment()");
             mNavController.popFragment();
         } else {
             if (mNavController.getCurrentFrag() instanceof ProfileFragment ||
                     mNavController.getCurrentFrag() instanceof SettingsFragment ||
                     mNavController.getCurrentFrag() instanceof NotificationFragment) {
-                Log.e("TAG", "SETTINGS FRAGMENT INSTANCE!!!!");
+                Log.e(TAG, "SETTINGS FRAGMENT INSTANCE!!!!");
                 mBottomBar.selectTabAtPosition(INDEX_HOME);
                 mNavController.switchTab(INDEX_HOME);
             } else {
-                Log.e("TAG", "Just finish()");
-                finish();
+                Log.e(TAG, "Just finish()");
+                //finish();
             }
 
             //super.onBackPressed();
@@ -260,6 +273,27 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         snackbar.show();
     }
 
+    @Override
+    public void showLoader() {
+        loader = new Dialog(this);
+        loader.setContentView(R.layout.dlg_loading);
+        loader.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        loader.show();
+    }
+
+    @Override
+    public void hideLoader() {
+        if(loader != null && loader.isShowing()){
+            loader.dismiss();
+        }
+    }
+
+    @Override
+    public void showDialog(String title, String text, String button) {
+        DialogBlueButton dialog = new DialogBlueButton(this, title, text, button);
+        dialog.show();
+    }
+
     private ProfileFragment getProfileFragment() {
         if (profileFragment == null) {
             profileFragment = new ProfileFragment();
@@ -279,6 +313,14 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
             notificationFragment = new NotificationFragment();
         }
         return notificationFragment;
+    }
+
+    @Override
+    protected void onDestroy() {
+        //mPresenter.stopService();
+        Log.i("MAINACT", "onDestroy!");
+        super.onDestroy();
+
     }
 
 }

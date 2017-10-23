@@ -24,6 +24,6 @@ public class SleepLogPresenter extends SuperPresenter<SleepLogView, MainRouter> 
 
     @Override
     public void onViewReady() {
-
+        getView().setLangValues();
     }
 }

@@ -30,4 +30,6 @@ public interface ProfileView {
 
 
     void setBottomDialog(BottomSheetDialogFragment bottomDialog);
+
+    void setSaveEnabled(boolean enabled);
 }

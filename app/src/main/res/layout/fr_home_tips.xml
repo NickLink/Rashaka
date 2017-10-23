@@ -6,25 +6,35 @@
               android:gravity="center_horizontal"
               android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:src="@drawable/main_button_tips"/>
-
-    <TextView
-        android:id="@+id/page_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:text="Fitness Tips"
-        android:textSize="32sp"/>
-
-    <android.support.v7.widget.RecyclerView
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"></WebView>
 
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/inner_padding"-->
+        <!--android:src="@drawable/main_button_tips"/>-->
 
-    </android.support.v7.widget.RecyclerView>
+    <!--<TextView-->
+        <!--android:id="@+id/page_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/inner_padding"-->
+        <!--android:text="Fitness Tips"-->
+        <!--android:textSize="32sp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/steps_count"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/inner_padding"-->
+        <!--android:textSize="32sp"/>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--</android.support.v7.widget.RecyclerView>-->
 
 </LinearLayout>

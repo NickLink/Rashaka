@@ -29,6 +29,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + DatabaseContract.LabelEntry.LABEL_COLUMN_TITLE + " TEXT NOT NULL"
                 + ");";
         sqLiteDatabase.execSQL(SQL_CREATE_LABELS_TABLE);
+
+        final String SQL_CREATE_STEPS_TABLE = "CREATE TABLE "
+                + DatabaseContract.StepsEntry.STEPS_TABLE_NAME + " ("
+                + DatabaseContract.StepsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DatabaseContract.StepsEntry.STEPS_COLUMN_TIME + " INTEGER NOT NULL, "
+                + DatabaseContract.StepsEntry.STEPS_COLUMN_STEPS + " INTEGER NOT NULL"
+                + ");";
+        sqLiteDatabase.execSQL(SQL_CREATE_STEPS_TABLE);
+
+        final String SQL_CREATE_STEP_TABLE = "CREATE TABLE "
+                + DatabaseContract.StepEntry.STEP_TABLE_NAME + " ("
+                + DatabaseContract.StepEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + DatabaseContract.StepEntry.STEP_COLUMN_TIME + " INTEGER NOT NULL"
+                + ");";
+        sqLiteDatabase.execSQL(SQL_CREATE_STEP_TABLE);
     }
 
     @Override

@@ -31,6 +31,10 @@ public class WeeklyA {
     @Expose
     private Integer avMinPercent;
 
+    public WeeklyA(WeeklyA in){
+        this(in.avSteps, in.avMin, in.avStepsPercent, in.avMinPercent);
+    }
+
     @Override
     public String toString() {
         return "WeeklyA{" +

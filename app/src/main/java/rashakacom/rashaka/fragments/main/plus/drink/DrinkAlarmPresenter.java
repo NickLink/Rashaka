@@ -29,8 +29,9 @@ import static rashakacom.rashaka.utils.Consts.KEY_ALARM_DATA;
 
 public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRouter> {
 
-    public DrinkAlarmPresenter() {
+    private static final String TAG = DrinkAlarmPresenter.class.getSimpleName();
 
+    public DrinkAlarmPresenter() {
 
     }
 
@@ -46,7 +47,7 @@ public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRout
 
 
     public void setAlarm(Context context, DrinkAlarmItem alarmItem) {
-        Log.e("TAG", "ALARM set to > " + alarmItem.toString());
+        Log.e(TAG, "ALARM set to > " + alarmItem.toString());
         Intent mIntent = new Intent(context,
                 NotificationReceiver.class);
         mIntent.putExtra(KEY_ALARM_DATA, new Gson().toJson(alarmItem, DrinkAlarmItem.class));
@@ -57,7 +58,7 @@ public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRout
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
 
         if (alarmItem.isEnabled()) {
-            Log.e("TAG", "alarmItem.isEnabled() > " + alarmItem.isEnabled());
+            Log.e(TAG, "alarmItem.isEnabled() > " + alarmItem.isEnabled());
             //TODO Enable Alarm
             // Add this day of the week line to your existing code
             //alarmCalendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
@@ -68,10 +69,10 @@ public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRout
             alarmCalendar.set(Calendar.AM_PM, alarmItem.getAm());
             Long alarmTime = alarmCalendar.getTimeInMillis();
             //Also change the time to 24 hours.
-            Log.e("TAG", "alarmtime > " + alarmTime + " date -> " + Support.getDateFromMillis(alarmTime));
+            Log.e(TAG, "alarmtime > " + alarmTime + " date -> " + Support.getDateFromMillis(alarmTime));
             am.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, INTERVAL_DAY, pI);
         } else {
-            Log.e("TAG", "alarmItem.isEnabled() > " + alarmItem.isEnabled());
+            Log.e(TAG, "alarmItem.isEnabled() > " + alarmItem.isEnabled());
             //TODO Disable existing alarm
             am.cancel(pI);
 

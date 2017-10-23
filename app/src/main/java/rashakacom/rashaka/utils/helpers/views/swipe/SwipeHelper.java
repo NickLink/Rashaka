@@ -29,6 +29,8 @@ import java.util.Queue;
 
 public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
 
+    private static final String TAG = SwipeHelper.class.getSimpleName();
+
     public static final int BUTTON_WIDTH = (int)getPixelsFromDip(80);
     private RecyclerView recyclerView;
     private List<UnderlayButton> buttons;
@@ -65,7 +67,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
                 if (rect.top < point.y && rect.bottom > point.y)
                     gestureDetector.onTouchEvent(e);
                 else {
-                    Log.e("TAG", "onTouch else ---->>>");
+                    Log.e(TAG, "onTouch else ---->>>");
                     recoverQueue.add(swipedPos);
                     swipedPos = -1;
                     recoverSwipedItem();
@@ -167,11 +169,11 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     }
 
     private synchronized void recoverSwipedItem(){
-        Log.e("TAG", "recoverSwipedItem ---->>>");
+        Log.e(TAG, "recoverSwipedItem ---->>>");
         while (!recoverQueue.isEmpty()){
             int pos = recoverQueue.poll();
             if (pos > -1) {
-                Log.e("TAG", "notifyItemChanged ---->>>");
+                Log.e(TAG, "notifyItemChanged ---->>>");
                 recyclerView.getAdapter().notifyItemChanged(pos);
             }
         }
@@ -268,7 +270,7 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     }
 
     public void clearSwipe(){
-        Log.e("TAG", "clearSwipe ---->>>");
+        Log.e(TAG, "clearSwipe ---->>>");
         recoverSwipedItem();
     }
 }

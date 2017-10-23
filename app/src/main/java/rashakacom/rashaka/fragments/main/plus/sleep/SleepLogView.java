@@ -6,5 +6,8 @@ package rashakacom.rashaka.fragments.main.plus.sleep;
 
 public interface SleepLogView {
 
-    void setValues(String one, String two, String three);
+    void setLangValues();
+
+    void setStartSleep(String startSleep);
+    void setEndSleep(String endSleep);
 }

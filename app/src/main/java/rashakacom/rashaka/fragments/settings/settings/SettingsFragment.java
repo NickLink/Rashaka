@@ -4,10 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -15,7 +23,9 @@ import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.fragments.BackFragment;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -24,8 +34,9 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
  */
 
 @Layout(id = R.layout.fr_set_settings)
-public class SettingsFragment extends BaseFragment implements SettingsView {
+public class SettingsFragment extends BackFragment implements SettingsView {
 
+    private static final String TAG = SettingsFragment.class.getSimpleName();
     private MainRouter myRouter;
     private SettingsPresenter mPresenter;
 
@@ -37,24 +48,49 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     }
 
     @Override
+    public void onBackButtonPressed() {
+        Log.e(TAG, "SettingsFragment ON BACK Pressed -> ");
+        myRouter.onBackPressed();
+        //mFragmentNavigation.popFragment();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_toolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackButtonPressed());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.e(TAG, " onOptionsItemSelected -> " + item.getItemId());
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackButtonPressed();
+                //Toast.makeText(getActivity(),"Back button clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 
 //    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
+//    public void onResume() {
+//        super.onResume();
+//        ActivityCompat.invalidateOptionsMenu(getActivity());
 //    }
 
     @Override
@@ -62,11 +98,17 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        mNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //TODO Notification switch
-            }
+        mNotificationSwitch.setOnCheckedChangeListener((compoundButton, b) -> {
+            //TODO Notification switch
+        });
+
+        mRashakaPassword.setOnClickListener(view1 -> {
+            //TODO Password change screen
+            mPresenter.onChangePassword();
+        });
+
+        mLogoutButton.setOnClickListener(view12 -> {
+            mPresenter.LogoutAndRestart(getActivity());
         });
     }
 
@@ -78,15 +120,19 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
 
     @Override
     public void setViewsValues() {
-        mGeneralTitle.setText(RaApp.getLabel("key_general"));
-        mAccountTitle.setText(RaApp.getLabel("key_rashaka_account"));
-        mPasswordTitle.setText(RaApp.getLabel("key_password"));
-        mNotificationTitle.setText(RaApp.getLabel("key_caps_notification"));
-        mProfileTitle.setText(RaApp.getLabel("key_profile"));
-        mUserinfoTitle.setText(RaApp.getLabel("key_user_info"));
+        mGeneralTitle.setText(RaApp.getLabel(LangKeys.key_general));
+        mAccountTitle.setText(RaApp.getLabel(LangKeys.key_rashaka_account));
+        mPasswordTitle.setText(RaApp.getLabel(LangKeys.key_password));
+        mNotificationTitle.setText(RaApp.getLabel(LangKeys.key_caps_notification));
+        mProfileTitle.setText(RaApp.getLabel(LangKeys.key_profile));
+        mUserinfoTitle.setText(RaApp.getLabel(LangKeys.key_user_info));
+        mLogoutButtonText.setText("LOGOUT");
     }
 
-
+    @Override
+    public void pushFragment(BaseFragment fragment) {
+        mFragmentNavigation.pushFragment(fragment);
+    }
 
 
     @BindView(R.id.general_title)
@@ -101,8 +147,8 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @BindView(R.id.password_title)
     TextView mPasswordTitle;
 
-    @BindView(R.id.rashaka_password)
-    EditText mRashakaPassword;
+    @BindView(R.id.password_layout)
+    LinearLayout mRashakaPassword;
 
     @BindView(R.id.notification_title)
     TextView mNotificationTitle;
@@ -120,7 +166,11 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     TextView mUserinfoTitle;
 
     @BindView(R.id.userinfo_text)
-    TextView mUserinfoText;
+    EditText mUserinfoText;
 
+    @BindView(R.id.logout_button)
+    FrameLayout mLogoutButton;
 
+    @BindView(R.id.logout_button_text)
+    TextView mLogoutButtonText;
 }

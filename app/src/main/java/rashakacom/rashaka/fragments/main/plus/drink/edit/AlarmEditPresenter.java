@@ -12,6 +12,7 @@ import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.main.plus.drink.DrinkAlarmItem;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 
 /**
@@ -20,6 +21,7 @@ import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 
 public class AlarmEditPresenter extends SuperPresenter<AlarmEditView, MainRouter> {
 
+    private static final String TAG = AlarmEditPresenter.class.getSimpleName();
     private DrinkAlarmItem mDataItem;
 
     public AlarmEditPresenter() {
@@ -74,22 +76,22 @@ public class AlarmEditPresenter extends SuperPresenter<AlarmEditView, MainRouter
 
     public String getDayOfWeek() {
         int dayOfWeekPos = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        Log.e("TAG", "getDayOfWeek - > dayOfWeekPos = " + dayOfWeekPos);
+        Log.e(TAG, "getDayOfWeek - > dayOfWeekPos = " + dayOfWeekPos);
         switch (dayOfWeekPos){
             case Calendar.MONDAY:
-                return RaApp.getLabel("key_mon");
+                return RaApp.getLabel(LangKeys.key_mon);
             case Calendar.TUESDAY:
-                return RaApp.getLabel("key_tues");
+                return RaApp.getLabel(LangKeys.key_tues);
             case Calendar.WEDNESDAY:
-                return RaApp.getLabel("key_weds");
+                return RaApp.getLabel(LangKeys.key_weds);
             case Calendar.THURSDAY:
-                return RaApp.getLabel("key_thurs");
+                return RaApp.getLabel(LangKeys.key_thurs);
             case Calendar.FRIDAY:
-                return RaApp.getLabel("key_fri");
+                return RaApp.getLabel(LangKeys.key_fri);
             case Calendar.SATURDAY:
-                return RaApp.getLabel("key_sat");
+                return RaApp.getLabel(LangKeys.key_sat);
             case Calendar.SUNDAY:
-                return RaApp.getLabel("key_sun");
+                return RaApp.getLabel(LangKeys.key_sun);
             default:
                 return "";
         }
@@ -102,7 +104,7 @@ public class AlarmEditPresenter extends SuperPresenter<AlarmEditView, MainRouter
     }
 
     public void onCancelClick() {
-        getView().onCancel();
+        getView().onCancel(mDataItem);
     }
 
     public void onSaveClick() {

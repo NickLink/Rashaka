@@ -3,6 +3,7 @@ package rashakacom.rashaka;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -19,13 +20,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rashakacom.rashaka.domain.PartnersDataItem;
 import rashakacom.rashaka.fragments.login.lang.LangFragment;
 import rashakacom.rashaka.fragments.login.passw.PassFragment;
 import rashakacom.rashaka.fragments.login.register.RegisterFragment;
 import rashakacom.rashaka.fragments.login.signin.SignInFragment;
 import rashakacom.rashaka.utils.Consts;
 import rashakacom.rashaka.utils.Support;
-import rashakacom.rashaka.domain.PartnersDataItem;
 
 import static rashakacom.rashaka.utils.Consts.ANIMATION_LEFT;
 import static rashakacom.rashaka.utils.Consts.ANIMATION_RIGHT;
@@ -59,13 +60,22 @@ public class LoginActivity extends AppCompatActivity implements LoginRouter {
 
         Support.setStatusBarColor(this, R.color.login_statusbar_color);
         mPresenter = new LoginPresenter(this);
+
         fm = getSupportFragmentManager();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        //TODO Clear database
-        RaApp.getBase().clearLabelCache();
+        //TODO Check for saved session before
+        boolean logged = true;
+        if(RaApp.getBase().isUserLogged()){
+            //TODO Call for new Activity
+            new Handler().postDelayed(() -> goMainActivity(), 200);
+        } else {
+            //TODO New login situation -> Clear database
+            RaApp.getBase().clearLabelCache();
+            callLang();
+        }
 
-        callLang();
+
     }
 
     @Override

@@ -50,6 +50,18 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCO5ZRXyah6avFks4ICg8JPIYT1w6iWz0Y"/>
 
+        <service
+            android:name="rashakacom.rashaka.utils.steps.SensorService"
+            android:enabled="true" >
+        </service>
+
+        <receiver android:name="rashakacom.rashaka.utils.steps.SensorRestarterBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

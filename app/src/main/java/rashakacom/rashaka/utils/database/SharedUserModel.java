@@ -13,6 +13,7 @@ import rashakacom.rashaka.domain.profile.UserProfile;
 
 public class SharedUserModel extends ViewModel {
 
+    private static final String TAG = SharedUserModel.class.getSimpleName();
     private MutableLiveData<UserProfile> selected = new MutableLiveData<>();
 
     public SharedUserModel() {
@@ -20,7 +21,7 @@ public class SharedUserModel extends ViewModel {
     }
 
     public void select(UserProfile item) {
-        Log.e("TAG", "SharedUserModel select");
+        Log.e(TAG, "SharedUserModel select");
         selected.setValue(item);
     }
 

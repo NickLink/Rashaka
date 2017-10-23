@@ -10,9 +10,12 @@ import android.support.annotation.NonNull;
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.File;
 import java.util.concurrent.TimeoutException;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -87,5 +90,18 @@ public class Rest {
             message = "Connection TimeOut. Please check your internet connection.";
         }
         return message;
+    }
+
+    public static final String MULTIPART_FORM_DATA = "multipart/form-data";
+    public static final String MEDIA_TYPE_PNG = "image/jpeg";
+
+    public static RequestBody createRequestBody(@NonNull File file) {
+        return RequestBody.create(
+                MediaType.parse(MEDIA_TYPE_PNG), file);
+    }
+
+    public static RequestBody createRequestBody(@NonNull String s) {
+        return RequestBody.create(
+                MediaType.parse(MULTIPART_FORM_DATA), s);
     }
 }

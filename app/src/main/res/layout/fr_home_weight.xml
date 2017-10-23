@@ -1,128 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/background_white"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_white">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:src="@drawable/main_button_weight"/>
-
-    <TextView
-        android:id="@+id/page_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:text="Track Weight"
-        android:textSize="32sp"/>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:src="@drawable/main_button_weight"/>
-
-    <TextView
-        android:id="@+id/current_weight_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:text="Current Weight"
-        android:textSize="20sp"/>
-
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/inner_padding_small"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_new_alarm">
 
-        <FrameLayout
-            android:layout_width="0dp"
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
+            android:background="@color/background_white">
 
-            <ImageView
-                android:id="@+id/weight_button_minus"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/colapsing_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:src="@drawable/main_button_weight"/>
+
+                    <TextView
+                        android:id="@+id/page_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Track Weight"
+                        android:textSize="26sp"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:src="@drawable/main_button_weight"
+                        android:visibility="gone"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="8.1">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/inner_padding_small"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:weightSum="8">
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2">
+
+                                    <ImageView
+                                        android:id="@+id/weight_button_minus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end"
+                                        android:src="@drawable/icon_weight_minus"/>
+                                </FrameLayout>
+
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="4">
+
+                                    <TextView
+                                        android:id="@+id/weight_big_text"
+                                        style="@style/InfoLightBlackTextBold"
+                                        android:layout_gravity="center"
+                                        android:text="187kg"
+                                        android:textSize="26sp"/>
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.6">
+
+                                    <ImageView
+                                        android:id="@+id/weight_button_plus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/icon_weight_plus"/>
+                                </FrameLayout>
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/inner_padding_small"
+                                android:paddingStart="@dimen/inner_padding"
+                                android:paddingEnd="@dimen/inner_padding">
+
+                                <TextView
+                                    style="@style/InfoLightBlackTextBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/text_size_bigger"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="0"/>
+
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="@dimen/inner_padding_small"
+                                    android:paddingEnd="@dimen/inner_padding"
+                                    android:layout_centerVertical="true">
+
+                                    <SeekBar
+                                        android:id="@+id/seekBar"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:minHeight="5dp"
+                                        android:maxHeight="5dp"
+                                        android:max="9"
+                                        android:progressDrawable="@drawable/seek_progress"
+                                        android:thumb="@drawable/seek_thumb"
+                                        android:progress="0"/>
+                                </FrameLayout>
+
+                                <TextView
+                                    style="@style/InfoLightBlackTextBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/text_size_bigger"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="0.9"/>
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1">
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center"
+                                android:background="@color/light_gray"/>
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2">
+
+                            <TextView
+                                android:id="@+id/weight_button_save"
+                                style="@style/InfoWhiteText"
+                                android:layout_gravity="center"
+                                android:background="@drawable/button_breeze_selector_c12"
+                                android:paddingBottom="9dp"
+                                android:paddingEnd="15dp"
+                                android:paddingStart="15dp"
+                                android:paddingTop="8dp"
+                                android:text="Save It!"
+                                android:textSize="@dimen/text_size_small"/>
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/current_weight_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:text="Current Weight"
+                        android:textSize="20sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginEnd="@dimen/inner_padding"
+                        android:layout_marginStart="@dimen/inner_padding"
+                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:background="@color/light_gray"/>
+                </LinearLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:src="@drawable/icon_weight_minus"/>
-        </FrameLayout>
+                android:orientation="vertical">
 
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/result_tabs"
+                    style="@style/TabLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabTextAppearance="@style/TabLayoutStyleText"/>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4">
-
-            <TextView
-                android:id="@+id/weight_big_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="187kg"
-                android:textSize="32sp"/>
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.6">
-
-            <ImageView
-                android:id="@+id/weight_button_plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_weight_plus"/>
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4">
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:background="@color/light_gray"/>
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
-
-
-            <TextView
-                android:id="@+id/weight_button_save"
-                style="@style/InfoWhiteText"
-                android:layout_gravity="start"
-                android:background="@drawable/button_breeze_selector_c12"
-                android:paddingBottom="3dp"
-                android:paddingEnd="6dp"
-                android:paddingStart="6dp"
-                android:paddingTop="2dp"
-                android:text="save"
-                android:textSize="@dimen/text_size_small"/>
-        </FrameLayout>
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginEnd="@dimen/inner_padding"
-        android:layout_marginStart="@dimen/inner_padding"
-        android:layout_marginTop="@dimen/inner_padding"
-        android:background="@color/light_gray"/>
-
-</LinearLayout>
+                <rashakacom.rashaka.utils.helpers.views.pager.WrapContentViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp">
+                </rashakacom.rashaka.utils.helpers.views.pager.WrapContentViewPager>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

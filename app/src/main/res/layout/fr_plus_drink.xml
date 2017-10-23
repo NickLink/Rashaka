@@ -55,7 +55,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </android.support.v7.widget.RecyclerView>
 
@@ -66,7 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/main_breeze"
+        android:background="@drawable/button_breeze_selector"
+        android:clickable="true"
         android:padding="@dimen/inner_padding">
 
         <TextView

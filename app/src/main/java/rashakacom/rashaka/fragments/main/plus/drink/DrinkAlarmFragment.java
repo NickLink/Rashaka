@@ -6,10 +6,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -29,6 +33,8 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 import rashakacom.rashaka.utils.helpers.views.CustomLayoutManager;
 import rashakacom.rashaka.utils.helpers.views.swipe.SwipeHelper;
 
+import static rashakacom.rashaka.utils.Consts.ALARM_START_VALUE;
+
 /**
  * Created by User on 24.08.2017.
  */
@@ -36,6 +42,7 @@ import rashakacom.rashaka.utils.helpers.views.swipe.SwipeHelper;
 @Layout(id = R.layout.fr_plus_drink)
 public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
+    private static final String TAG = DrinkAlarmFragment.class.getSimpleName();
     private MainRouter myRouter;
     private DrinkAlarmPresenter mPresenter;
     private DrinkAlarmModel model;
@@ -72,20 +79,15 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -107,7 +109,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
             @Override
             public void switchClick(int pos, boolean b) {
-                Log.e("TAG", "Switched to " + b + " on position " + pos);
+                Log.e(TAG, "Switched to " + b + " on position " + pos);
                 list.get(pos).setEnabled(b);
                 mPresenter.setAlarm(getActivity(), list.get(pos));
             }
@@ -124,7 +126,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
                             @Override
                             public void onClick(int pos) {
                                 // TODO: onDelete
-                                Log.e("TAG", "onDelete position -> " + pos);
+                                Log.e(TAG, "onDelete position -> " + pos);
                                 clearSwiped(pos);
                             }
                         }
@@ -133,29 +135,31 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
         };
 
         model.getSelected().observe(this, o -> {
-            Log.e("TAG", "Observed Changes!!!");
-            if (editedItemPosition != -1) {
+            Log.e(TAG, "Observed Changes!!!");
+            if(o == null){
+                Log.e(TAG, "Observed o == null list size = " + list.size());
+                //list.remove(editedItemPosition);
+            } else if (editedItemPosition != -1) {
                 list.set(editedItemPosition, o);
                 mRecyclerView.getAdapter().notifyDataSetChanged();
                 mPresenter.saveAlarmListChanges(list);
             }
         });
 
-        mButtonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                list.add(new DrinkAlarmItem());
-                editedItemPosition = list.size() - 1;
-                Log.e("TAG", "LIST SIZE NOW -> " + list.size());
-                model.select(list.get(editedItemPosition));
-                mFragmentNavigation.pushFragment(new AlarmEditFragment());
-            }
+        mButtonAdd.setOnClickListener(view1 -> {
+            DrinkAlarmItem item = new DrinkAlarmItem();
+            item.setId(ALARM_START_VALUE + list.size());
+            list.add(item);
+            editedItemPosition = list.size() - 1;
+            Log.e(TAG, "LIST SIZE NOW -> " + list.size());
+            model.select(list.get(editedItemPosition));
+            mFragmentNavigation.pushFragment(new AlarmEditFragment());
         });
     }
 
 
     private void clearSwiped(int pos){
-        Log.e("TAG", "clearSwiped ======= " + pos);
+        Log.e(TAG, "clearSwiped ======= " + pos);
         list.remove(pos);
         //mRecyclerView.getAdapter().notifyDataSetChanged();
         swipeHelper.clearSwipe();

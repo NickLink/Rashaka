@@ -32,6 +32,7 @@ import rashakacom.rashaka.utils.helpers.views.picker.MyStringPicker;
 @Layout(id = R.layout.fr_plus_drink_edit)
 public class AlarmEditFragment extends BaseFragment implements AlarmEditView, View.OnClickListener {
 
+    private static final String TAG = AlarmEditFragment.class.getSimpleName();
     private MainRouter myRouter;
     private AlarmEditPresenter mPresenter;
     private DrinkAlarmModel model;
@@ -74,7 +75,7 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
         mHoursPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                Log.e("TAG", "mHoursPicker -> onValueChange " + i + " i1 " + i1);
+                Log.e(TAG, "mHoursPicker -> onValueChange " + i + " i1 " + i1);
                 mPresenter.setHours(i1);
             }
         });
@@ -82,13 +83,13 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
         mMinutesPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                Log.e("TAG", "mMinutesPicker -> onValueChange " + i + " i1 " + i1);
+                Log.e(TAG, "mMinutesPicker -> onValueChange " + i + " i1 " + i1);
                 mPresenter.setMinutes(i1);
             }
         });
 
         mAmPicker.setOnValueChangedListener((numberPicker, i, i1) -> {
-            Log.e("TAG", "mAmPicker -> onValueChange " + i + " i1 " + i1);
+            Log.e(TAG, "mAmPicker -> onValueChange " + i + " i1 " + i1);
             switch (i1){
                 case 0:
                     mPresenter.setAm(Calendar.AM);
@@ -110,19 +111,9 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
         String[] amString = {"am", "pm"};
         mAmPicker.setDisplayedValues(amString);
 
-        mButtonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.onCancelClick();
-            }
-        });
+        mButtonCancel.setOnClickListener(view1 -> mPresenter.onCancelClick());
 
-        mButtonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.onSaveClick();
-            }
-        });
+        mButtonSave.setOnClickListener(view12 -> mPresenter.onSaveClick());
     }
 
     @NonNull
@@ -164,7 +155,20 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
     }
 
     @Override
-    public void onCancel() {
+    public void onClick(View view) {
+        mPresenter.onDayClick((TextView)view);
+    }
+
+    @Override
+    public void doSave(DrinkAlarmItem data) {
+        model.select(data);
+        mFragmentNavigation.popFragment();
+    }
+
+    @Override
+    public void onCancel(DrinkAlarmItem data) {
+        //data = null;
+        model.select(null);
         mFragmentNavigation.popFragment();
     }
 
@@ -213,16 +217,5 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
 
     @BindView(R.id.cancel_button)
     TextView mButtonCancel;
-
-    @Override
-    public void onClick(View view) {
-        mPresenter.onDayClick((TextView)view);
-    }
-
-    @Override
-    public void doSave(DrinkAlarmItem data) {
-        model.select(data);
-        onCancel();
-    }
 
 }

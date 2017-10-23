@@ -4,6 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,8 +22,11 @@ import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
+import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
+import rashakacom.rashaka.utils.helpers.views.calendar.OneWeek;
 
 /**
  * Created by User on 24.08.2017.
@@ -26,8 +35,11 @@ import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 @Layout(id = R.layout.main_base_frag)
 public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
 
+    private static final String TAG = HomeBaseFragment.class.getSimpleName();
     private MainRouter myRouter;
     private HomeBasePresenter mPresenter;
+
+    private long mTimeStamp;
 
     @Override
     public void onAttach(Context context) {
@@ -39,28 +51,26 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
+        mTimeStamp = mPresenter.startOfDay();
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_top);
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        mSwipeLayout.setOnRefreshListener(() -> mPresenter.readData(true, mTimeStamp));
 
         mButtonExercise.setOnClickListener(view1 -> {
             mPresenter.onExerciseClick();
@@ -73,6 +83,28 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
         mButtonTips.setOnClickListener(view13 -> mPresenter.onTipsClick());
 
         mButtonBMI.setOnClickListener(view14 -> mPresenter.onBMIClick());
+
+        mOneWeek.setOnSelectListener(new OneWeek.OnSelectListener() {
+            @Override
+            public void onSelect(long startDay) {
+                Log.e(TAG, "onSelect -> " + startDay);
+                mTimeStamp = startDay;
+                mPresenter.readData(false, mTimeStamp);
+            }
+        });
+
+        mStatusSteps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.onStepsClick();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.readData(false, mTimeStamp);
     }
 
     @NonNull
@@ -87,7 +119,7 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
         mProgressCaloriesTitle.setText(RaApp.getLabel("key_calories"));
         mStatusDistanceText.setText(RaApp.getLabel("key_distance"));
         mStatusStepsText.setText(RaApp.getLabel("key_steps"));
-        mStatusWeightText.setText(RaApp.getLabel("wwwwwwww"));
+        mStatusWeightText.setText(RaApp.getLabel("key_weight"));
 
         mButtonExerciseText.setText(RaApp.getLabel("key_track_exercise"));
         mButtonWeightText.setText(RaApp.getLabel("key_track_weight"));
@@ -97,9 +129,57 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     }
 
     @Override
+    public boolean isRefreshing(){
+        return mSwipeLayout.isRefreshing();
+    }
+
+    @Override
+    public void showDialogSetStepsGoal(String title, String text, String button) {
+        myRouter.showDialog(title, text, button);
+    }
+
+    @Override
     public void pushFragment(BaseFragment fragment) {
         mFragmentNavigation.pushFragment(fragment);
     }
+
+    @Override
+    public void stopRefresh() {
+        mSwipeLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void setActiveTime(@NonNull String time, int progress) {
+        mProgressTimeValue.setText(Support.getUpperCase(time, RaApp.getLabel(LangKeys.key_short_hours)));
+        mProgressTime.setProgress(progress);
+    }
+
+    @Override
+    public void setCalories(@NonNull String calories, int progress) {
+        mProgressCaloriesValue.setText(Support.getUpperCase(calories, RaApp.getLabel(LangKeys.key_short_calories)));
+        mProgressCalories.setProgress(progress);
+    }
+
+    @Override
+    public void setDistance(@NonNull String distance) {
+        mStatusDistanceValue.setText(Support.getUpperCase(distance, " " + RaApp.getLabel(LangKeys.key_km)));
+    }
+
+    @Override
+    public void setSteps(@NonNull String steps) {
+        mStatusStepsValue.setText(steps);
+    }
+
+    @Override
+    public void setWeight(@NonNull String weight) {
+        mStatusWeightValue.setText(Support.getUpperCase(weight, " " + RaApp.getLabel(LangKeys.key_kg)));
+    }
+
+    @BindView(R.id.one_week)
+    OneWeek mOneWeek;
+
+    @BindView(R.id.swipe_layout)
+    SwipeRefreshLayout mSwipeLayout;
 
     //TODO Progress bars definition
     @BindView(R.id.progress_time)

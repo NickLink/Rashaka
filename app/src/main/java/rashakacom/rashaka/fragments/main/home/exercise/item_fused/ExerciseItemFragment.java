@@ -17,10 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -49,6 +48,7 @@ import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.utils.Utility;
 import rashakacom.rashaka.utils.communications.FusedLocationReceiver;
 import rashakacom.rashaka.utils.communications.FusedLocationService;
 import rashakacom.rashaka.utils.communications.PointInfo;
@@ -71,8 +71,9 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
     public static final int REQUEST_CHECK_SETTINGS = 998;
 
     //Tracking vars
-    FusedLocationService fusedLocationService;
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private FusedLocationService fusedLocationService;
+    private FusedLocationProviderClient mFusedLocationClient;
+    public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
     private GoogleMap googleMap;
@@ -97,10 +98,7 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(true);
 
-        if (!checkPlayServices()) {
-            //finish();
-        }
-        //mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         route_list = new ArrayList<>();
     }
 
@@ -109,15 +107,32 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-
-        if (mPresenter.checkPermission(getActivity())) {
-            Log.e("TAG", " Permission was granted !");
-            mapInit();
-            //checkLocation();
-        } else {
+        if (!mPresenter.checkPlayServices(getActivity())) {
+            //TODO NO PlayServices installed - need to show dialog
+            return;
+        }
+        if (!mPresenter.checkPermission(getActivity())) {
             //TODO Show that it`s impossible to do this without
             showPermissionDenied();
+        } else {
+            Log.e(TAG, " Permission was granted !");
+            mapInit();
+            //checkLocation();
         }
+    }
+
+    private void getLastLocation() {
+
+//        Location loc = mFusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                    @Override
+//                    public void onSuccess(Location location) {
+//                        // Got last known location. In some rare situations this can be null.
+//                        if (location != null) {
+//                            // Logic to handle location object
+//                        }
+//                    }
+//                });
     }
 
     private void checkLocation() {
@@ -205,13 +220,9 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
     }
 
     private void goMap(final LatLng mLocation) {
-
-
-
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(mLocation).zoom((float) 18) //.bearing(45).tilt(20)
                     .build();
-
             cameraUpdate = CameraUpdateFactory
                     .newCameraPosition(cameraPosition);
             googleMap.animateCamera(cameraUpdate);
@@ -293,7 +304,6 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
                 }
                 return;
             }
-
             // other 'case' lines to check for other
             // permissions this app might request
         }
@@ -392,19 +402,6 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
         super.onDestroy();
     }
 
-    private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(getActivity());
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(getActivity(), resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else
-                //finish();
 
-            return false;
-        }
-        return true;
-    }
 
 }

@@ -20,6 +20,7 @@ import rashakacom.rashaka.utils.rest.RestUtils;
 
 public class NewsItemPresenter extends SuperPresenter<NewsItemView, MainRouter> {
 
+    private static final String TAG = NewsItemPresenter.class.getSimpleName();
     private String mToken, mLangType;
 
     public NewsItemPresenter() {
@@ -33,7 +34,7 @@ public class NewsItemPresenter extends SuperPresenter<NewsItemView, MainRouter> 
     }
 
     public void loadData(String id){
-        Log.e("TAG", "loadData -> " + mToken + mLangType + id);
+        Log.e(TAG, "loadData -> " + mToken + mLangType + id);
                 mCompositeDisposable.add(Rest.call().getNewsItem(mToken, mLangType, id)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -46,7 +47,7 @@ public class NewsItemPresenter extends SuperPresenter<NewsItemView, MainRouter> 
     }
 
     private void handleError(String error) {
-        Log.e("TAG", "handleError -> " + error);
+        Log.e(TAG, "handleError -> " + error);
         getRouter().showError(error);
     }
 

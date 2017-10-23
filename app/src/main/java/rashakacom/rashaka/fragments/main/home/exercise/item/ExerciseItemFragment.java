@@ -39,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.utils.communications.GPS_Tracker;
 import rashakacom.rashaka.utils.communications.PointInfo;
@@ -54,6 +55,7 @@ import static rashakacom.rashaka.utils.Consts.LOCATION_PERMISSIONS_REQUEST;
 @Layout(id = R.layout.fr_home_exercise_item)
 public class ExerciseItemFragment extends BaseFragment implements ExerciseItemView {
 
+    private static final String TAG = ExerciseItemFragment.class.getSimpleName();
     private MainRouter myRouter;
     private ExerciseItemPresenter mPresenter;
 
@@ -90,7 +92,7 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
 
 
         if (mPresenter.checkPermission(getActivity())) {
-            Log.e("TAG", " Permission was granted !");
+            Log.e(TAG, " Permission was granted !");
             checkLocation();
         } else {
             //TODO Show that it`s impossible to do this without
@@ -99,15 +101,28 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
     }
 
     private void checkLocation() {
-        LatLng mLocation = new LatLng(49.222234, 31.205269);
-        if (tracker.canGetLocation() && tracker.getLocation() != null) {
-            mLocation = new LatLng(tracker.getLocation().getLatitude(), tracker.getLocation().getLongitude());
-            goMap(mLocation);
-        } else {
-            //TODO Show dialog with settings - to switch on GPS
-            Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(viewIntent);
+
+        LocationManager service = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        boolean enabled = service
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // check if enabled and if not send user to the GSP settings
+        // Better solution would be to display a dialog and suggesting to
+        // go to the settings
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
         }
+
+//        LatLng mLocation = new LatLng(49.222234, 31.205269);
+//        if (tracker.canGetLocation() && tracker.getLocation() != null) {
+//            mLocation = new LatLng(tracker.getLocation().getLatitude(), tracker.getLocation().getLongitude());
+//            goMap(mLocation);
+//        } else {
+//            //TODO Show dialog with settings - to switch on GPS
+//            Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//            startActivity(viewIntent);
+//        }
     }
 
     private void showPermissionDenied() {
@@ -139,6 +154,8 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
 
         mMapView.getMapAsync(googleMap1 -> {
             googleMap = googleMap1;
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
+            googleMap.getUiSettings().setCompassEnabled(true);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(mLocation).zoom((float) 18) //.bearing(45).tilt(20)
@@ -156,7 +173,7 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
 
                         route_list.add(new PointInfo(pos, System.currentTimeMillis(), Long.toString(pos),
                                 new LatLng(location.getLatitude(), location.getLongitude())));
-                        Toast.makeText(getActivity(),
+                        Toast.makeText(RaApp.getContext(),
                                 "Step " + Long.toString(pos) + " Lat=" + location.getLatitude()
                                         + " Lon=" + location.getLongitude(), Toast.LENGTH_SHORT).show();
                         cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18);
@@ -192,6 +209,7 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
                     // TODO Auto-generated method stub
                 }
             });
+            lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         });
     }
@@ -286,7 +304,7 @@ public class ExerciseItemFragment extends BaseFragment implements ExerciseItemVi
 //        }
 //        lineOptions.addAll(points);
 //        lineOptions.width(6);
-//        lineOptions.color(Color.RED);
+//        lineOptions.color(Color.WEEK);
 //        map.moveCamera(CameraUpdateFactory.newLatLngBounds(bc.build(), 50));
 //
 //        //Add start & end of route
