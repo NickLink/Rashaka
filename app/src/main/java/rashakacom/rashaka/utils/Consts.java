@@ -5,6 +5,11 @@ package rashakacom.rashaka.utils;
  */
 
 public class Consts {
+    //TODO Location check values
+    public static final float ACCURACY = 8.0f;
+    public static final float MAX_SPEED_WALK = 3.0f;
+    public static final float MAX_SPEED_RUN = 6.0f;
+
     //TODO Location permission request code
     public static final int LOCATION_PERMISSIONS_REQUEST = 992;
 
@@ -50,8 +55,8 @@ public class Consts {
     public static final int[] backDim = {800, 250};
     public static final int[] userDim = {200, 200};
 
-    public static final String BMI_LINK_ADULT = "http://demo.mbooz.com/rashaka/mobile/type/3/";
+    public static final String BMI_LINK_ADULT = "http://demo.mbooz.com/rashaka/mobile/type/1/";
     public static final String BMI_LINK_BOY = "http://demo.mbooz.com/rashaka/mobile/type/2/";
-    public static final String BMI_LINK_GIRL = "http://demo.mbooz.com/rashaka/mobile/type/1/";
+    public static final String BMI_LINK_GIRL = "http://demo.mbooz.com/rashaka/mobile/type/3/";
 
 }

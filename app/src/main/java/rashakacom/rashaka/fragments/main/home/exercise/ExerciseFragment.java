@@ -12,10 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.domain.fake_models.Article;
 import rashakacom.rashaka.fragments.BaseFragment;
-import rashakacom.rashaka.fragments.main.home.exercise.item.ExerciseItemFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -39,8 +37,7 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
 
     private MainRouter myRouter;
     private ExercisePresenter mPresenter;
-    private GoogleMap googleMap;
-    private OnMapReadyCallback mMapReadyCallback;
+    private AddRouteLayout mAddLayout;
 
     @Override
     public void onAttach(Context context) {
@@ -70,6 +67,15 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        mAddLayout = new AddRouteLayout();
+        ButterKnife.bind(mAddLayout, mRouteAdd);
+        mAddLayout.mItemStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.onNewExersize();
+            }
+        });
+
         mExerciseRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(
                 mExerciseRecyclerView.getContext(),
@@ -86,7 +92,7 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
 
     @Override
     public void setViewsValues() {
-        mExerciseTitle.setText(RaApp.getLabel("key_track_exercise"));
+        mExerciseTitle.setText(RaApp.getLabel(LangKeys.key_track_exercise));
 
     }
 
@@ -99,32 +105,13 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
     }
 
     private void goMap(Article article) {
-        mFragmentNavigation.pushFragment(new ExerciseItemFragment());
+
     }
-//
-//        mExerciseRecyclerView.setVisibility(View.GONE);
-//        mExerciseSelectedItem.setVisibility(View.VISIBLE);
-//        mMapContainer.setVisibility(View.VISIBLE);
-//
-//
-//        mMapView.onCreate(null);
-//        mMapView.onResume();
-//
-//        MapsInitializer.initialize(getContext());
-//
-//        mMapView.getMapAsync(googleMap1 -> {
-//            googleMap = googleMap1;
-//            CameraPosition cameraPosition = new CameraPosition.Builder()
-//                    .target(new LatLng(49.222234, 31.205269)).zoom((float) 4.8) //.bearing(45).tilt(20)
-//                    .build();
-//            CameraUpdate cameraUpdate = CameraUpdateFactory
-//                    .newCameraPosition(cameraPosition);
-//            googleMap.animateCamera(cameraUpdate);
-//            //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(33.9518228, 35.7796706), 13)); //
-////            if (mMapReadyCallback != null)
-////                mMapReadyCallback.onMapReady(googleMap);
-//        });
-//    }
+
+    @Override
+    public void pushFragment(BaseFragment fragment) {
+        mFragmentNavigation.pushFragment(fragment);
+    }
 
     @BindView(R.id.exercise_page_title)
     TextView mExerciseTitle;
@@ -132,7 +119,7 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
     @BindView(R.id.exercise_recycler_view)
     RecyclerView mExerciseRecyclerView;
 
-//    @BindView(R.id.exercise_item)
+    //    @BindView(R.id.exercise_item)
 //    LinearLayout mExerciseSelectedItem;
 //
 //    @BindView(R.id.map_container)
@@ -140,5 +127,21 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
 //
 //    @BindView(R.id.map_view)
 //    MapView mMapView;
+    @BindView(R.id.route_add)
+    View mRouteAdd;
+
+    static class AddRouteLayout {
+        @BindView(R.id.item_pin_button)
+        ImageView mPinIcon;
+
+        @BindView(R.id.item_start_text)
+        TextView mItemStartText;
+
+        @BindView(R.id.item_date_text)
+        TextView mItemDateText;
+
+        @BindView(R.id.item_start_button)
+        TextView mItemStartButton;
+    }
 
 }

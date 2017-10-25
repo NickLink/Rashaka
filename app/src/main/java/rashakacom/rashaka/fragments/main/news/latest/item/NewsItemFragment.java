@@ -4,8 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +54,17 @@ public class NewsItemFragment extends BaseFragment implements NewsItemView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
+        }
     }
 
     @Override

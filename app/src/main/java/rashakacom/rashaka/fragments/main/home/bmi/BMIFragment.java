@@ -90,6 +90,11 @@ public class BMIFragment extends BaseFragment implements BMIView {
     }
 
     @Override
+    public void setBmiValue(String value) {
+        mBmiValue.setText(value);
+    }
+
+    @Override
     public void pushFragment(BaseFragment fragment) {
         mFragmentNavigation.pushFragment(fragment);
     }
@@ -97,12 +102,16 @@ public class BMIFragment extends BaseFragment implements BMIView {
     @BindView(R.id.page_title)
     TextView mPageTitle;
 
+    @BindView(R.id.current_bmi_value)
+    TextView mBmiValue;
+
+    @BindView(R.id.current_bmi)
+    TextView mCurrentBmi;
+
     @BindView(R.id.simulate_button)
     TextView mSimulateButton;
 
 
-//    @BindView(R.id.share_text)
-//    TextView share_text;
 
 
     @BindView(R.id.p_bar_1)

@@ -256,12 +256,14 @@ public class ProfileFragment extends BackFragment implements ProfileView {
 
     @Override
     public void setActiveBar(int max, int progress) {
-
+        mProgressActiveMinsValue.setText(String.valueOf(max));
+        mProgressActiveMins.setProgress(progress);
     }
 
     @Override
     public void setStepsBar(int max, int progress) {
-
+        mProgressStepsValue.setText(String.valueOf(max));
+        mProgressSteps.setProgress(progress);
     }
 
     @Override

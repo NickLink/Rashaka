@@ -7,12 +7,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.MainRouter;
-import rashakacom.rashaka.RaApp;
-import rashakacom.rashaka.domain.fake_models.Article;
-import rashakacom.rashaka.utils.Support;
+import rashakacom.rashaka.domain.fake_models.FakeNews;
+import rashakacom.rashaka.fragments.main.home.exercise.it.ExerciseItemFragment;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.domain.fake_models.FakeNews;
 import rashakacom.rashaka.utils.rest.RestUtils;
 
 /**
@@ -42,10 +40,10 @@ public class ExercisePresenter extends SuperPresenter<ExerciseView, MainRouter> 
 
     private void handleResponse(FakeNews response) {
         //TODO We need to add one first item that be "Start new Track exercise
-        Article firstItem = new Article();
-        String mDate = RaApp.getLabel("key_today") + ", " + Support.getCurrentStringDate();
-        firstItem.setAuthor(mDate);
-        response.getArticles().add(0, firstItem);
+//        Article firstItem = new Article();
+//        String mDate = RaApp.getLabel("key_today") + ", " + Support.getCurrentStringDate();
+//        firstItem.setAuthor(mDate);
+//        response.getArticles().add(0, firstItem);
         getView().setAdapterData(response.getArticles());
     }
 
@@ -55,5 +53,9 @@ public class ExercisePresenter extends SuperPresenter<ExerciseView, MainRouter> 
 
     public void onStop() {
         mCompositeDisposable.clear();
+    }
+
+    public void onNewExersize() {
+        getView().pushFragment(new ExerciseItemFragment());
     }
 }

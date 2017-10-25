@@ -1,8 +1,11 @@
 package rashakacom.rashaka;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.junit.Test;
 
 import rashakacom.rashaka.fragments.main.home.HomeBasePresenter;
+import rashakacom.rashaka.fragments.main.home.exercise.it.LocationMath;
 import rashakacom.rashaka.utils.Support;
 
 import static org.junit.Assert.assertEquals;
@@ -30,5 +33,12 @@ public class ExampleUnitTest {
         int test = HomeBasePresenter.getProgress(11, 1000);
         assert(test > 0);
         System.out.println("Progress IS - > " + test);
+    }
+
+    @Test
+    public void getDistance() throws Exception {
+        double test = LocationMath.getDistanceBetween(new LatLng(49.8460912, 23.9832229), new LatLng(49.849, 23.985));
+        assert(test > 0);
+        System.out.println("getDistance IS - > " + test);
     }
 }

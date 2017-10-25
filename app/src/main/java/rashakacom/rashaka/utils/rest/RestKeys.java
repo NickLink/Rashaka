@@ -16,7 +16,7 @@ public class RestKeys {
     public static final String POINT_USERS = "users";
     public static final String POINT_NEWS = "api_news";
     public static final String POINT_FOOD = "log_food";
-
+    public static final String POINT_TRACKER = "tracker";
     public static final String POINT_STAT = "statistic";
 
 
@@ -38,8 +38,8 @@ public class RestKeys {
 
     public static final String CALL_NEWS_ALL = "all_news";
     public static final String CALL_NEWS_ITEM = "item";
+    public static final String CALL_NEW = "new";
 
-    public static final String CALL_FOOD_NEW = "new";
     public static final String CALL_FOOD_ALL = "all_food";
     public static final String CALL_FOOD_ITEM = "item";
 
@@ -76,6 +76,14 @@ public class RestKeys {
     public static final String KEY_BIRTHDAY = "birthday";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_BACKGROUND = "background";
+
+    public static final String KEY_START = "start";
+    public static final String KEY_STOP = "stop";
+    public static final String KEY_POINTS = "points";
+    public static final String KEY_TIME = "time";
+    public static final String KEY_PACE = "pace";
+    public static final String KEY_DISTANCE = "distance";
+    public static final String KEY_DESC = "desc";
 
     //Headers
     public static final String HEADER_API_KEY = "API-KEY";

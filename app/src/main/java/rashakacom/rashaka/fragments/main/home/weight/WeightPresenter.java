@@ -12,6 +12,8 @@ import io.reactivex.schedulers.Schedulers;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.domain.BaseResponse;
+import rashakacom.rashaka.domain.profile.UserProfile;
+import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.rest.Rest;
 
@@ -26,12 +28,18 @@ public class WeightPresenter extends SuperPresenter<WeightView, MainRouter> {
     private double mDefWeight = 80;
     private double mMinWeight = 30;
     private double mMaxWeight = 240;
+    private String tocken, userId;
 
 
     public WeightPresenter() {
+        tocken = RaApp.getBase().getLoggedUser().getTocken();
+        userId = RaApp.getBase().getLoggedUser().getId();
+
+
         if(!TextUtils.isEmpty(RaApp.getBase().getProfileUser().getWeight()))
             try{
                 mCurrentWeight = Double.parseDouble(RaApp.getBase().getProfileUser().getWeight());
+                Log.e(TAG, "String val " + RaApp.getBase().getProfileUser().getWeight() + " parsed val " + mCurrentWeight);
             } catch (Exception e){
                 mCurrentWeight = mDefWeight;
             }
@@ -48,6 +56,14 @@ public class WeightPresenter extends SuperPresenter<WeightView, MainRouter> {
     public void onViewReady() {
         getView().setViewsValues();
         getView().setBigWeightText(getWeight(mCurrentWeight));
+        Log.e(TAG, "seek val " + seekProgress(mCurrentWeight));
+        getView().setSeekBarValue(seekProgress(mCurrentWeight));
+    }
+
+    public int seekProgress(double value){
+        double diff = value - (int)value;
+        int progress = (int)(diff * 10);
+        return progress;
     }
 
     public void onPlusClick() {
@@ -70,12 +86,11 @@ public class WeightPresenter extends SuperPresenter<WeightView, MainRouter> {
     }
 
     public void onSaveClick() {
-        String tocken = RaApp.getBase().getLoggedUser().getTocken();
-        String userId = RaApp.getBase().getLoggedUser().getId();
-        mCompositeDisposable.add(Rest.call().postDailyWeight(tocken, userId, String.valueOf(mCurrentWeight))
+        String saveWeight = String.valueOf(mCurrentWeight);
+        mCompositeDisposable.add(Rest.call().postDailyWeight(tocken, userId, saveWeight)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> handleResponse(response), error -> handleError(error.getLocalizedMessage()))
+                .subscribe(response -> handleWeightResponse(response, saveWeight), error -> handleError(error.getLocalizedMessage()))
         );
     }
 
@@ -85,11 +100,35 @@ public class WeightPresenter extends SuperPresenter<WeightView, MainRouter> {
 
     }
 
-    private void handleResponse(BaseResponse response) {
-        Log.e(TAG, "handleResponse -> " + response.toString());
+    private void handleWeightResponse(BaseResponse response, String saveWeight) {
+        Log.e(TAG, "handleWeightResponse -> " + response.toString());
         getRouter().showError(response.getMessage());
-        //RaApp.getBase().getProfileUser().setWeight();
+        saveWeightChange(saveWeight);
+        onSaveBmi();
+    }
 
+    private void saveWeightChange(String saveWeight) {
+        UserProfile profile = RaApp.getBase().getProfileUser();
+        profile.setWeight(saveWeight);
+        RaApp.getBase().setProfileUser(profile);
+    }
+
+    private void onSaveBmi() {
+        String bmi = String.valueOf(
+                Support.getBMI(String.valueOf(mCurrentWeight),
+                        RaApp.getBase().getProfileUser().getHight())
+        );
+        Log.e(TAG, "onSaveBmi -> " + bmi);
+        mCompositeDisposable.add(Rest.call().postDailyBMI(tocken, userId, bmi)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> handleBmiResponse(response), error -> handleError(error.getLocalizedMessage()))
+        );
+
+    }
+
+    private void handleBmiResponse(BaseResponse response) {
+        Log.e(TAG, "handleBmiResponse -> " + response.toString());
     }
 
     public void setupViewPager(ViewPager mViewPager, FragmentManager childFragmentManager) { //Context context
@@ -105,7 +144,5 @@ public class WeightPresenter extends SuperPresenter<WeightView, MainRouter> {
         getView().setBigWeightText(getWeight(mCurrentWeight));
     }
 
-//    Double truncatedDouble = BigDecimal.valueOf(toBeTruncated)
-//            .setScale(3, RoundingMode.HALF_UP)
-//            .doubleValue();
+
 }

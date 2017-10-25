@@ -12,7 +12,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/inner_padding_small"
-            android:src="@drawable/main_button_exercise"/>
+            android:src="@drawable/main_button_exercise"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/exercise_page_title"
@@ -21,25 +22,115 @@
             android:layout_marginTop="@dimen/inner_padding_small"
             android:layout_gravity="center_horizontal"
             android:text="Track Exercise"
-            android:textSize="@dimen/text_size_giant"/>
+            android:textSize="@dimen/text_size_giant"
+            android:visibility="gone"/>
 
     <include
-        android:id="@+id/exercise_item"
+        android:id="@+id/stop_item"
         layout="@layout/item_exercise"/>
 
     <FrameLayout
         android:id="@+id/map_container"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="320dp"
         android:layout_marginTop="@dimen/inner_padding_small"
         android:background="@color/light_gray">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="320dp">
         </com.google.android.gms.maps.MapView>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total distance"/>
+            <TextView
+                android:id="@+id/distance_total"
+                style="@style/InfoLightBlackTextBold"
+                android:text="0 km"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total time"/>
+            <TextView
+                android:id="@+id/time_total"
+                style="@style/InfoLightBlackTextBold"
+                android:text="0 s"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Average speed"/>
+            <TextView
+                android:id="@+id/avg_speed"
+                style="@style/InfoLightBlackTextBold"
+                android:text="0 km/h "/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/inner_padding_tiny"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/follow_map"
+                style="@style/InfoBreezeBtnText"
+                android:text="Follow Map"
+                android:textSize="@dimen/text_size_standart"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/inner_padding_tiny"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/free_map"
+                style="@style/InfoBreezeBtnText"
+                android:text="Free Map"
+                android:textSize="@dimen/text_size_standart"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

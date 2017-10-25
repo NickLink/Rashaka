@@ -130,6 +130,11 @@ public class WeightFragment extends BaseFragment implements WeightView {
     }
 
     @Override
+    public void setSeekBarValue(int value) {
+        mSeekBar.setProgress(value);
+    }
+
+    @Override
     public void setBigWeightText(String text) {
         mWeightBigText.setText(text);
     }

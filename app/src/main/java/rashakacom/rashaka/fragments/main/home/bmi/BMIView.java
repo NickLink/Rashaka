@@ -9,5 +9,6 @@ import rashakacom.rashaka.fragments.BaseFragment;
 public interface BMIView {
 
     void setViewsValues();
+    void setBmiValue(String value);
     void pushFragment(BaseFragment fragment);
 }

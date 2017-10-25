@@ -23,29 +23,38 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <!-- HEADER -->
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_collapseMode="parallax">
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax"
+                    android:paddingTop="@dimen/inner_padding_small"
+                    android:paddingBottom="@dimen/inner_padding_small">
 
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:layout_gravity="center_horizontal"
                         android:src="@drawable/main_button_exercise"/>
 
                     <TextView
                         android:id="@+id/exercise_page_title"
                         style="@style/InfoLightBlackTextBold"
-                        android:layout_below="@+id/imageView"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="@dimen/inner_padding_small"
-                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:layout_gravity="center_horizontal"
+
                         android:text="Track Exercise"
                         android:textSize="@dimen/text_size_giant"/>
-                </RelativeLayout>
+
+                    <include
+                        android:id="@+id/route_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/inner_padding_small"
+                        android:layout_marginStart="@dimen/inner_padding"
+                        android:layout_marginEnd="@dimen/inner_padding"
+                        layout="@layout/item_exercise"/>
+                </LinearLayout>
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 

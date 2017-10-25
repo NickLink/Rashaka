@@ -102,6 +102,7 @@ public class ProfilePresenter extends SuperPresenter<ProfileView, MainRouter> {
     }
 
     public void onProfileDataChanged(UserProfile profile) {
+        Log.e(TAG, "onProfileDataChanged");
         this.profile = profile;
         if (!TextUtils.isEmpty(profile.getSex())) {
             getView().setProfileGenderText(profile.getSex().equals("0")
@@ -130,6 +131,13 @@ public class ProfilePresenter extends SuperPresenter<ProfileView, MainRouter> {
         if (!TextUtils.isEmpty(profile.getImage())) {
             getView().setProfileImage((profile.getImage()));
         }
+
+        //TODO Set progress bars
+        Log.e(TAG, "onProfileDataChanged progress AVmin = " + profile.getWeeklyA().getAvMin() + " AVsteps " + profile.getWeeklyA().getAvSteps());
+        getView().setActiveBar(profile.getWeeklyA().getAvMin(), profile.getWeeklyA().getAvMinPercent());
+        getView().setStepsBar(profile.getWeeklyA().getAvSteps(), profile.getWeeklyA().getAvStepsPercent());
+
+
         changeObservable.onNext(true);
         //saveEnabled = true;
     }
@@ -191,13 +199,13 @@ public class ProfilePresenter extends SuperPresenter<ProfileView, MainRouter> {
         List<MultipartBody.Part> files = new ArrayList<>();
         //Log.e(TAG, " value.getImage() -> " + value.getImage() + " is -> " + value.getImage().contains(Consts.userImage));
         if (!TextUtils.isEmpty(value.getImage()) && value.getImage().contains(Consts.userImage)) {
-            String path = value.getImage().replace("file:","");
+            String path = value.getImage().replace("file:", "");
             RequestBody requestFile = Rest.createRequestBody(new File(path));
             files.add(MultipartBody.Part.createFormData(RestKeys.KEY_IMAGE, Consts.userImage, requestFile));
         }
         //Log.e(TAG, " value.getBackground() -> " + value.getBackground() + " is -> " + value.getBackground().contains(Consts.backImage));
         if (!TextUtils.isEmpty(value.getBackground()) && value.getBackground().contains(Consts.backImage)) {
-            String path = value.getBackground().replace("file:","");
+            String path = value.getBackground().replace("file:", "");
             RequestBody requestFile = Rest.createRequestBody(new File(path));
             files.add(MultipartBody.Part.createFormData(RestKeys.KEY_BACKGROUND, Consts.backImage, requestFile));
         }

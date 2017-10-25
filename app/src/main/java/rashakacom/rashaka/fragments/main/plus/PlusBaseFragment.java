@@ -4,6 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -35,23 +39,18 @@ public class PlusBaseFragment extends BaseFragment implements PlusBaseView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//            getActivity().setTitle("BARABAKA");
-//
-//            menu.clear();
-//            //inflater.inflate(R.menu.shadow, menu);
-//
-//            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-//            if (actionBar != null) {
-//                actionBar.setHomeButtonEnabled(false);
-//                actionBar.setDisplayHomeAsUpEnabled(true);
-//                actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_back);
-//            }
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_abar_top);
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

@@ -24,4 +24,9 @@
     <string name="running_default_value">0:00</string>
     <string name="today">Today</string>
     <string name="activetime_default_value">2:45:04</string>
+    <string name="switchOnLocationShort">Please enable location service in your phone</string>
+    <string name="ok">Ok</string>
+    <string name="permissionPermanentlyDeclined">Location permission was permanently declined</string>
+    <string name="permissionExplanation">Please allow Location permission to this application</string>
+    <string name="cancel">Cancel</string>
 </resources>

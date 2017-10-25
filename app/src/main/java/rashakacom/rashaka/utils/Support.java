@@ -101,7 +101,7 @@ public class Support {
     }
 
     public static String getDateFromMillis(long dateInMillis){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US); //dd/MM/yyyy hh:mm:ss
         return formatter.format(new Date(dateInMillis));
     }
 

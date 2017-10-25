@@ -39,33 +39,38 @@ public class BMIPresenter extends SuperPresenter<BMIView, MainRouter> {
     @Override
     public void onViewReady() {
         getView().setViewsValues();
+        getView().setBmiValue(String.valueOf(
+                Support.getBMI(
+                        RaApp.getBase().getProfileUser().getWeight(),
+                        RaApp.getBase().getProfileUser().getHight()
+                )));
     }
 
-    public void setGraph(List<Double> list, ProgressBar... pBars){
+    public void setGraph(List<Double> list, ProgressBar... pBars) {
         ProgressBar[] pArray = pBars;
-        for(int i = 0 ; i < mCount ; i++){
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)pArray[i].getLayoutParams();
+        for (int i = 0; i < mCount; i++) {
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) pArray[i].getLayoutParams();
             params.height = Support.dpToPx(getHeightForBMI(list.get(i)));
             pArray[i].setLayoutParams(params);
         }
     }
 
-    public void setMonth(List<String> list, TextView... pText){
+    public void setMonth(List<String> list, TextView... pText) {
         TextView[] pArray = pText;
-        for(int i = 0 ; i < mCount ; i++){
+        for (int i = 0; i < mCount; i++) {
             pArray[i].setText(list.get(i));
         }
     }
 
-    public void setValues(List<Double> list, TextView... pText){
+    public void setValues(List<Double> list, TextView... pText) {
         TextView[] pArray = pText;
-        for(int i = 0 ; i < mCount ; i++){
+        for (int i = 0; i < mCount; i++) {
             pArray[i].setText(String.valueOf(list.get(i)));
         }
     }
 
-    private int getHeightForBMI(double bmi){
-        int height = (int)(bmi - 15) * 8;
+    private int getHeightForBMI(double bmi) {
+        int height = (int) (bmi - 15) * 8;
         return height;
     }
 
@@ -73,24 +78,24 @@ public class BMIPresenter extends SuperPresenter<BMIView, MainRouter> {
         mCompositeDisposable.clear();
     }
 
-    public List<Double> bmiList(){
+    public List<Double> bmiList() {
         List<Double> data = new ArrayList<>();
-        data.add((double)30);
-        data.add((double)31);
-        data.add((double)32);
-        data.add((double)33);
-        data.add((double)32);
-        data.add((double)32);
-        data.add((double)30);
-        data.add((double)32);
-        data.add((double)33);
-        data.add((double)32);
-        data.add((double)32);
-        data.add((double)30);
+        data.add((double) 30);
+        data.add((double) 31);
+        data.add((double) 32);
+        data.add((double) 33);
+        data.add((double) 32);
+        data.add((double) 32);
+        data.add((double) 30);
+        data.add((double) 32);
+        data.add((double) 33);
+        data.add((double) 32);
+        data.add((double) 32);
+        data.add((double) 30);
         return data;
     }
 
-    public List<String> monthList(){
+    public List<String> monthList() {
         List<String> data = new ArrayList<>();
         data.add(RaApp.getLabel(LangKeys.key_jan));
         data.add(RaApp.getLabel(LangKeys.key_feb));
@@ -124,10 +129,9 @@ public class BMIPresenter extends SuperPresenter<BMIView, MainRouter> {
 //        }
 
 
-
     }
 
-    private int getUserAge(){
+    private int getUserAge() {
         String mDob = RaApp.getBase().getProfileUser().getBirthday();
         Date mDate = Support.getDateFromString(mDob, Support.DATE_FORMAT);
         int mAge = Support.getDiffYears(mDate, new Date());

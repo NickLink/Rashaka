@@ -85,7 +85,7 @@ public class FoodLogPresenter extends SuperPresenter<FoodLogView, MainRouter> {
 
     public void refreshLogFoodList(){
         pageNum = 0;
-
+        isLastPage = false;
         refreshLogFoodList(mToken, userId, pageNum);
     }
 

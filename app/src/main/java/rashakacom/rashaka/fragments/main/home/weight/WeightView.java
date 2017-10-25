@@ -8,5 +8,6 @@ public interface WeightView {
 
     void setViewsValues();
 
+    void setSeekBarValue(int value);
     void setBigWeightText(String text);
 }

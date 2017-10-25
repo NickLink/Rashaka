@@ -30,6 +30,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
 }
 
 ext {
@@ -44,6 +48,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
 
@@ -62,6 +67,7 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:$playLibVersion"
     compile "com.google.android.gms:play-services-places:$playLibVersion"
     compile "com.google.android.gms:play-services-location:$playLibVersion"
+    compile "com.google.maps.android:android-maps-utils:0.5"
 
     //Fitness
     compile "com.google.android.gms:play-services-fitness:$playLibVersion"

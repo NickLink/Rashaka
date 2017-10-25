@@ -153,7 +153,7 @@ public interface JService {
 
     //TODO Post New User Log Food
     @FormUrlEncoded
-    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_FOOD + "/" + RestKeys.CALL_FOOD_NEW + "/{" + RestKeys.KEY_USER + "}")
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_FOOD + "/" + RestKeys.CALL_NEW + "/{" + RestKeys.KEY_USER + "}")
     Observable<BaseResponse> postUserLogFood(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Path(RestKeys.KEY_USER) String userId,
@@ -197,6 +197,21 @@ public interface JService {
 
 
 
+
+    //TODO Tracker part
+
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_TRACKER + "/" + RestKeys.CALL_NEW + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> postNewUserRoute(
+            @Header(RestKeys.HEADER_API_KEY) @NonNull String apiKey,
+            @Path(RestKeys.KEY_USER) @NonNull String userId,
+            @Field(RestKeys.KEY_START) @NonNull String start,
+            @Field(RestKeys.KEY_STOP) @NonNull String stop,
+            @Field(RestKeys.KEY_POINTS) @NonNull String points,
+            @Field(RestKeys.KEY_TIME) @NonNull int time,
+            @Field(RestKeys.KEY_PACE) @NonNull float pace,
+            @Field(RestKeys.KEY_DISTANCE) @NonNull float distance,
+            @Field(RestKeys.KEY_DESC) @NonNull String description);
 
 
 //    @FormUrlEncoded

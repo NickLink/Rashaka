@@ -60,22 +60,11 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
         model = ViewModelProviders.of(getActivity()).get(DrinkAlarmModel.class);
 
-
         list = mPresenter.loadAlarmList();
-
-//        DrinkAlarmItem item0 = new DrinkAlarmItem(0, false, 12, 12, 0, true, true, true, true, true, true, true);
-//        DrinkAlarmItem item1 = new DrinkAlarmItem(0, false, 6, 45, 0, false, false, false, true, true, true, true);
-//        DrinkAlarmItem item2 = new DrinkAlarmItem(0, false, 9, 00, 0, true, true, true, false, false, false, false);
-//        DrinkAlarmItem item3 = new DrinkAlarmItem(0, false, 6, 45, 0, false, false, false, true, true, true, true);
-//        list.add(item0);
-//        list.add(item1);
-//        list.add(item2);
-//
-//        mPresenter.setUniqueAlarmId(list);
 
     }
 
