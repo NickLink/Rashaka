@@ -63,7 +63,7 @@ public class LatestPresenter extends SuperPresenter<LatestView, MainRouter> {
         Log.e(TAG, "handleResponse -> " + response.toString());
         isLoading = false;
 
-        if (response.getStatus()) // && response.getNext_page() == -1
+        if (response.getNext_page() == -1) // &&
             isLastPage = true;
         else
             pageNum++;

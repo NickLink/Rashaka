@@ -26,7 +26,4 @@
     <include layout="@layout/item_share"
              android:id="@+id/share_item"/>
 
-    <include layout="@layout/item_drink_alarm"
-             android:id="@+id/drink_alarm_item"/>
-
 </LinearLayout>

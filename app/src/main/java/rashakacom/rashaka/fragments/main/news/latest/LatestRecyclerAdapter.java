@@ -2,6 +2,7 @@ package rashakacom.rashaka.fragments.main.news.latest;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +82,15 @@ public class LatestRecyclerAdapter extends RecyclerView.Adapter<LatestRecyclerAd
     }
 
     public void addData(@NonNull List<NewsItem> mData){
-        if(mData != null && mData.size() != 0)
+        if(mData != null && mData.size() != 0){
             mList.addAll(mData);
+            DataChanged();
+        }
+
+    }
+
+    @UiThread
+    private void DataChanged(){
+        notifyDataSetChanged();
     }
 }

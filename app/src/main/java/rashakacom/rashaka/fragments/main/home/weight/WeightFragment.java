@@ -21,6 +21,7 @@ import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 import rashakacom.rashaka.utils.helpers.views.pager.WrapContentViewPager;
@@ -68,9 +69,9 @@ public class WeightFragment extends BaseFragment implements WeightView {
         mWeightButtonSave.setOnClickListener(view13 -> mPresenter.onSaveClick());
 
 
-        mResultTabs.addTab(mResultTabs.newTab().setText("Week"));
-        mResultTabs.addTab(mResultTabs.newTab().setText("Month"));
-        mResultTabs.addTab(mResultTabs.newTab().setText("Year"));
+        mResultTabs.addTab(mResultTabs.newTab().setText(RaApp.getLabel(LangKeys.key_week)));
+        mResultTabs.addTab(mResultTabs.newTab().setText(RaApp.getLabel(LangKeys.key_mon)));
+        mResultTabs.addTab(mResultTabs.newTab().setText(RaApp.getLabel(LangKeys.key_years)));
         mResultTabs.setTabGravity(TabLayout.GRAVITY_FILL);
 
         mPresenter.setupViewPager(mViewPager, getChildFragmentManager()); //getActivity()

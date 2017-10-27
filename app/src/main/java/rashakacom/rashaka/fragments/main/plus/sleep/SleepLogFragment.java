@@ -24,6 +24,7 @@ import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.main.plus.sleep.dialogs.DateDialog;
 import rashakacom.rashaka.fragments.main.plus.sleep.dialogs.TimeDialog;
 import rashakacom.rashaka.system.lang.LangKeys;
+import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -115,9 +116,13 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
     @Override
     public void setLangValues() {
         mLayoutStart.mItemTopText.setText(RaApp.getLabel(LangKeys.key_sleep_start));
-        mLayoutEnd.mItemTopText.setText(RaApp.getLabel(LangKeys.key_sleep_end));
-        mLogText.setText(RaApp.getLabel(LangKeys.key_log_sleep));
+        mLayoutStart.mItemBottomText.setText(Support.getCurrentStringDate(false));
 
+        mLayoutEnd.mItemTopText.setText(RaApp.getLabel(LangKeys.key_sleep_end));
+        mLayoutEnd.mItemBottomText.setText(Support.getCurrentStringDate(false));
+
+        mTitle.setText(RaApp.getLabel(LangKeys.key_log_sleep));
+        mLogText.setText(RaApp.getLabel(LangKeys.key_log));
     }
 
     @Override
@@ -141,6 +146,9 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
 
     @BindView(R.id.log_text)
     TextView mLogText;
+
+    @BindView(R.id.title)
+    TextView mTitle;
 
 
     static class IncludedLayout {

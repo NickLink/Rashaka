@@ -146,12 +146,39 @@ public class Support {
         }
     }
 
-    public static String getCurrentStringDate(){
+    public static String getCurrentStringDate(boolean time){
         Calendar calendar = Calendar.getInstance();
         int thisYear = calendar.get(Calendar.YEAR);
         int thisMonth = calendar.get(Calendar.MONTH);
         int thisDay = calendar.get(Calendar.DAY_OF_MONTH);
-        return thisDay + " " + getMonthByInt(thisMonth) + " " + thisYear;
+        if(time){
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int min = calendar.get(Calendar.MINUTE);
+            int sec = calendar.get(Calendar.SECOND);
+            return thisDay + " " + getMonthByInt(thisMonth) + " "
+                    + thisYear + " "
+                    + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+        } else {
+            return thisDay + " " + getMonthByInt(thisMonth) + " " + thisYear;
+        }
+    }
+
+    public static String getStringDateByDate(String date, boolean time){
+        Calendar calendar = Calendar.getInstance(); //
+        calendar.setTime(getDateFromString(date, "yyyy-MM-dd HH:mm:ss"));
+        int thisYear = calendar.get(Calendar.YEAR);
+        int thisMonth = calendar.get(Calendar.MONTH);
+        int thisDay = calendar.get(Calendar.DAY_OF_MONTH);
+        if(time){
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int min = calendar.get(Calendar.MINUTE);
+            int sec = calendar.get(Calendar.SECOND);
+            return thisDay + " " + getMonthByInt(thisMonth) + " "
+                    + thisYear + " "
+                    + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+        } else {
+            return thisDay + " " + getMonthByInt(thisMonth) + " " + thisYear;
+        }
     }
 
     public static String getMonthByInt(int month){

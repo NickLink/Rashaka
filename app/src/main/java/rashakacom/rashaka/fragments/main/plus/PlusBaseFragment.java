@@ -10,12 +10,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -93,9 +96,10 @@ public class PlusBaseFragment extends BaseFragment implements PlusBaseView {
     }
 
     @Override
-    public void setValues(String one, String two, String three) {
-//        share_title.setText(one);
-//        share_text.setText(two);
+    public void setViewsValues() {
+        mFoodText.setText(RaApp.getLabel(LangKeys.key_log_food));
+        mSleepText.setText(RaApp.getLabel(LangKeys.key_log_sleep));
+        mDrinkText.setText(RaApp.getLabel(LangKeys.key_drink_alarm));
     }
 
     @BindView(R.id.plus_button_drink)
@@ -106,5 +110,15 @@ public class PlusBaseFragment extends BaseFragment implements PlusBaseView {
 
     @BindView(R.id.plus_button_food)
     LinearLayout mPlusButtonFood;
+
+    @BindView(R.id.drink)
+    TextView mDrinkText;
+
+    @BindView(R.id.sleep)
+    TextView mSleepText;
+
+    @BindView(R.id.food)
+    TextView mFoodText;
+
 
 }

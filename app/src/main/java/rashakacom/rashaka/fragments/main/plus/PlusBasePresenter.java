@@ -27,7 +27,7 @@ public class PlusBasePresenter extends SuperPresenter<PlusBaseView, MainRouter> 
 
     @Override
     public void onViewReady() {
-
+        getView().setViewsValues();
     }
 
     public void onDrinkClick() {

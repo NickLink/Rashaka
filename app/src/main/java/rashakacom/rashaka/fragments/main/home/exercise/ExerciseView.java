@@ -2,7 +2,7 @@ package rashakacom.rashaka.fragments.main.home.exercise;
 
 import java.util.List;
 
-import rashakacom.rashaka.domain.fake_models.Article;
+import rashakacom.rashaka.domain.routes.RouteInfo;
 import rashakacom.rashaka.fragments.BaseFragment;
 
 /**
@@ -12,6 +12,8 @@ import rashakacom.rashaka.fragments.BaseFragment;
 public interface ExerciseView {
 
     void setViewsValues();
-    void setAdapterData(List<Article> list);
     void pushFragment(BaseFragment fragment);
+
+    void setAdapterData(List<RouteInfo> list);
+    void addAdapterData(List<RouteInfo> list);
 }

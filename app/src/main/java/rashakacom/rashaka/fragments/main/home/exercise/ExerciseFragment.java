@@ -22,9 +22,11 @@ import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
-import rashakacom.rashaka.domain.fake_models.Article;
+import rashakacom.rashaka.domain.routes.RouteInfo;
 import rashakacom.rashaka.fragments.BaseFragment;
+import rashakacom.rashaka.fragments.main.home.exercise.show.ShowRouteFragment;
 import rashakacom.rashaka.system.lang.LangKeys;
+import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -82,6 +84,19 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
                 DividerItemDecoration.VERTICAL
         );
         mExerciseRecyclerView.addItemDecoration(mDividerItemDecoration);
+
+        mExerciseRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                mPresenter.onScrolled(recyclerView);
+            }
+        });
     }
 
     @NonNull
@@ -93,19 +108,26 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
     @Override
     public void setViewsValues() {
         mExerciseTitle.setText(RaApp.getLabel(LangKeys.key_track_exercise));
-
+        mAddLayout.mItemStartText.setText(RaApp.getLabel(LangKeys.key_start));
+        mAddLayout.mItemStartButton.setText(RaApp.getLabel(LangKeys.key_start));
+        mAddLayout.mItemDateText.setText(Support.getCurrentStringDate(true));
     }
 
     @Override
-    public void setAdapterData(List<Article> list) {
+    public void setAdapterData(List<RouteInfo> list) {
         mExerciseRecyclerView.setAdapter(
                 new ExerciseRecyclerAdapter(getActivity(),
                         list,
                         position -> goMap(list.get(position))));
     }
 
-    private void goMap(Article article) {
+    @Override
+    public void addAdapterData(List<RouteInfo> list) {
+        ((ExerciseRecyclerAdapter)mExerciseRecyclerView.getAdapter()).addData(list);
+    }
 
+    private void goMap(RouteInfo routeInfo) {
+        mFragmentNavigation.pushFragment(ShowRouteFragment.newInstance(routeInfo.getId()));
     }
 
     @Override

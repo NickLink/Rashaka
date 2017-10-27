@@ -87,6 +87,8 @@ public class BMIFragment extends BaseFragment implements BMIView {
     @Override
     public void setViewsValues() {
         mPageTitle.setText(RaApp.getLabel(LangKeys.key_my_bmi));
+        mCurrentBmi.setText(RaApp.getLabel(LangKeys.key_current_bmi));
+        mSimulateButton.setText(RaApp.getLabel(LangKeys.key_simulate_bmi));
     }
 
     @Override

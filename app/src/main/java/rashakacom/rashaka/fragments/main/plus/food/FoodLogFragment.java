@@ -132,7 +132,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
 
     @Override
     public void setLangValues() {
-        mLogText.setText(RaApp.getLabel(LangKeys.key_log_food));
+        mTitle.setText(RaApp.getLabel(LangKeys.key_log_food));
     }
 
     @Override
@@ -187,8 +187,8 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-//    @BindView(R.id.share_title)
-//    TextView share_title;
+    @BindView(R.id.title)
+    TextView mTitle;
 //
 //    @BindView(R.id.share_text)
 //    TextView share_text;

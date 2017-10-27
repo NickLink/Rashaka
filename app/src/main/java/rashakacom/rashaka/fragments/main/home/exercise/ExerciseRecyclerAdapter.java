@@ -1,6 +1,7 @@
 package rashakacom.rashaka.fragments.main.home.exercise;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
+import rashakacom.rashaka.domain.routes.RouteInfo;
+import rashakacom.rashaka.system.lang.LangKeys;
+import rashakacom.rashaka.utils.Support;
 import rashakacom.rashaka.utils.helpers.structure.helpers.SelectAdapterListener;
-import rashakacom.rashaka.domain.fake_models.Article;
 
 /**
  * Created by User on 29.08.2017.
@@ -22,10 +26,10 @@ import rashakacom.rashaka.domain.fake_models.Article;
 public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecyclerAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Article> mList;
+    private List<RouteInfo> mList;
     private SelectAdapterListener mListener;
 
-    public ExerciseRecyclerAdapter(Context context, List<Article> list, SelectAdapterListener listener) {
+    public ExerciseRecyclerAdapter(Context context, List<RouteInfo> list, SelectAdapterListener listener) {
         this.mContext = context;
         this.mList = list;
         this.mListener = listener;
@@ -42,13 +46,11 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecycl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.item_start_text.setText(mList.get(position).getTitle());
-        holder.item_date_text.setText(mList.get(position).getAuthor());
+        holder.item_start_text.setText(mList.get(position).getDesc());
+        holder.item_date_text.setText(
+                Support.getStringDateByDate(mList.get(position).getStart(), true));
 
-//        if (position == 0)
-//            holder.item_start_button.setText("Start");
-//        else
-        holder.item_start_button.setText("Edit");
+        holder.item_start_button.setText(RaApp.getLabel(LangKeys.key_view));
 
     }
 
@@ -75,5 +77,10 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecycl
 
             item_parent.setOnClickListener(v1 -> mListener.onItemClick(getAdapterPosition()));
         }
+    }
+
+    public void addData(@NonNull List<RouteInfo> mData){
+        if(mData != null && mData.size() != 0)
+            mList.addAll(mData);
     }
 }

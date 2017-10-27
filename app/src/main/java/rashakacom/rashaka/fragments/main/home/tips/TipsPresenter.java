@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import rashakacom.rashaka.MainRouter;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 
 /**
@@ -24,6 +25,7 @@ public class TipsPresenter extends SuperPresenter<TipsView, MainRouter> {
     @Override
     public void onViewReady() {
         getView().setViewsValues();
-        getView().loadLink("http://www.rashaka.sa/index/pages/18/general_tips");
+        getView().loadLink("http://demo.mbooz.com/rashaka/mobile/pages/18/"
+        + RaApp.getBase().getLangType().toUpperCase());
     }
 }

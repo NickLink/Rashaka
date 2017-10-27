@@ -42,7 +42,7 @@ public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRout
 
     @Override
     public void onViewReady() {
-
+        getView().setViewsValues();
     }
 
 
@@ -75,8 +75,11 @@ public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRout
             Log.e(TAG, "alarmItem.isEnabled() > " + alarmItem.isEnabled());
             //TODO Disable existing alarm
             am.cancel(pI);
-
         }
+    }
+
+    public void removeAlarm(Context context, DrinkAlarmItem alarmItem){
+        //TODO Remove Alarm by its Id
 
     }
 

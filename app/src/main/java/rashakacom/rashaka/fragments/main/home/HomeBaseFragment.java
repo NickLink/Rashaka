@@ -84,21 +84,13 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
 
         mButtonBMI.setOnClickListener(view14 -> mPresenter.onBMIClick());
 
-        mOneWeek.setOnSelectListener(new OneWeek.OnSelectListener() {
-            @Override
-            public void onSelect(long startDay) {
-                Log.e(TAG, "onSelect -> " + startDay);
-                mTimeStamp = startDay;
-                mPresenter.readData(false, mTimeStamp);
-            }
+        mOneWeek.setOnSelectListener(startDay -> {
+            Log.e(TAG, "onSelect -> " + startDay);
+            mTimeStamp = startDay;
+            mPresenter.readData(false, mTimeStamp);
         });
 
-        mStatusSteps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.onStepsClick();
-            }
-        });
+        //mStatusSteps.setOnClickListener(view15 -> mPresenter.onStepsClick());
     }
 
     @Override

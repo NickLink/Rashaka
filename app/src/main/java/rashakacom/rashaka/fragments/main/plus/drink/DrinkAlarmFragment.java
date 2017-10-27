@@ -27,6 +27,7 @@ import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.main.plus.drink.edit.AlarmEditFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.database.DrinkAlarmModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -49,6 +50,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
     private List<DrinkAlarmItem> list;
     private int editedItemPosition = -1;
     private SwipeHelper swipeHelper;
+    private boolean removed;
 
     @Override
     public void onAttach(Context context) {
@@ -108,7 +110,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
             @Override
             public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
                 underlayButtons.add(new SwipeHelper.UnderlayButton(
-                        "Delete",
+                        RaApp.getLabel(LangKeys.key_delete),
                         0,
                         Color.parseColor("#FF3C30"),
                         new SwipeHelper.UnderlayButtonClickListener() {
@@ -125,17 +127,22 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
         model.getSelected().observe(this, o -> {
             Log.e(TAG, "Observed Changes!!!");
-            if(o == null){
+            if(o == null && !removed){
                 Log.e(TAG, "Observed o == null list size = " + list.size());
-                //list.remove(editedItemPosition);
-            } else if (editedItemPosition != -1) {
-                list.set(editedItemPosition, o);
-                mRecyclerView.getAdapter().notifyDataSetChanged();
-                mPresenter.saveAlarmListChanges(list);
+                list.remove(editedItemPosition);
+                removed = true;
+            } else {
+                if (editedItemPosition != -1 && !removed) {
+                    list.set(editedItemPosition, o);
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                    Log.e(TAG, "saveAlarmListChanges");
+                    mPresenter.saveAlarmListChanges(list);
+                }
             }
         });
 
         mButtonAdd.setOnClickListener(view1 -> {
+            removed = false;
             DrinkAlarmItem item = new DrinkAlarmItem();
             item.setId(ALARM_START_VALUE + list.size());
             list.add(item);
@@ -149,11 +156,16 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
     private void clearSwiped(int pos){
         Log.e(TAG, "clearSwiped ======= " + pos);
+        DrinkAlarmItem item = list.get(pos);
+        item.setEnabled(false);
+        mPresenter.setAlarm(getActivity(), item);
+
         list.remove(pos);
         //mRecyclerView.getAdapter().notifyDataSetChanged();
         swipeHelper.clearSwipe();
         mRecyclerView.getAdapter().notifyItemRemoved(pos);
-
+        Log.e(TAG, "saveAlarmListChanges");
+        mPresenter.saveAlarmListChanges(list);
 
         //mRecyclerView.getRecycledViewPool().clear();
         //mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -168,7 +180,8 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
 
     @Override
     public void setViewsValues() {
-        mTitle.setText(RaApp.getLabel("key_drink_alarm"));
+        mTitle.setText(RaApp.getLabel(LangKeys.key_drink_alarm));
+        mButtonAddText.setText(RaApp.getLabel(LangKeys.key_add_new));
     }
 
 
@@ -181,4 +194,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView {
     @BindView(R.id.add_new_alarm)
     FrameLayout mButtonAdd;
 
+
+    @BindView(R.id.add_new_text)
+    TextView mButtonAddText;
 }

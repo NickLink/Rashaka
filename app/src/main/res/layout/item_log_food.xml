@@ -19,35 +19,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/item_date"
-                style="@style/InfoLightBlackTextBold"
-                android:textSize="@dimen/text_size_small"
-                android:text="12 Sep"/>
-
-            <TextView
-                android:id="@+id/item_time"
-                style="@style/InfoLightBlackTextBold"
-                android:textSize="@dimen/text_size_small"
-                android:text="06:00"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_weight="1"
             android:layout_marginStart="@dimen/inner_padding_small">
 
-            <TextView
-                android:id="@+id/item_type"
-                style="@style/InfoLightBlackTextBold"
-                android:textSize="@dimen/text_size_small"
-                android:maxLines="1"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_type"
+                    style="@style/InfoLightBlackTextBold"
+                    android:textSize="@dimen/text_size_small"
+                    android:maxLines="1"/>
+                <TextView
+                    android:id="@+id/item_date"
+                    style="@style/InfoLightBlackTextBold"
+                    android:layout_marginStart="@dimen/inner_padding_tiny"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="12 Sep"/>
+                <TextView
+                    android:id="@+id/item_time"
+                    style="@style/InfoLightBlackTextBold"
+                    android:layout_marginStart="@dimen/inner_padding_tiny"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="06:00"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/item_text"

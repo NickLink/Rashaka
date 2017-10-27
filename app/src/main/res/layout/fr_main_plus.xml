@@ -15,6 +15,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_plus_drink_alarm"/>
             <TextView
+                android:id="@+id/drink"
                 style="@style/InfoLightBlackText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_plus_log_sleep"/>
             <TextView
+                android:id="@+id/sleep"
                 style="@style/InfoLightBlackText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_plus_log_food"/>
             <TextView
+                android:id="@+id/food"
                 style="@style/InfoLightBlackText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

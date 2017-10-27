@@ -8,7 +8,7 @@ import rashakacom.rashaka.fragments.BaseFragment;
 
 public interface PlusBaseView {
 
-    void setValues(String one, String two, String three);
+    void setViewsValues();
 
     void pushFragment(BaseFragment fragment);
 }

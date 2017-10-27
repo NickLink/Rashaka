@@ -31,17 +31,19 @@ public class RestKeys {
     public static final String CALL_TERMS = "terms";
 
     public static final String CALL_USER = "user";
+    public static final String CALL_ITEM = "item";
+    public static final String CALL_NEW = "new";
+
     public static final String CALL_POST_DAILY = "daily";
     public static final String CALL_POST_DAILY_WEIGHT = "daily_weight";
     public static final String CALL_POST_DAILY_BMI = "daily_bmi";
     public static final String CALL_POST_DAILY_STEPS = "daily_steps";
 
     public static final String CALL_NEWS_ALL = "all_news";
-    public static final String CALL_NEWS_ITEM = "item";
-    public static final String CALL_NEW = "new";
 
     public static final String CALL_FOOD_ALL = "all_food";
-    public static final String CALL_FOOD_ITEM = "item";
+
+    public static final String CALL_ROUTES_ALL = "all_routes";
 
     public static final String CALL_STAT_WEIGHT = "weight_statistic";
 
@@ -58,6 +60,7 @@ public class RestKeys {
     public static final String KEY_OFFSET = "offset";
     public static final String KEY_TERMS = "terms";
     public static final String KEY_USER = "user";
+    public static final String KEY_ID = "id";
 
     public static final String KEY_WEIGHT = "weight";
     public static final String KEY_BMI = "bmi";

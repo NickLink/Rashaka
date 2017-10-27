@@ -1,13 +1,11 @@
 package rashakacom.rashaka;
 
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import rashakacom.rashaka.utils.rest.Rest;
-import rashakacom.rashaka.domain.PartnersDataItem;
+import rashakacom.rashaka.domain.PartnersData;
 import rashakacom.rashaka.domain.RestResponse;
+import rashakacom.rashaka.utils.rest.Rest;
 import rashakacom.rashaka.utils.rest.RestUtils;
 
 /**
@@ -38,8 +36,8 @@ public class LoginPresenter {
         mRouter.showError(RestUtils.ErrorMessages(error));
     }
 
-    private void handleResponse(RestResponse<List<PartnersDataItem>> response) {
-        mRouter.setPartnersLogos(response.getMData());
+    private void handleResponse(RestResponse<PartnersData> response) {
+        mRouter.setPartnersLogos(response.getMData().getList());
     }
 
     public void onDestroy(){

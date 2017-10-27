@@ -19,6 +19,7 @@ import rashakacom.rashaka.R;
 import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.main.plus.drink.DrinkAlarmItem;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.database.DrinkAlarmModel;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
@@ -108,7 +109,7 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
         mItemDaySat.setOnClickListener(this);
         mItemDaySun.setOnClickListener(this);
 
-        String[] amString = {"am", "pm"};
+        String[] amString = {RaApp.getLabel(LangKeys.key_am), RaApp.getLabel(LangKeys.key_pm)};
         mAmPicker.setDisplayedValues(amString);
 
         mButtonCancel.setOnClickListener(view1 -> mPresenter.onCancelClick());
@@ -124,7 +125,7 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
 
     @Override
     public void setViewsValues() {
-        mTitle.setText(RaApp.getLabel("key_drink_alarm"));
+        mTitle.setText(RaApp.getLabel(LangKeys.key_drink_alarm));
         mHoursPicker.setValue(model.getSelected().getValue().getHours());
         mMinutesPicker.setValue(model.getSelected().getValue().getMinutes());
         mAmPicker.setValue(model.getSelected().getValue().getAm());
@@ -136,7 +137,8 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
         setDayChecked(mItemDaySat, model.getSelected().getValue().isEnSaturday());
         setDayChecked(mItemDaySun, model.getSelected().getValue().isEnSunday());
 
-
+        mButtonSave.setText(RaApp.getLabel(LangKeys.key_save));
+        mButtonCancel.setText(RaApp.getLabel(LangKeys.key_cancel));
     }
 
     @Override
@@ -167,7 +169,6 @@ public class AlarmEditFragment extends BaseFragment implements AlarmEditView, Vi
 
     @Override
     public void onCancel(DrinkAlarmItem data) {
-        //data = null;
         model.select(null);
         mFragmentNavigation.popFragment();
     }

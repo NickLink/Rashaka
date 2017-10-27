@@ -16,9 +16,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rashakacom.rashaka.MainRouter;
 import rashakacom.rashaka.R;
+import rashakacom.rashaka.RaApp;
 import rashakacom.rashaka.fragments.BaseFragment;
 import rashakacom.rashaka.fragments.main.news.gallery.GalleryFragment;
 import rashakacom.rashaka.fragments.main.news.latest.LatestFragment;
+import rashakacom.rashaka.system.lang.LangKeys;
 import rashakacom.rashaka.utils.helpers.structure.SuperPresenter;
 import rashakacom.rashaka.utils.helpers.structure.helpers.Layout;
 
@@ -62,8 +64,8 @@ public class NewsBaseFragment extends BaseFragment implements NewsBaseView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        mResultTabs.addTab(mResultTabs.newTab().setText("Latest News"));
-        mResultTabs.addTab(mResultTabs.newTab().setText("Gallery"));
+        mResultTabs.addTab(mResultTabs.newTab().setText(RaApp.getLabel(LangKeys.key_news)));
+        mResultTabs.addTab(mResultTabs.newTab().setText(RaApp.getLabel(LangKeys.key_gallery)));
         mResultTabs.setTabGravity(TabLayout.GRAVITY_FILL);
 
         setupViewPager(mViewPager);

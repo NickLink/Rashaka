@@ -10,7 +10,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rashakacom.rashaka.domain.BaseResponse;
 import rashakacom.rashaka.domain.LabelItem;
-import rashakacom.rashaka.domain.PartnersDataItem;
+import rashakacom.rashaka.domain.PartnersData;
 import rashakacom.rashaka.domain.RestPageResponse;
 import rashakacom.rashaka.domain.RestResponse;
 import rashakacom.rashaka.domain.TermsData;
@@ -19,6 +19,8 @@ import rashakacom.rashaka.domain.food.LogFood;
 import rashakacom.rashaka.domain.login.UserLogin;
 import rashakacom.rashaka.domain.news.NewsItem;
 import rashakacom.rashaka.domain.profile.UserProfile;
+import rashakacom.rashaka.domain.routes.RouteInfo;
+import rashakacom.rashaka.domain.routes.Routes;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -81,7 +83,7 @@ public interface JService {
             @Path(RestKeys.KEY_LANGUAGE) String lang);
 
     @GET(RestKeys.PATH_MAIN + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_PARTNERS)
-    Observable<RestResponse<List<PartnersDataItem>>> getPartnersItems(); //@Path(RestKeys.KEY_LANGUAGE) String lang
+    Observable<RestResponse<PartnersData>> getPartnersItems(); //@Path(RestKeys.KEY_LANGUAGE) String lang
 
     @GET(RestKeys.PATH_MAIN + RestKeys.POINT_CONTENT + "/" + RestKeys.CALL_TERMS + "/{" + RestKeys.KEY_LANGUAGE + "}")
     Observable<RestResponse<TermsData>> getTerms(
@@ -163,10 +165,8 @@ public interface JService {
 
     //TODO Get All Log Food
     @GET(RestKeys.PATH_MAIN
-            + RestKeys.POINT_FOOD + "/"
-            + RestKeys.CALL_FOOD_ALL
-            + "/{" + RestKeys.KEY_USER + "}"
-            + "/{" + RestKeys.KEY_OFFSET + "}")
+            + RestKeys.POINT_FOOD + "/" + RestKeys.CALL_FOOD_ALL
+            + "/{" + RestKeys.KEY_USER + "}" + "/{" + RestKeys.KEY_OFFSET + "}")
     Observable<RestPageResponse<LogFood>> getAllFoodLog(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Path(RestKeys.KEY_USER) String lang,
@@ -175,20 +175,15 @@ public interface JService {
 
     //TODO News part
     @GET(RestKeys.PATH_MAIN
-            + RestKeys.POINT_NEWS + "/"
-            + RestKeys.CALL_NEWS_ALL
-            + "/{" + RestKeys.KEY_LANGUAGE + "}"
-            + "/{" + RestKeys.KEY_OFFSET + "}")
+            + RestKeys.POINT_NEWS + "/" + RestKeys.CALL_NEWS_ALL
+            + "/{" + RestKeys.KEY_LANGUAGE + "}" + "/{" + RestKeys.KEY_OFFSET + "}")
     Observable<RestPageResponse<List<NewsItem>>> getAllNews(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Path(RestKeys.KEY_LANGUAGE) String lang,
             @Path(RestKeys.KEY_OFFSET) String offset);
 
-    @GET(RestKeys.PATH_MAIN
-            + RestKeys.POINT_NEWS + "/"
-            + RestKeys.CALL_NEWS_ITEM
-            + "/{" + RestKeys.KEY_LANGUAGE + "}"
-            + "/{" + RestKeys.KEY_OFFSET + "}")
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_NEWS + "/" + RestKeys.CALL_ITEM
+            + "/{" + RestKeys.KEY_LANGUAGE + "}" + "/{" + RestKeys.KEY_OFFSET + "}")
     Observable<RestResponse<NewsItem>> getNewsItem(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Path(RestKeys.KEY_LANGUAGE) String lang,
@@ -199,7 +194,7 @@ public interface JService {
 
 
     //TODO Tracker part
-
+    //SAVE New track
     @FormUrlEncoded
     @POST(RestKeys.PATH_MAIN + RestKeys.POINT_TRACKER + "/" + RestKeys.CALL_NEW + "/{" + RestKeys.KEY_USER + "}")
     Observable<BaseResponse> postNewUserRoute(
@@ -209,9 +204,26 @@ public interface JService {
             @Field(RestKeys.KEY_STOP) @NonNull String stop,
             @Field(RestKeys.KEY_POINTS) @NonNull String points,
             @Field(RestKeys.KEY_TIME) @NonNull int time,
-            @Field(RestKeys.KEY_PACE) @NonNull float pace,
-            @Field(RestKeys.KEY_DISTANCE) @NonNull float distance,
+            @Field(RestKeys.KEY_PACE) @NonNull double pace,
+            @Field(RestKeys.KEY_DISTANCE) @NonNull double distance,
             @Field(RestKeys.KEY_DESC) @NonNull String description);
+
+
+    //LOAD All tracks list
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_TRACKER + "/" + RestKeys.CALL_ROUTES_ALL
+            + "/{" + RestKeys.KEY_USER + "}"+ "/{" + RestKeys.KEY_OFFSET + "}")
+    Observable<RestPageResponse<Routes>> getAllUserRoutes(
+            @Header(RestKeys.HEADER_API_KEY) @NonNull String apiKey,
+            @Path(RestKeys.KEY_USER) @NonNull String userId,
+            @Path(RestKeys.KEY_OFFSET) @NonNull String offset);
+
+    //LOAD Track by id
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_TRACKER + "/" + RestKeys.CALL_ITEM
+            + "/{" + RestKeys.KEY_ID + "}") //+ "/{" + RestKeys.KEY_OFFSET + "}"
+    Observable<RestResponse<RouteInfo>> getUserRouteById(
+            @Header(RestKeys.HEADER_API_KEY) @NonNull String apiKey,
+            //@Path(RestKeys.KEY_USER) @NonNull String userId,
+            @Path(RestKeys.KEY_ID) @NonNull String id);
 
 
 //    @FormUrlEncoded
