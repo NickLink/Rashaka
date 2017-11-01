@@ -24,8 +24,9 @@
         android:layout_below="@+id/imageView"/>
 
     <LinearLayout
+        android:id="@+id/items_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/title">
 
@@ -34,18 +35,18 @@
 
         <include layout="@layout/item_log_sleep"
                  android:id="@+id/log_sleep_end"/>
-
     </LinearLayout>
 
 
     <FrameLayout
         android:id="@+id/log_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/inner_padding"
         android:background="@drawable/button_breeze_selector"
-        android:layout_alignParentBottom="true"
-        android:clickable="true"
-        android:padding="@dimen/inner_padding">
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/items_parent"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/log_text"

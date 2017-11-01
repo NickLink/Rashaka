@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <rashakacom.rashaka.utils.helpers.views.picker.MyNumberPicker
+        <com.rashaka.utils.helpers.views.picker.MyNumberPicker
             android:id="@+id/height_picker_main"
             android:theme="@style/AppTheme.Picker"
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_marginTop="@dimen/inner_padding_small"
             android:text="."/>
 
-        <rashakacom.rashaka.utils.helpers.views.picker.MyNumberPicker
+        <com.rashaka.utils.helpers.views.picker.MyNumberPicker
             android:id="@+id/height_picker_extra"
             android:theme="@style/AppTheme.Picker"
             android:layout_width="wrap_content"

@@ -54,7 +54,7 @@
             android:id="@+id/item_add_button"
             style="@style/InfoBreezeBtnText"
             android:layout_marginStart="@dimen/inner_padding_small"
-            android:text="Add"/>
+            android:text="Share"/>
     </LinearLayout>
 
     <View

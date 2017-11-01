@@ -231,11 +231,11 @@
                     android:layout_height="wrap_content"
                     app:tabTextAppearance="@style/TabLayoutStyleText"/>
 
-                <rashakacom.rashaka.utils.helpers.views.pager.WrapContentViewPager
+                <com.rashaka.utils.helpers.views.pager.WrapContentViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="400dp">
-                </rashakacom.rashaka.utils.helpers.views.pager.WrapContentViewPager>
+                </com.rashaka.utils.helpers.views.pager.WrapContentViewPager>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>

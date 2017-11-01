@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         >
 
-        <rashakacom.rashaka.utils.helpers.views.name.NameEditText
+        <com.rashaka.utils.helpers.views.name.NameEditText
             android:id="@+id/register_name_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/login_top_margin"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <rashakacom.rashaka.utils.helpers.views.name.NameEditText
+        <com.rashaka.utils.helpers.views.name.NameEditText
             android:id="@+id/register_lname_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_micro"
@@ -32,7 +32,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_name_edittext"/>
 
-        <rashakacom.rashaka.utils.helpers.views.email.EmailEditText
+        <com.rashaka.utils.helpers.views.email.EmailEditText
             android:id="@+id/register_email_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_micro"
@@ -42,7 +42,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_lname_edittext"/>
 
-        <rashakacom.rashaka.utils.helpers.views.passw.PasswordEditText
+        <com.rashaka.utils.helpers.views.passw.PasswordEditText
             android:id="@+id/register_password_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_micro"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/register_email_edittext"
             />
 
-        <rashakacom.rashaka.utils.helpers.views.passw.PasswordEditText
+        <com.rashaka.utils.helpers.views.passw.PasswordEditText
             android:id="@+id/register_password_confirm_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_micro"
@@ -67,7 +67,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_password_edittext"/>
 
-        <rashakacom.rashaka.utils.helpers.views.phone.PhoneEditText
+        <com.rashaka.utils.helpers.views.phone.PhoneEditText
             android:id="@+id/register_phone_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_micro"

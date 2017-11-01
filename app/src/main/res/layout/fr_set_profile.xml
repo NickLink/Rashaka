@@ -53,7 +53,8 @@
                 android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/inner_padding"
-                android:src="@drawable/icon_profile_save"/>
+                android:src="@drawable/icon_profile_save"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/profile_save_back"

@@ -179,8 +179,8 @@
         <item name="android:textColor">@color/text_white</item>
         <item name="android:textColorHint">@color/text_white_hint</item>
         <item name="android:background">@drawable/ripple_border_empty</item>
-        <item name="android:inputType">text</item>
-
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
     </style>
     <!--<item name="android:background">@android:color/transparent</item>-->
     <style name="ChangePasswordEditText" parent="EditTextParent">
@@ -190,6 +190,7 @@
         <item name="android:layout_marginTop">@dimen/inner_padding_micro</item>
         <item name="android:background">@drawable/btn_empty_gray_c4</item>
         <item name="android:inputType">textPassword</item>
+        <item name="android:textCursorDrawable">@drawable/color_cursor</item>
     </style>
 
     <style name="MidWhiteText" parent="RobotoThin">
@@ -243,6 +244,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:paddingStart">@dimen/inner_padding_small</item>
+        <item name="android:paddingBottom">@dimen/inner_padding</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/weight_horizontal_back</item>
         <item name="android:textColor">@color/text_white</item>

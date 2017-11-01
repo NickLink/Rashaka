@@ -4,7 +4,8 @@
     <color name="transparent">@android:color/transparent</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#65CBC9</color>
+    <!--FF4081-->
 
     <color name="very_light_gray">#E6E6E6</color>
     <color name="light_gray">#bcbcbc</color>

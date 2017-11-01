@@ -70,7 +70,7 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
-        <rashakacom.rashaka.utils.helpers.views.picker.MyNumberPicker
+        <com.rashaka.utils.helpers.views.picker.MyNumberPicker
             android:id="@+id/picker_hours"
             android:theme="@style/AppTheme.Picker"
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
             android:layout_marginTop="@dimen/inner_padding_small"
             android:text=":"/>
 
-        <rashakacom.rashaka.utils.helpers.views.picker.MyNumberPicker
+        <com.rashaka.utils.helpers.views.picker.MyNumberPicker
             android:id="@+id/picker_minutes"
             android:theme="@style/AppTheme.Picker"
             android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
             min="0"
             def="0"/>
 
-        <rashakacom.rashaka.utils.helpers.views.picker.MyStringPicker
+        <com.rashaka.utils.helpers.views.picker.MyStringPicker
             android:id="@+id/picker_am"
             android:theme="@style/AppTheme.PickerString"
             android:layout_width="wrap_content"

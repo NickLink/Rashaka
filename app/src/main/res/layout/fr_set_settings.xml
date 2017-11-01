@@ -173,14 +173,14 @@
                     android:padding="@dimen/inner_padding_small"
                     android:layout_gravity="start|center_vertical"
                     android:text="LOGOUT"
-                    />
+                    android:textColor="@color/text_white"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:padding="@dimen/inner_padding_small"
-                    android:src="@drawable/icon_logout"/>
+                    android:src="@drawable/icon_logout_white"/>
 
             </FrameLayout>
 

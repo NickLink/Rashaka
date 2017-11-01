@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
 
-        <rashakacom.rashaka.utils.helpers.views.email.EmailEditText
+        <com.rashaka.utils.helpers.views.email.EmailEditText
             android:id="@+id/signin_email_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/login_top_margin"
@@ -21,7 +21,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <rashakacom.rashaka.utils.helpers.views.passw.PasswordEditText
+        <com.rashaka.utils.helpers.views.passw.PasswordEditText
             android:id="@+id/signin_password_edittext"
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_tiny"

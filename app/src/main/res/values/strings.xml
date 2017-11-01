@@ -9,6 +9,8 @@
     <string name="description">Description</string>
     <string name="close">Close</string>
 
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
     <string name="long_useless_text">If you consider Swipeable items in lists, the logic is a bit different for Android and iOS. In Android you don\'t need to confirm deletion with a click.</string>
     <string name="week">Week</string>
     <string name="month">Month</string>
@@ -17,6 +19,8 @@
     <string name="dialog_title">Title</string>
     <string name="dialog_text">Dialog text that contains message from API</string>
     <string name="dialog_button_text">OK</string>
+    <string name="dialog_button_text_yes">Yes</string>
+    <string name="dialog_button_text_no">No</string>
     <string name="dialog_set_steps_goal">To enable progress calculation of Active time and calories please set Steps goal in profile page.</string>
     <string name="walking">Walking</string>
     <string name="walking_value_default">0:00</string>

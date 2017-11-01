@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="rashakacom.rashaka">
+          package="com.rashaka">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -10,16 +10,17 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".RaApp"
+        android:name="com.rashaka.RaApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.rashaka.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <!--android:launchMode="singleTask"-->
@@ -28,7 +29,7 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name="com.rashaka.LoginActivity"
             android:label="@string/app_name"
 
             android:screenOrientation="portrait"
@@ -40,8 +41,13 @@
         </activity>
         <!--android:launchMode="singleTask"-->
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="92f3dceaa527566255e526276c9fa94b9463727c"
+            />
+
         <receiver
-            android:name="rashakacom.rashaka.fragments.main.plus.drink.edit.NotificationReceiver"
+            android:name="com.rashaka.fragments.main.plus.drink.edit.NotificationReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>
@@ -51,12 +57,34 @@
             android:value="AIzaSyCO5ZRXyah6avFks4ICg8JPIYT1w6iWz0Y"/>
 
         <service
-            android:name="rashakacom.rashaka.utils.steps.SensorService"
+            android:name="com.rashaka.utils.steps.SensorService"
             android:enabled="true" >
         </service>
 
-        <receiver android:name="rashakacom.rashaka.utils.steps.SensorRestarterBroadcastReceiver">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/>
+
+        <service
+            android:name=".gcm.MyFirebaseMessagingService">
             <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".gcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="com.rashaka.utils.steps.SensorRestarterBroadcastReceiver"
+                  android:enabled="true"
+                  android:exported="true"
+                  android:label="RestartServiceWhenStopped">
+            <intent-filter>
+                <action android:name="com.rashaka.utils.steps.RestartSensor"/>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
