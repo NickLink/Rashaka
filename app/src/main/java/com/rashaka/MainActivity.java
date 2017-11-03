@@ -2,6 +2,7 @@ package com.rashaka;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -12,9 +13,13 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 import com.ncapdevi.fragnav.FragNavController;
 import com.rashaka.fragments.BaseFragment;
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     private MainPresenter mPresenter;
 
     private Dialog loader;
+    private boolean isKeyVisible, isVisible;
 
     private final int INDEX_HOME = FragNavController.TAB1;
     private final int INDEX_NEWS = FragNavController.TAB2;
@@ -260,11 +266,30 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
 
     @Override
     public void showError(String error) {
+        IsKeyboardVisible(mParentLayout);
+        Log.e(TAG, "IsKeyboardVisible -> " + isKeyVisible);
+        if(isKeyVisible){
+            showToast(error);
+        } else {
+            showSnackBar(error);
+        }
+    }
+
+    private void showSnackBar(String error){
         Snackbar snackbar = Snackbar.make(mParentLayout, error, Snackbar.LENGTH_LONG);
         snackbar.setText(error);
         snackbar.setAction(error, null);
         snackbar.setActionTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    private void showToast(String error){
+        Log.e(TAG, "IsVisible -> " + isVisible);
+        if(isVisible){
+            Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 
     @Override
@@ -310,11 +335,46 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        isVisible = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isVisible = false;
+    }
+
+    @Override
     protected void onDestroy() {
+        isVisible = false;
+        mPresenter.onDestroy();
         mPresenter.stopService();
         Log.e(TAG, "onDestroy!");
         super.onDestroy();
 
+    }
+
+    void IsKeyboardVisible(View contentView){
+        contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                contentView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = contentView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+
+                if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                    // keyboard is opened
+                    isKeyVisible = true;
+                }
+                else {
+                    // keyboard is closed
+                    isKeyVisible = false;
+                }
+            }
+        });
     }
 
 }

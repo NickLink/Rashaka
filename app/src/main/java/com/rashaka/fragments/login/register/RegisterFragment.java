@@ -10,23 +10,22 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.rashaka.LoginRouter;
+import com.rashaka.R;
 import com.rashaka.RaApp;
 import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.Consts;
 import com.rashaka.utils.Support;
+import com.rashaka.utils.dialogs.DialogStandartButton;
 import com.rashaka.utils.helpers.structure.SuperFragment;
+import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
+import com.rashaka.utils.helpers.views.email.EmailEditText;
 import com.rashaka.utils.helpers.views.name.NameEditText;
 import com.rashaka.utils.helpers.views.passw.PasswordEditText;
+import com.rashaka.utils.helpers.views.phone.PhoneEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.rashaka.R;
-
-import com.rashaka.utils.dialogs.DialogStandartButton;
-import com.rashaka.utils.helpers.structure.SuperPresenter;
-import com.rashaka.utils.helpers.views.email.EmailEditText;
-import com.rashaka.utils.helpers.views.phone.PhoneEditText;
 
 /**
  * Created by User on 17.08.2017.
@@ -42,7 +41,7 @@ public class RegisterFragment extends SuperFragment implements RegisterView {
     public void onAttach(Context context) {
         super.onAttach(context);
         myRouter = (LoginRouter) getActivity();
-        mPresenter = new RegisterPresenter();
+        mPresenter = new RegisterPresenter(myRouter);
     }
 
     @Override

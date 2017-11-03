@@ -15,9 +15,9 @@ public interface HomeBaseView {
 
     void setActiveTime(String time, int progress);
     void setCalories(String calories, int progress);
-    void setDistance(String distance);
-    void setSteps(String steps);
-    void setWeight(String weight);
+    void setDistance(String distance, boolean up);
+    void setSteps(String steps, boolean up);
+    void setWeight(String weight, boolean up);
 
     boolean isRefreshing();
 

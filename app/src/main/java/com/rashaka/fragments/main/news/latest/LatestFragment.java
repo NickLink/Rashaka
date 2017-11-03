@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.rashaka.MainRouter;
 import com.rashaka.R;
@@ -18,6 +17,7 @@ import com.rashaka.fragments.main.news.latest.item.NewsItemFragment;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 import com.rashaka.utils.helpers.views.CustomLayoutManager;
+import com.rashaka.utils.helpers.views.EmptyListView;
 
 import java.util.List;
 
@@ -101,38 +101,40 @@ public class LatestFragment extends BaseFragment implements LatestView {
 
     @Override
     public void setAdapterData(List<NewsItem> list) {
-        LatestRecyclerAdapter adapter = new LatestRecyclerAdapter(
-                getActivity(),
-                list,
-                new LatestRecyclerAdapter.LatestNewsClick() {
-                    @Override
-                    public void cShare(int position) {
-                        Toast.makeText(getActivity(), "Share -> " + position, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void cMore(int position, String id) {
-                        mFragmentNavigation.pushFragment(NewsItemFragment.newInstanse(id));
-                        Toast.makeText(getActivity(), "More ID -> " + id, Toast.LENGTH_SHORT).show();
-                    }
-                });
-        mNewsRecyclerView.setAdapter(adapter);
+        if (list != null && list.size() > 0) {
+            mEmptyList.setVisibility(View.GONE);
+            mNewsRecyclerView.setVisibility(View.VISIBLE);
+            LatestRecyclerAdapter adapter = new LatestRecyclerAdapter(
+                    getActivity(),
+                    list,
+                    new LatestRecyclerAdapter.LatestNewsClick() {
+                        @Override
+                        public void cShare(int position) {
+                            //Toast.makeText(getActivity(), "Share -> " + position, Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void cMore(int position, String id) {
+                            mFragmentNavigation.pushFragment(NewsItemFragment.newInstanse(id));
+                            //Toast.makeText(getActivity(), "More ID -> " + id, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            mNewsRecyclerView.setAdapter(adapter);
+        } else {
+            mEmptyList.setVisibility(View.VISIBLE);
+            mNewsRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void addAdapterData(List<NewsItem> mData) {
-        ((LatestRecyclerAdapter)mNewsRecyclerView.getAdapter()).addData(mData);
+        if (mNewsRecyclerView.getAdapter() != null)
+            ((LatestRecyclerAdapter) mNewsRecyclerView.getAdapter()).addData(mData);
     }
+
+    @BindView(R.id.empty_list)
+    EmptyListView mEmptyList;
 
     @BindView(R.id.latest_recycler_view)
     RecyclerView mNewsRecyclerView;
 
-//
-//    @BindView(R.id.textView4)
-//    TextView textView4;
-//
-//    @BindView(R.id.textView3)
-//    TextView textView3;
-//    @BindView(R.id.news_grid_view)
-//    GridView mNewsGridview;
 }

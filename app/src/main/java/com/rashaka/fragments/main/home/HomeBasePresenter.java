@@ -124,20 +124,24 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
         String distanse = "0,00";
         if(count != 0){
             distanse = String.format("%.2f", (count * 0.7) / 1000);
+
         }
-        getView().setDistance(distanse);
+        getView().setDistance(distanse, count > stepsGoal);
     }
 
     private void setSteps(long count){
-        getView().setSteps(String.valueOf(count));
+        getView().setSteps(String.valueOf(count), count > stepsGoal);
     }
 
     private void setWeight(){
-        double weight = 0;
+        double weight = 0, weightGoal = 0;
         try {
             weight = Double.parseDouble(RaApp.getBase().getProfileUser().getWeight());
-        } catch (Exception e){}
-        getView().setWeight(String.format("%.1f", weight));
+            weightGoal = Double.parseDouble(RaApp.getBase().getProfileUser().getWeightGoal());
+        } catch (Exception e){
+
+        }
+        getView().setWeight(String.format("%.1f", weight), weight <= weightGoal);
     }
 
     public static long startOfDay() {

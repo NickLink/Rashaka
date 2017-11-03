@@ -10,4 +10,7 @@ public interface SleepLogView {
 
     void setStartSleep(String startSleep);
     void setEndSleep(String endSleep);
+
+    void setStartSleepTime(String startSleepTime);
+    void setEndSleepTime(String endSleepTime);
 }

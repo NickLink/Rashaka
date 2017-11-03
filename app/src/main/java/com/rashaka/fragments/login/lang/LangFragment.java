@@ -43,7 +43,7 @@ public class LangFragment extends SuperFragment implements LangView {
         super.onAttach(context);
         Log.e(TAG, "LangFragment onAttach ");
         myRouter = (LoginRouter) getActivity();
-        mPresenter = new LangPresenter();
+        mPresenter = new LangPresenter(myRouter);
     }
 
     @Override

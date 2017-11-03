@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -23,8 +24,10 @@ import com.rashaka.fragments.BaseFragment;
 import com.rashaka.fragments.main.home.exercise.show.ShowRouteFragment;
 import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.Support;
+import com.rashaka.utils.Utility;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
+import com.rashaka.utils.helpers.views.EmptyListView;
 
 import java.util.List;
 
@@ -116,15 +119,25 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
 
     @Override
     public void setAdapterData(List<RouteInfo> list) {
-        mExerciseRecyclerView.setAdapter(
-                new ExerciseRecyclerAdapter(getActivity(),
-                        list,
-                        position -> goMap(list.get(position))));
+        if (list != null && list.size() > 0) {
+            Utility.setCollapseScroll(mExerciseToolbarLayout);
+            mEmptyList.setVisibility(View.GONE);
+            mExerciseRecyclerView.setVisibility(View.VISIBLE);
+            ExerciseRecyclerAdapter adapter = new ExerciseRecyclerAdapter(getActivity(),
+                    list,
+                    position -> goMap(list.get(position)));
+            mExerciseRecyclerView.setAdapter(adapter);
+        } else {
+            Utility.setSnagScroll(mExerciseToolbarLayout);
+            mEmptyList.setVisibility(View.VISIBLE);
+            mExerciseRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void addAdapterData(List<RouteInfo> list) {
-        ((ExerciseRecyclerAdapter)mExerciseRecyclerView.getAdapter()).addData(list);
+        if (mExerciseRecyclerView.getAdapter() != null)
+            ((ExerciseRecyclerAdapter) mExerciseRecyclerView.getAdapter()).addData(list);
     }
 
     private void goMap(RouteInfo routeInfo) {
@@ -136,11 +149,18 @@ public class ExerciseFragment extends BaseFragment implements ExerciseView {
         mFragmentNavigation.pushFragment(fragment);
     }
 
+
+    @BindView(R.id.colapsing_title)
+    CollapsingToolbarLayout mExerciseToolbarLayout;
+
     @BindView(R.id.exercise_page_title)
     TextView mExerciseTitle;
 
     @BindView(R.id.exercise_recycler_view)
     RecyclerView mExerciseRecyclerView;
+
+    @BindView(R.id.empty_list)
+    EmptyListView mEmptyList;
 
     //    @BindView(R.id.exercise_item)
 //    LinearLayout mExerciseSelectedItem;

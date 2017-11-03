@@ -6,22 +6,25 @@ import android.text.TextUtils;
 
 import com.rashaka.LoginRouter;
 import com.rashaka.RaApp;
+import com.rashaka.domain.BaseResponse;
 import com.rashaka.domain.TermsData;
 import com.rashaka.utils.Support;
+import com.rashaka.utils.helpers.structure.SuperPresenter;
+import com.rashaka.utils.rest.Rest;
 import com.rashaka.utils.rest.RestUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import com.rashaka.domain.BaseResponse;
-import com.rashaka.utils.helpers.structure.SuperPresenter;
-import com.rashaka.utils.rest.Rest;
 
 /**
  * Created by User on 22.08.2017.
  */
 
 public class RegisterPresenter extends SuperPresenter<RegisterView, LoginRouter> {
+
+    public RegisterPresenter(LoginRouter myRouter) {
+        setRouter(myRouter);
+    }
 
     @Override
     public void onStart(@Nullable Bundle bundle) {

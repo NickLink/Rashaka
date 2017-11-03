@@ -37,7 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_share"/>
+            android:src="@drawable/icon_share"
+            android:padding="@dimen/inner_padding_micro"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/item_read_more"

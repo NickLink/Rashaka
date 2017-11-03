@@ -2,16 +2,22 @@ package com.rashaka;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rashaka.domain.PartnersDataItem;
 import com.rashaka.fragments.login.lang.LangFragment;
@@ -32,17 +38,7 @@ import static com.rashaka.utils.Consts.ANIMATION_RIGHT;
 
 public class LoginActivity extends AppCompatActivity implements LoginRouter {
 
-    @BindView(R.id.login_container)
-    FrameLayout loginContainer;
-    @BindView(R.id.login_partner_image_0)
-    ImageView loginImage_0;
-    @BindView(R.id.login_partner_image_1)
-    ImageView loginImage_1;
-    @BindView(R.id.login_bottom_text)
-    TextView loginBottomText;
-    @BindView(R.id.login_parent_layout)
-    ConstraintLayout mParentLayout;
-
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private LoginPresenter mPresenter;
     private FragmentManager fm;
 
@@ -50,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoginRouter {
     private RegisterFragment registerFragment;
     private SignInFragment signInFragment;
     private PassFragment passFragment;
+    private boolean isKeyVisible, isVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,11 +133,30 @@ public class LoginActivity extends AppCompatActivity implements LoginRouter {
 
     @Override
     public void showError(String error) {
+        IsKeyboardVisible(mParentLayout);
+        Log.e(TAG, "IsKeyboardVisible -> " + isKeyVisible);
+        if(isKeyVisible){
+            showToast(error);
+        } else {
+            showSnackBar(error);
+        }
+    }
+
+    private void showSnackBar(String error){
         Snackbar snackbar = Snackbar.make(mParentLayout, error, Snackbar.LENGTH_LONG);
         snackbar.setText(error);
         snackbar.setAction(error, null);
         snackbar.setActionTextColor(Color.WHITE);
         snackbar.show();
+    }
+
+    private void showToast(String error){
+        Log.e(TAG, "IsVisible -> " + isVisible);
+        if(isVisible){
+            Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 
     @Override
@@ -152,9 +168,53 @@ public class LoginActivity extends AppCompatActivity implements LoginRouter {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        isVisible = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isVisible = false;
+    }
+
+    @Override
     public void onDestroy(){
         super.onDestroy();
         mPresenter.onDestroy();
     }
+
+    void IsKeyboardVisible(View contentView){
+        contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                contentView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = contentView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+
+                if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                    // keyboard is opened
+                    isKeyVisible = true;
+                }
+                else {
+                    // keyboard is closed
+                    isKeyVisible = false;
+                }
+            }
+        });
+    }
+
+    @BindView(R.id.login_container)
+    FrameLayout loginContainer;
+    @BindView(R.id.login_partner_image_0)
+    ImageView loginImage_0;
+    @BindView(R.id.login_partner_image_1)
+    ImageView loginImage_1;
+    @BindView(R.id.login_bottom_text)
+    TextView loginBottomText;
+    @BindView(R.id.login_parent_layout)
+    ConstraintLayout mParentLayout;
 
 }

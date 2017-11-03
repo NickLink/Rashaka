@@ -48,6 +48,9 @@ public class UserProfile {
     @SerializedName("birthday")
     @Expose
     private String birthday;
+    @SerializedName("info")
+    @Expose
+    private String info;
     @SerializedName("hight")
     @Expose
     private String hight;
@@ -81,7 +84,7 @@ public class UserProfile {
 
     public UserProfile(UserProfile in){
         this(in.id, in.email, in.password, in.firstName, in.phone, in.lastName,
-                in.sex, in.image, in.background, in.birthday, in.hight, in.weight,
+                in.sex, in.image, in.background, in.birthday, in.info, in.hight, in.weight,
                 in.weightGoal, in.stepsGoal, in.registerDate, in.status, in.tocken,
                 in.emailStatus, in.getPush, in.weeklyA);
     }
@@ -95,10 +98,11 @@ public class UserProfile {
                 ", firstName='" + firstName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", sex=" + sex +
-                ", image=" + image +
-                ", background=" + background +
+                ", sex='" + sex + '\'' +
+                ", image='" + image + '\'' +
+                ", background='" + background + '\'' +
                 ", birthday='" + birthday + '\'' +
+                ", info='" + info + '\'' +
                 ", hight='" + hight + '\'' +
                 ", weight='" + weight + '\'' +
                 ", weightGoal='" + weightGoal + '\'' +

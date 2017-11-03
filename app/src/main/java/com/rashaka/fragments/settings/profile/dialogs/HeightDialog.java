@@ -62,6 +62,13 @@ public class HeightDialog extends BottomSheetDialogFragment {
         TextView cancel_button = dialog.findViewById(R.id.cancel_button);
         TextView save_button = dialog.findViewById(R.id.save_button);
 
+        double height = Double.parseDouble(model.getSelected().getValue().getHight());
+        int fHejght = (int) height;
+        int dHeight = (int)((height - fHejght) * 10);
+
+        hMain.setValue(fHejght);
+        hExtra.setValue(dHeight);
+
         cancel_button.setOnClickListener(view -> dismiss());
         save_button.setOnClickListener(view -> doSave(hMain.getValue(), hExtra.getValue()));
 

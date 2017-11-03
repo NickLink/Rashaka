@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.rashaka.MainRouter;
 import com.rashaka.R;
 import com.rashaka.RaApp;
@@ -27,8 +28,11 @@ import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by User on 24.08.2017.
@@ -40,6 +44,7 @@ public class SettingsFragment extends BackFragment implements SettingsView {
     private static final String TAG = SettingsFragment.class.getSimpleName();
     private MainRouter myRouter;
     private SettingsPresenter mPresenter;
+    Disposable editTextSub;
 
     @Override
     public void onAttach(Context context) {
@@ -136,10 +141,36 @@ public class SettingsFragment extends BackFragment implements SettingsView {
     }
 
     @Override
+    public void setAccount(String account) {
+        mRashakaEmail.setText(account);
+    }
+
+    @Override
+    public void setUserInfo(String userInfo) {
+        if (editTextSub != null && !editTextSub.isDisposed())
+            editTextSub.dispose();
+        mUserinfoText.setText(userInfo);
+        editTextSub = RxTextView.textChanges(mUserinfoText)
+//                .skip(mUserinfoText.length())
+//                .filter(charSequence -> charSequence.length() > 3)
+                .debounce(800, TimeUnit.MILLISECONDS)
+                .skip(1)
+                .subscribe(charSequence -> {
+                    mPresenter.onUserInfoEditEnd(charSequence.toString());
+                });
+    }
+
+    @Override
     public void pushFragment(BaseFragment fragment) {
         mFragmentNavigation.pushFragment(fragment);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (editTextSub != null && !editTextSub.isDisposed())
+            editTextSub.dispose();
+    }
 
     @BindView(R.id.general_title)
     TextView mGeneralTitle;
@@ -148,7 +179,7 @@ public class SettingsFragment extends BackFragment implements SettingsView {
     TextView mAccountTitle;
 
     @BindView(R.id.rashaka_email)
-    EditText mRashakaEmail;
+    TextView mRashakaEmail;
 
     @BindView(R.id.password_title)
     TextView mPasswordTitle;

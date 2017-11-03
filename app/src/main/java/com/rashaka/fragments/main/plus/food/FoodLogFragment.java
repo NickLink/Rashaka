@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,12 +15,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.rashaka.MainRouter;
+import com.rashaka.R;
 import com.rashaka.RaApp;
 import com.rashaka.domain.food.LogFoodItem;
 import com.rashaka.fragments.BaseFragment;
@@ -29,12 +30,12 @@ import com.rashaka.utils.Utility;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 import com.rashaka.utils.helpers.views.CustomLayoutManager;
+import com.rashaka.utils.helpers.views.EmptyListView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.rashaka.R;
 
 /**
  * Created by User on 24.08.2017.
@@ -85,6 +86,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -100,7 +102,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
             public void onClick(View view) {
                 Utility.hideKeyboard(getActivity());
                 mPresenter.onLogClick(
-                        (String)mAddLayout.mFoodSpinner.getSelectedItem(),
+                        (String) mAddLayout.mFoodSpinner.getSelectedItem(),
                         mAddLayout.mItemEditText.getText().toString(),
                         Support.GetDateTimeForAPI());
             }
@@ -156,38 +158,51 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
 
     @Override
     public void setAdapterData(List<LogFoodItem> list) {
-        FoodLogAdapter adapter = new FoodLogAdapter(getActivity(),
-                list,
-                new FoodLogAdapter.onClick() {
-                    @Override
-                    public void onClick(int position) {
+        if (list != null && list.size() > 0) {//
+            Utility.setCollapseScroll(mExerciseToolbarLayout);
+            mEmptyList.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            FoodLogAdapter adapter = new FoodLogAdapter(getActivity(),
+                    list,
+                    new FoodLogAdapter.onClick() {
+                        @Override
+                        public void onClick(int position) {
+                        }
 
-                    }
-
-                    @Override
-                    public void onClickId(int position, String id) {
-
-                    }
-                });
-        mRecyclerView.setAdapter(adapter);
+                        @Override
+                        public void onClickId(int position, String id) {
+                        }
+                    });
+            mRecyclerView.setAdapter(adapter);
+        } else {
+            Utility.setSnagScroll(mExerciseToolbarLayout);
+            mEmptyList.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void addAdapterData(List<LogFoodItem> list) {
-        ((FoodLogAdapter)mRecyclerView.getAdapter()).addData(list);
+        if (mRecyclerView.getAdapter() != null)
+            ((FoodLogAdapter) mRecyclerView.getAdapter()).addData(list);
     }
 
-    @BindView(R.id.log_button)
-    FrameLayout mLogButton;
-
-    @BindView(R.id.log_text)
-    TextView mLogText;
+    //    @BindView(R.id.log_button)
+//    FrameLayout mLogButton;
+//
+//    @BindView(R.id.log_text)
+//    TextView mLogText;
+    @BindView(R.id.colapsing_title)
+    CollapsingToolbarLayout mExerciseToolbarLayout;
 
     @BindView(R.id.add_food_layout)
     View mAddFoodLayout;
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.empty_list)
+    EmptyListView mEmptyList;
 
     @BindView(R.id.title)
     TextView mTitle;
@@ -196,19 +211,19 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
 //    TextView share_text;
 
     static class AddLayout {
-        @BindView( R.id.item_log_button )
+        @BindView(R.id.item_log_button)
         TextView mItemLogButton;
 
-        @BindView( R.id.food_icon )
+        @BindView(R.id.food_icon)
         ImageView mFoodIcon;
 
-        @BindView( R.id.food_spinner )
+        @BindView(R.id.food_spinner)
         Spinner mFoodSpinner;
 
-        @BindView( R.id.item_datatext )
+        @BindView(R.id.item_datatext)
         TextView mItemDataText;
 
-        @BindView( R.id.item_edittext )
+        @BindView(R.id.item_edittext)
         EditText mItemEditText;
     }
 

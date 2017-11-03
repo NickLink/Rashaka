@@ -16,7 +16,7 @@ import com.rashaka.domain.gallery.GalleryItemFull;
 import com.rashaka.domain.login.UserLogin;
 import com.rashaka.domain.news.News;
 import com.rashaka.domain.news.NewsItem;
-import com.rashaka.domain.notif.NotificationItem;
+import com.rashaka.domain.notif.Notifications;
 import com.rashaka.domain.profile.UserProfile;
 import com.rashaka.domain.recipes.RecipeItem;
 import com.rashaka.domain.routes.RouteInfo;
@@ -170,7 +170,7 @@ public interface JService {
     //TODO Get notification log
     @GET(RestKeys.PATH_MAIN + RestKeys.POINT_NOTIF + "/" + RestKeys.CALL_ALL_ITEMS + "/{"
             + RestKeys.KEY_USER + "}" + "/{" + RestKeys.KEY_OFFSET + "}")
-    Observable<RestPageResponse<List<NotificationItem>>> getNotificationLog(
+    Observable<RestPageResponse<Notifications>> getNotificationLog(
             @Header(RestKeys.HEADER_API_KEY) String apiKey,
             @Path(RestKeys.KEY_USER) String userId,
             @Path(RestKeys.KEY_OFFSET) String offset);

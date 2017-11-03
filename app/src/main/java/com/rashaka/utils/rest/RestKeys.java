@@ -94,6 +94,7 @@ public class RestKeys {
 
     public static final String KEY_SEX = "sex";
     public static final String KEY_HEIGHT = "hight";
+    public static final String KEY_INFO = "info";
     public static final String KEY_BIRTHDAY = "birthday";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_BACKGROUND = "background";

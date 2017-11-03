@@ -9,19 +9,18 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.rashaka.LoginRouter;
+import com.rashaka.R;
 import com.rashaka.RaApp;
 import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.Consts;
 import com.rashaka.utils.Support;
 import com.rashaka.utils.helpers.structure.SuperFragment;
+import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 import com.rashaka.utils.helpers.views.email.EmailEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.rashaka.R;
-
-import com.rashaka.utils.helpers.structure.SuperPresenter;
 
 /**
  * Created by User on 17.08.2017.
@@ -37,7 +36,7 @@ public class PassFragment extends SuperFragment implements PassView {
     public void onAttach(Context context) {
         super.onAttach(context);
         myRouter = (LoginRouter) getActivity();
-        mPresenter = new PassPresenter();
+        mPresenter = new PassPresenter(myRouter);
     }
 
     @Override

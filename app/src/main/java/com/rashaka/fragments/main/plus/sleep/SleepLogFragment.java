@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -20,7 +21,9 @@ import com.rashaka.R;
 import com.rashaka.RaApp;
 import com.rashaka.fragments.BaseFragment;
 import com.rashaka.fragments.main.plus.sleep.dialogs.DateDialog;
+import com.rashaka.fragments.main.plus.sleep.dialogs.DateResult;
 import com.rashaka.fragments.main.plus.sleep.dialogs.TimeDialog;
+import com.rashaka.fragments.main.plus.sleep.dialogs.TimeResult;
 import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.Support;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
@@ -34,11 +37,13 @@ import butterknife.ButterKnife;
  */
 
 @Layout(id = R.layout.fr_plus_sleep)
-public class SleepLogFragment extends BaseFragment implements SleepLogView {
+public class SleepLogFragment extends BaseFragment implements SleepLogView, DateResult, TimeResult {
 
+    private static final String TAG = SleepLogFragment.class.getSimpleName();
     private MainRouter myRouter;
     private SleepLogPresenter mPresenter;
     private IncludedLayout mLayoutStart, mLayoutEnd;
+    public static int M_START = 1, M_END = 0;
 
 
     @Override
@@ -75,35 +80,23 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
         ButterKnife.bind(mLayoutStart, mSleepStart );
         ButterKnife.bind(mLayoutEnd, mSleepEnd );
 
-        mLayoutStart.mItemTimeText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetDialogFragment bottomDialog = new TimeDialog();
-                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
-            }
+        mLayoutStart.mItemTimeText.setOnClickListener(view1 -> {
+            BottomSheetDialogFragment bottomDialog = TimeDialog.newInstance(M_START);
+            bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
         });
-        mLayoutEnd.mItemTimeText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetDialogFragment bottomDialog = new TimeDialog();
-                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
-            }
+        mLayoutEnd.mItemTimeText.setOnClickListener(view12 -> {
+            BottomSheetDialogFragment bottomDialog = TimeDialog.newInstance(M_END);
+            bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
         });
 
-        mLayoutStart.mItemDateParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetDialogFragment bottomDialog = new DateDialog();
-                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
-            }
+        mLayoutStart.mItemDateParent.setOnClickListener(view13 -> {
+            BottomSheetDialogFragment bottomDialog = DateDialog.newInstance(M_START);
+            bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
         });
 
-        mLayoutEnd.mItemDateParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetDialogFragment bottomDialog = new DateDialog();
-                bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
-            }
+        mLayoutEnd.mItemDateParent.setOnClickListener(view14 -> {
+            BottomSheetDialogFragment bottomDialog = DateDialog.newInstance(M_END);
+            bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
         });
 
     }
@@ -136,6 +129,16 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
         mLayoutEnd.mItemBottomText.setText(endSleep);
     }
 
+    @Override
+    public void setStartSleepTime(String startSleepTime) {
+        mLayoutStart.mItemTimeText.setText(startSleepTime);
+    }
+
+    @Override
+    public void setEndSleepTime(String endSleepTime) {
+        mLayoutEnd.mItemTimeText.setText(endSleepTime);
+    }
+
     @BindView(R.id.log_sleep_start)
     View mSleepStart;
 
@@ -150,6 +153,38 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView {
 
     @BindView(R.id.title)
     TextView mTitle;
+
+    @Override
+    public void DateStartSet(String date) {
+        Log.e(TAG, "DateSet -> " + date);
+        setStartSleep(Support.getStringDateByDate(date, false));
+    }
+
+    @Override
+    public void DateEndSet(String date) {
+        Log.e(TAG, "DateSet -> " + date);
+        setEndSleep(Support.getStringDateByDate(date, false));
+    }
+
+    @Override
+    public void DateCancel() {
+
+    }
+
+    @Override
+    public void TimeStartSet(String time) {
+        setStartSleepTime(time);
+    }
+
+    @Override
+    public void TimeEndSet(String time) {
+        setEndSleepTime(time);
+    }
+
+    @Override
+    public void TimeCancel() {
+
+    }
 
 
     static class IncludedLayout {

@@ -14,18 +14,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rashaka.MainRouter;
+import com.rashaka.R;
 import com.rashaka.domain.news.NewsItem;
 import com.rashaka.fragments.BaseFragment;
 import com.rashaka.utils.Consts;
+import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.rashaka.MainRouter;
-import com.rashaka.R;
-
-import com.rashaka.utils.helpers.structure.SuperPresenter;
 
 /**
  * Created by User on 24.08.2017.
@@ -87,6 +86,7 @@ public class NewsItemFragment extends BaseFragment implements NewsItemView {
             @Override
             public void onClick(View view) {
                 //TODO Click on share event
+                mPresenter.onShareClick(getActivity());
             }
         });
     }

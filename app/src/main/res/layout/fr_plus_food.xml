@@ -12,6 +12,7 @@
         android:layout_above="@+id/add_new_alarm">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_white">
@@ -25,7 +26,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/inner_padding_small"
+                    android:paddingTop="@dimen/inner_padding_small"
+                    app:layout_collapseMode="parallax">
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -58,25 +62,13 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </android.support.v7.widget.RecyclerView>
 
-    </android.support.design.widget.CoordinatorLayout>
-
-
-    <FrameLayout
-        android:id="@+id/log_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/button_breeze_selector"
-        android:clickable="true"
-        android:padding="@dimen/inner_padding"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/log_text"
-            android:layout_width="wrap_content"
+        <com.rashaka.utils.helpers.views.EmptyListView
+            android:id="@+id/empty_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Log"/>
-    </FrameLayout>
-
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="bottom"
+            android:layout_gravity="bottom"
+            android:visibility="gone"/>
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

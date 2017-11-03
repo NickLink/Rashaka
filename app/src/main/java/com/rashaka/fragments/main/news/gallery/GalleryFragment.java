@@ -8,22 +8,21 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.rashaka.MainRouter;
+import com.rashaka.R;
 import com.rashaka.domain.gallery.GalleryItem;
 import com.rashaka.fragments.BaseFragment;
 import com.rashaka.fragments.main.news.gallery.item.GalleryItemFragment;
+import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 import com.rashaka.utils.helpers.views.CustomLayoutManager;
+import com.rashaka.utils.helpers.views.EmptyListView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.rashaka.R;
-
-import com.rashaka.utils.helpers.structure.SuperPresenter;
 
 /**
  * Created by User on 24.08.2017.
@@ -107,41 +106,50 @@ public class GalleryFragment extends BaseFragment implements GalleryView {
 
     @Override
     public void setAdapterData(List<GalleryItem> list) {
-        GalleryRecyclerAdapter adapter = new GalleryRecyclerAdapter(
-                getActivity(),
-                list,
-                new GalleryRecyclerAdapter.LatestNewsClick() {
-                    @Override
-                    public void cShare(int position) {
-                        Toast.makeText(getActivity(), "Share -> " + position, Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void cMore(int position, String id) {
-                        mFragmentNavigation.pushFragment(GalleryItemFragment.newInstanse(id));
-                        Toast.makeText(getActivity(), "More ID -> " + id, Toast.LENGTH_SHORT).show();
-                    }
-                });
-        mNewsRecyclerView.setAdapter(adapter);
+        if (list != null && list.size() > 0) {
+            mEmptyList.setVisibility(View.GONE);
+            mNewsRecyclerView.setVisibility(View.VISIBLE);
+            GalleryRecyclerAdapter adapter = new GalleryRecyclerAdapter(
+                    getActivity(),
+                    list,
+                    new GalleryRecyclerAdapter.LatestNewsClick() {
+                        @Override
+                        public void cShare(int position) {
+                            //Toast.makeText(getActivity(), "Share -> " + position, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void cMore(int position, String id) {
+                            mFragmentNavigation.pushFragment(GalleryItemFragment.newInstanse(id));
+                            //Toast.makeText(getActivity(), "More ID -> " + id, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            mNewsRecyclerView.setAdapter(adapter);
+        } else {
+            mEmptyList.setVisibility(View.VISIBLE);
+            mNewsRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void addAdapterData(List<GalleryItem> mData) {
-        ((GalleryRecyclerAdapter)mNewsRecyclerView.getAdapter()).addData(mData);
+        if (mNewsRecyclerView.getAdapter() != null)
+            ((GalleryRecyclerAdapter) mNewsRecyclerView.getAdapter()).addData(mData);
     }
 
-//    @Override
+    //    @Override
 //    public void setAdapterData(List<GalleryItem> list) {
 //        GalleryAdapter adapter = new GalleryAdapter(getActivity(), list);
 //        mNewsGridview.setAdapter(adapter);
 //    }
+    @BindView(R.id.empty_list)
+    EmptyListView mEmptyList;
 
     @BindView(R.id.latest_recycler_view)
     RecyclerView mNewsRecyclerView;
 
 //    @BindView(R.id.news_grid_view)
 //    GridView mNewsGridview;
-
-
 
 
 //

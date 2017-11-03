@@ -12,6 +12,7 @@
         android:layout_above="@+id/add_new_alarm">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_white">
@@ -66,5 +67,14 @@
             android:layout_marginEnd="@dimen/inner_padding"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </android.support.v7.widget.RecyclerView>
+
+        <com.rashaka.utils.helpers.views.EmptyListView
+            android:id="@+id/empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="bottom"
+            android:layout_gravity="bottom"
+            android:visibility="gone"/>
     </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

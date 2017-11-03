@@ -119,7 +119,6 @@ public class ProfileFragment extends BackFragment implements ProfileView {
         setHasOptionsMenu(true);
 
         model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
-
         model.select(new UserProfile(RaApp.getBase().getProfileUser()));
     }
 

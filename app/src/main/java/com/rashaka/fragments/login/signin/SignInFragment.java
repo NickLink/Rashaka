@@ -37,7 +37,7 @@ public class SignInFragment extends SuperFragment implements SignInView {
     public void onAttach(Context context) {
         super.onAttach(context);
         myRouter = (LoginRouter) getActivity();
-        mPresenter = new SignInPresenter();
+        mPresenter = new SignInPresenter(myRouter);
     }
 
     @Override

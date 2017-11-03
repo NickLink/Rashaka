@@ -122,7 +122,7 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     }
 
     @Override
-    public boolean isRefreshing(){
+    public boolean isRefreshing() {
         return mSwipeLayout.isRefreshing();
     }
 
@@ -154,18 +154,21 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     }
 
     @Override
-    public void setDistance(@NonNull String distance) {
+    public void setDistance(@NonNull String distance, boolean up) {
         mStatusDistanceValue.setText(Support.getUpperCase(distance, " " + RaApp.getLabel(LangKeys.key_km)));
+        mStatusDistanceUp.setImageResource(up ? R.drawable.main_status_up : R.drawable.main_status_down);
     }
 
     @Override
-    public void setSteps(@NonNull String steps) {
+    public void setSteps(@NonNull String steps, boolean up) {
         mStatusStepsValue.setText(steps);
+        mStatusStepsUp.setImageResource(up ? R.drawable.main_status_up : R.drawable.main_status_down);
     }
 
     @Override
-    public void setWeight(@NonNull String weight) {
+    public void setWeight(@NonNull String weight, boolean up) {
         mStatusWeightValue.setText(Support.getUpperCase(weight, " " + RaApp.getLabel(LangKeys.key_kg)));
+        mStatusWeightUp.setImageResource(up ? R.drawable.main_status_up : R.drawable.main_status_down);
     }
 
     @BindView(R.id.one_week)
@@ -189,7 +192,6 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     TextView mProgressCaloriesTitle;
     @BindView(R.id.progress_calories_value)
     TextView mProgressCaloriesValue;
-
 
     //TODO Status button definition
     @BindView(R.id.main_status_distance)
@@ -220,7 +222,6 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     @BindView(R.id.main_status_weight_up)
     ImageView mStatusWeightUp;
 
-
     //TODO Bottom Buttons definition
     @BindView(R.id.main_button_exercise)
     FrameLayout mButtonExercise;
@@ -239,6 +240,5 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     TextView mButtonTipsText;
     @BindView(R.id.main_button_bmi_text)
     TextView mButtonBMIText;
-
 
 }

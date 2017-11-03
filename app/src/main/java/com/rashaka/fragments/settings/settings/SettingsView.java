@@ -9,6 +9,7 @@ import com.rashaka.fragments.BaseFragment;
 public interface SettingsView {
 
     void setViewsValues();
-
+    void setAccount(String account);
+    void setUserInfo(String userInfo);
     void pushFragment(BaseFragment fragment);
 }
