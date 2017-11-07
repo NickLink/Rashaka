@@ -181,14 +181,14 @@ public class ProfileFragment extends BackFragment implements ProfileView {
             //mPresenter.onStepsGClick();
         });
 
-        //TODO Save all this sh..t
-        mProfileSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.saveProfileUpdate(model.getSelected().getValue());
-                //mPresenter.onSaveClick();
-            }
-        });
+//        //TODO Save all this sh..t
+//        mProfileSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mPresenter.saveProfileUpdate(model.getSelected().getValue());
+//                //mPresenter.onSaveClick();
+//            }
+//        });
 
 
         model.getSelected().observe(this, o -> {
@@ -418,7 +418,7 @@ public class ProfileFragment extends BackFragment implements ProfileView {
 
     @Override
     public void changesSaved() {
-        myRouter.onBackPressed();
+        //myRouter.onBackPressed();
     }
 
 

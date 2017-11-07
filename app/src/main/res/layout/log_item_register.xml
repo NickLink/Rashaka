@@ -72,6 +72,7 @@
             style="@style/LoginEditTextItem"
             android:layout_marginTop="@dimen/inner_padding_micro"
             android:hint="PHONE NUMBER"
+            android:inputType="phone"
             android:maxLength="@integer/phone_max_length"
             android:imeOptions="actionDone"
             app:layout_constraintLeft_toLeftOf="parent"

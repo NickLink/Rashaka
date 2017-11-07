@@ -48,7 +48,7 @@ public class ExerciseRecyclerAdapter extends RecyclerView.Adapter<ExerciseRecycl
 
         holder.item_start_text.setText(mList.get(position).getDesc());
         holder.item_date_text.setText(
-                Support.getStringDateByDate(mList.get(position).getStart(), true));
+                Support.getStringDateByDate(mList.get(position).getStart(), Support.DATE_FORMAT_FULL, true));
 
         holder.item_start_button.setText(RaApp.getLabel(LangKeys.key_view));
 

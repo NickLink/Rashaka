@@ -157,13 +157,13 @@ public class SleepLogFragment extends BaseFragment implements SleepLogView, Date
     @Override
     public void DateStartSet(String date) {
         Log.e(TAG, "DateSet -> " + date);
-        setStartSleep(Support.getStringDateByDate(date, false));
+        setStartSleep(Support.getStringDateByDate(date, Support.DATE_FORMAT_FULL, false));
     }
 
     @Override
     public void DateEndSet(String date) {
         Log.e(TAG, "DateSet -> " + date);
-        setEndSleep(Support.getStringDateByDate(date, false));
+        setEndSleep(Support.getStringDateByDate(date, Support.DATE_FORMAT_FULL, false));
     }
 
     @Override

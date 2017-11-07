@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.rashaka.domain.profile.UserProfile;
 
 public class HeightDialog extends BottomSheetDialogFragment {
 
+    private static final String TAG = HeightDialog.class.getSimpleName();
     private SharedUserModel model;
 
     private BottomSheetBehavior.BottomSheetCallback mBottomSheetBehaviorCallback = new BottomSheetBehavior.BottomSheetCallback() {
@@ -62,12 +64,17 @@ public class HeightDialog extends BottomSheetDialogFragment {
         TextView cancel_button = dialog.findViewById(R.id.cancel_button);
         TextView save_button = dialog.findViewById(R.id.save_button);
 
-        double height = Double.parseDouble(model.getSelected().getValue().getHight());
-        int fHejght = (int) height;
-        int dHeight = (int)((height - fHejght) * 10);
-
-        hMain.setValue(fHejght);
+        int fHeight = 175, dHeight = 0;
+        try {
+            double height = Double.parseDouble(model.getSelected().getValue().getHight());
+            fHeight = (int) height;
+            dHeight = (int)((height - fHeight) * 10);
+        } catch (Exception e){
+            Log.e(TAG, "Exception -> " + e.getLocalizedMessage());
+        }
+        hMain.setValue(fHeight);
         hExtra.setValue(dHeight);
+
 
         cancel_button.setOnClickListener(view -> dismiss());
         save_button.setOnClickListener(view -> doSave(hMain.getValue(), hExtra.getValue()));

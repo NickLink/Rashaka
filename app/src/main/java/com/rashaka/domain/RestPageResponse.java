@@ -15,10 +15,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestPageResponse<T> extends BaseResponse {
+public class RestPageResponse<T> {
+
+    @SerializedName("status")
+    private Boolean status;
 
     @SerializedName("next_page")
     private int next_page;
+
+    @SerializedName("message")
+    private String message;
 
     @SerializedName("data")
     private T mData;
@@ -26,7 +32,9 @@ public class RestPageResponse<T> extends BaseResponse {
     @Override
     public String toString() {
         return "RestPageResponse{" +
-                "next_page=" + next_page +
+                "status=" + status +
+                ", next_page=" + next_page +
+                ", message='" + message + '\'' +
                 ", mData=" + mData +
                 '}';
     }

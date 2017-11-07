@@ -15,6 +15,8 @@ import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.rest.Rest;
 import com.rashaka.utils.rest.RestUtils;
 
+import java.util.ArrayList;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -62,15 +64,19 @@ public class LatestPresenter extends SuperPresenter<LatestView, MainRouter> {
     private void handleResponse(RestPageResponse<News> response) {
         Log.e(TAG, "handleResponse -> " + response.toString());
         isLoading = false;
-        if (pageNum == 0 && !isLastPage)
-            getView().setAdapterData(response.getMData().getList());
-        if (pageNum > 0 && !isLastPage)
-            getView().addAdapterData(response.getMData().getList());
+        if(response.getStatus()) {
+            if (pageNum == 0 && !isLastPage)
+                getView().setAdapterData(response.getMData().getList());
+            if (pageNum > 0 && !isLastPage)
+                getView().addAdapterData(response.getMData().getList());
 
-        if (response.getNext_page() == -1)
-            isLastPage = true;
-        else
-            pageNum++;
+            if (response.getNext_page() == -1)
+                isLastPage = true;
+            else
+                pageNum++;
+        } else {
+            getView().setAdapterData(new ArrayList<>());
+        }
 
 
 //        isLoading = false;

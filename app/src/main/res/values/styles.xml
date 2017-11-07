@@ -269,7 +269,7 @@
         <item name="android:maxWidth">12dip</item>
         <item name="android:layout_width">12dp</item>
         <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:layout_marginBottom">@dimen/progress_bottom_margin</item>
         <item name="android:layout_centerHorizontal">true</item>
 
 
@@ -279,9 +279,10 @@
     <style name="WeightBottomWhiteText" parent="InfoWhiteText">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">@dimen/text_size_smaller</item>
-        <item name="android:layout_marginBottom">@dimen/inner_padding_micro</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/inner_padding_small</item>
     </style>
 
     <style name="WeightBottomWhiteView">
@@ -289,7 +290,7 @@
         <item name="android:layout_height">10dp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginBottom">@dimen/inner_padding_bigger</item>
+        <item name="android:layout_marginBottom">40dp</item>
         <item name="android:background">@drawable/vertical_white_rounded</item>
     </style>
 
@@ -316,7 +317,7 @@
 
     <style name="ProgressLinearLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/inner_padding_bigger</item>
         <item name="android:paddingStart">@dimen/inner_padding</item>
         <item name="android:paddingEnd">@dimen/inner_padding</item>

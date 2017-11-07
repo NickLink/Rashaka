@@ -7,7 +7,9 @@ package com.rashaka.utils.rest;
 public class RestKeys {
 
     //Main path
-    public static final String PATH_MAIN = "http://demo.mbooz.com/rashaka/api/v1/";
+    public static final String PATH_MAIN = "http://www.rashaka.sa/api/v1/"; //http://demo.mbooz.com/rashaka/api/v1/
+
+
 
 
     //Endpoints for call

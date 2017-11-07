@@ -108,16 +108,16 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
 
     @Override
     public void setLangValue() {
-        mProgressTimeTitle.setText(RaApp.getLabel("key_active_time"));
-        mProgressCaloriesTitle.setText(RaApp.getLabel("key_calories"));
-        mStatusDistanceText.setText(RaApp.getLabel("key_distance"));
-        mStatusStepsText.setText(RaApp.getLabel("key_steps"));
-        mStatusWeightText.setText(RaApp.getLabel("key_weight"));
+        mProgressTimeTitle.setText(RaApp.getLabel(LangKeys.key_active_time));
+        mProgressCaloriesTitle.setText(RaApp.getLabel(LangKeys.key_calories));
+        mStatusDistanceText.setText(RaApp.getLabel(LangKeys.key_distance));
+        mStatusStepsText.setText(RaApp.getLabel(LangKeys.key_steps));
+        mStatusWeightText.setText(RaApp.getLabel(LangKeys.key_weight));
 
-        mButtonExerciseText.setText(RaApp.getLabel("key_track_exercise"));
-        mButtonWeightText.setText(RaApp.getLabel("key_track_weight"));
-        mButtonTipsText.setText(RaApp.getLabel("key_fitness_tips"));
-        mButtonBMIText.setText(RaApp.getLabel("key_my_bmi"));
+        mButtonExerciseText.setText(RaApp.getLabel(LangKeys.key_track_exercise));
+        mButtonWeightText.setText(RaApp.getLabel(LangKeys.key_track_weight));
+        mButtonTipsText.setText(RaApp.getLabel(LangKeys.key_fitness_tips));
+        mButtonBMIText.setText(RaApp.getLabel(LangKeys.key_my_bmi));
 
     }
 

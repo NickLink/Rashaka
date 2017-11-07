@@ -206,9 +206,9 @@ public class Support {
         }
     }
 
-    public static String getStringDateByDate(String date, boolean time){
+    public static String getStringDateByDate(String date, String format, boolean time){
         Calendar calendar = Calendar.getInstance(); //
-        calendar.setTime(getDateFromString(date, DATE_FORMAT_FULL));
+        calendar.setTime(getDateFromString(date, format));
         int thisYear = calendar.get(Calendar.YEAR);
         int thisMonth = calendar.get(Calendar.MONTH);
         int thisDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -222,6 +222,13 @@ public class Support {
         } else {
             return thisDay + " " + getMonthByInt(thisMonth) + " " + thisYear;
         }
+    }
+
+    public static int getYearByDate(String date, String format){
+        Calendar calendar = Calendar.getInstance(); //
+        calendar.setTime(getDateFromString(date, format));
+        int thisYear = calendar.get(Calendar.YEAR);
+        return thisYear;
     }
 
     public static String getMonthByInt(int month){

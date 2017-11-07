@@ -6,13 +6,13 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.rashaka.MainRouter;
-import com.rashaka.R;
 import com.rashaka.RaApp;
 import com.rashaka.fragments.main.home.bmi.BMIFragment;
 import com.rashaka.fragments.main.home.exercise.ExerciseFragment;
 import com.rashaka.fragments.main.home.steps.StepsFragment;
 import com.rashaka.fragments.main.home.tips.TipsFragment;
 import com.rashaka.fragments.main.home.weight.WeightFragment;
+import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 
 import java.util.Calendar;
@@ -55,7 +55,7 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
             }
 
         } else {
-            getView().showDialogSetStepsGoal(null, RaApp.getResourceString(R.string.dialog_set_steps_goal), null);
+            getView().showDialogSetStepsGoal(null, RaApp.getLabel(LangKeys.key_fill_steps_goal), RaApp.getLabel(LangKeys.key_ok));
         }
     }
 
@@ -113,9 +113,10 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
     }
 
     private void setCalories(long count){
-        String calories = "0";
-        if(count != 0){
-            calories = String.valueOf((int)count / 20);
+        String calories = "0.00";
+        if(count != 0 && getWeight() != 0){
+            double cal = 0.5 * getWeight() * count * 0.7 / 1000;
+            calories = String.format("%.2f", cal);
         }
         getView().setCalories(calories, getProgress((int)count, stepsGoal));
     }
@@ -134,14 +135,23 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
     }
 
     private void setWeight(){
-        double weight = 0, weightGoal = 0;
+        getView().setWeight(String.format("%.1f", getWeight()), getWeight() <= getWeightGoal());
+    }
+
+    private double getWeight(){
+        double weight = 0;
         try {
             weight = Double.parseDouble(RaApp.getBase().getProfileUser().getWeight());
-            weightGoal = Double.parseDouble(RaApp.getBase().getProfileUser().getWeightGoal());
-        } catch (Exception e){
+        } catch (Exception e){}
+        return weight;
+    }
 
-        }
-        getView().setWeight(String.format("%.1f", weight), weight <= weightGoal);
+    private double getWeightGoal(){
+        double weightGoal = 0;
+        try {
+            weightGoal = Double.parseDouble(RaApp.getBase().getProfileUser().getWeightGoal());
+        } catch (Exception e){}
+        return weightGoal;
     }
 
     public static long startOfDay() {

@@ -15,7 +15,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RestResponse<T> extends BaseResponse {
+public class RestResponse<T>  {
+
+    @SerializedName("status")
+    private Boolean status;
+
+    @SerializedName("message")
+    private String message;
 
     @SerializedName("data")
     private T mData;
@@ -23,7 +29,9 @@ public class RestResponse<T> extends BaseResponse {
     @Override
     public String toString() {
         return "RestResponse{" +
-                "mData=" + mData +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", mData=" + mData +
                 '}';
     }
 }

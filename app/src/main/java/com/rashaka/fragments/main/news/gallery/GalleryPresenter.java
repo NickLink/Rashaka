@@ -6,18 +6,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.rashaka.MainRouter;
 import com.rashaka.RaApp;
+import com.rashaka.domain.RestPageResponse;
 import com.rashaka.domain.gallery.Gallery;
 import com.rashaka.utils.Consts;
+import com.rashaka.utils.helpers.structure.SuperPresenter;
+import com.rashaka.utils.rest.Rest;
 import com.rashaka.utils.rest.RestUtils;
+
+import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import com.rashaka.MainRouter;
-import com.rashaka.domain.RestPageResponse;
-import com.rashaka.utils.helpers.structure.SuperPresenter;
-import com.rashaka.utils.rest.Rest;
 
 /**
  * Created by User on 24.08.2017.
@@ -63,15 +65,19 @@ public class GalleryPresenter extends SuperPresenter<GalleryView, MainRouter> {
     private void handleResponse(RestPageResponse<Gallery> response) {
         Log.e(TAG, "handleResponse -> " + response.toString());
         isLoading = false;
-        if (pageNum == 0 && !isLastPage)
-            getView().setAdapterData(response.getMData().getList());
-        if (pageNum > 0 && !isLastPage)
-            getView().addAdapterData(response.getMData().getList());
+        if(response.getStatus()) {
+            if (pageNum == 0 && !isLastPage)
+                getView().setAdapterData(response.getMData().getList());
+            if (pageNum > 0 && !isLastPage)
+                getView().addAdapterData(response.getMData().getList());
 
-        if (response.getNext_page() == -1)
-            isLastPage = true;
-        else
-            pageNum++;
+            if (response.getNext_page() == -1)
+                isLastPage = true;
+            else
+                pageNum++;
+        } else {
+            getView().setAdapterData(new ArrayList<>());
+        }
     }
 
     private void handleError(String error) {

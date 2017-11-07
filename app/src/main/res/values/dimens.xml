@@ -56,5 +56,6 @@
     <dimen name="days_size_normal">36dp</dimen>
     <dimen name="circle_progressbar_size">140dp</dimen>
     <dimen name="circle_progressbar_size_big">220dp</dimen>
+    <dimen name="progress_bottom_margin">60dp</dimen>
 
 </resources>

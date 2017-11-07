@@ -12,8 +12,6 @@ import com.rashaka.utils.database.RashakaBase;
 import com.rashaka.utils.database.RashakaBaseImpl;
 
 import io.fabric.sdk.android.Fabric;
-import com.rashaka.R;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -33,7 +31,6 @@ public class RaApp extends MultiDexApplication {
         super.onCreate();
 
         mContext = this;
-        //mInstance = this;
         Fabric.with(this, new Crashlytics());
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/roboto_regular.ttf")

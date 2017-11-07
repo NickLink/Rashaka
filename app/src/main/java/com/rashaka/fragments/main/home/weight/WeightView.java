@@ -10,4 +10,6 @@ public interface WeightView {
 
     void setSeekBarValue(int value);
     void setBigWeightText(String text);
+
+    void recreatePager();
 }

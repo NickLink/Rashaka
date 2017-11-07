@@ -47,7 +47,7 @@
             />
 
         <receiver
-            android:name="com.rashaka.fragments.main.plus.drink.edit.NotificationReceiver"
+            android:name="com.rashaka.fragments.main.plus.drink.NotificationReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>
