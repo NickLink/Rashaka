@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bmi_graph"
+        android:layout_marginTop="@dimen/inner_padding"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/simulate_button"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/inner_padding_micro"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bmi_circle_un"
+            android:layout_marginStart="@dimen/inner_padding_small"/>
+        <TextView
+            android:id="@+id/bmi_graph_un"
+            style="@style/InfoLightBlackText"
+            android:layout_marginStart="@dimen/inner_padding_micro"
+            android:textSize="@dimen/text_size_small"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Underweight"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bmi_circle_no"
+            android:layout_marginStart="@dimen/inner_padding_small"/>
+        <TextView
+            android:id="@+id/bmi_graph_no"
+            style="@style/InfoLightBlackText"
+            android:layout_marginStart="@dimen/inner_padding_micro"
+            android:textSize="@dimen/text_size_small"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Normal"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bmi_circle_ov"
+            android:layout_marginStart="@dimen/inner_padding_small"/>
+        <TextView
+            android:id="@+id/bmi_graph_ov"
+            style="@style/InfoLightBlackText"
+            android:layout_marginStart="@dimen/inner_padding_micro"
+            android:textSize="@dimen/text_size_small"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Overweight"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bmi_circle_ob"
+            android:layout_marginStart="@dimen/inner_padding_small"/>
+        <TextView
+            android:id="@+id/bmi_graph_ob"
+            style="@style/InfoLightBlackText"
+            android:layout_marginStart="@dimen/inner_padding_micro"
+            android:textSize="@dimen/text_size_small"
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Obese"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

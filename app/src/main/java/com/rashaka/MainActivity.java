@@ -1,6 +1,7 @@
 package com.rashaka;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +33,7 @@ import com.rashaka.fragments.settings.notification.NotificationFragment;
 import com.rashaka.fragments.settings.profile.ProfileFragment;
 import com.rashaka.fragments.settings.settings.SettingsFragment;
 import com.rashaka.utils.Support;
+import com.rashaka.utils.database.DatabaseTask;
 import com.rashaka.utils.dialogs.DialogBlueButton;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -74,10 +76,12 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TODO Database preparation part
+        DatabaseTask.Prepare();
+
         ButterKnife.bind(this);
-
         Support.setStatusBarColor(this, R.color.main_statusbar_color);
-
         mPresenter = new MainPresenter(this);
 
         if (RaApp.getBase().getLangType().equals("ar")) {
@@ -352,6 +356,9 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         mPresenter.onDestroy();
         mPresenter.stopService();
         Log.e(TAG, "onDestroy!");
+
+        startActivity(new Intent(this, DummyActivity.class));
+
         super.onDestroy();
 
     }

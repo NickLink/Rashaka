@@ -356,10 +356,10 @@
                     android:paddingBottom="@dimen/inner_padding_small"
                     android:clickable="true"/>
 
-                <ImageView
+                <include
+                    layout="@layout/bmi_graph_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bmi_graph"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/simulate_button"/>
 

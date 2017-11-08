@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="420dp">
+
+    <TextView
+        android:text=""
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="160"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="140"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="120"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="100"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="80"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="60"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="40"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="20"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text=""
+        style="@style/WeightHorizontalText"
+        android:layout_height="60dp"/>
+
+</LinearLayout>

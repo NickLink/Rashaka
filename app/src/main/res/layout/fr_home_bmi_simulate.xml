@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:weightSum="3">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bmi_simulate_girl"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/bmi_girl_button"
+            android:textColor="@color/bmi_girl"
+            android:text="@string/bmi_calculate"
+            style="@style/BmiButtonText"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bmi_simulate_boy"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/bmi_boy_button"
+            android:textColor="@color/bmi_boy"
+            android:text="@string/bmi_calculate"
+            style="@style/BmiButtonText"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bmi_simulate_adult"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/bmi_adult_button"
+            android:textColor="@color/bmi_adult"
+            android:text="@string/bmi_calculate"
+            style="@style/BmiButtonText"/>
+    </FrameLayout>
+
+</LinearLayout>

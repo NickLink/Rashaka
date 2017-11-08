@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:custom="http://schemas.android.com/apk/res/com.rashaka"
+                xmlns:tools="http://schemas.android.com/tools"
+                tools:ignore="ResAuto"
+                android:layout_width="match_parent"
+                android:layout_height="420dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:background="@color/background_gray"
+                android:orientation="vertical">
+
+    <include
+        android:id="@+id/weight_back"
+        layout="@layout/included_weight_back"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/progress_layout"
+        style="@style/ProgressLinearLayout"
+        android:layout_alignParentBottom="true"
+        android:weightSum="7"
+        android:visibility="gone">
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_1"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin"/>
+
+            <TextView
+                android:id="@+id/p_text_1"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_2"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin" />
+            <TextView
+                android:id="@+id/p_text_2"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_3"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin" />
+            <TextView
+                android:id="@+id/p_text_3"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_4"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin"/>
+            <TextView
+                android:id="@+id/p_text_4"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_5"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin" />
+            <TextView
+                android:id="@+id/p_text_5"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_6"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin"/>
+            <TextView
+                android:id="@+id/p_text_6"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            style="@style/WeightBottomRelLayout">
+            <ProgressBar
+                android:id="@+id/p_bar_7"
+                style="@style/Widget.ProgressBar.Vertical"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/progress_bottom_margin"/>
+            <TextView
+                android:id="@+id/p_text_7"
+                android:text=" \n "
+                style="@style/WeightBottomWhiteText"/>
+            <View
+                style="@style/WeightBottomWhiteView"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.rashaka.utils.helpers.views.EmptyListView
+        android:id="@+id/empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:fullScreen="true"
+        android:visibility="gone"/>
+</RelativeLayout>

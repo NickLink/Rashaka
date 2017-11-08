@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/parent_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/inner_padding_micro"
+                android:layout_marginTop="@dimen/inner_padding_micro"
+                android:background="@drawable/cardview_outline"
+                android:orientation="vertical"
+                android:padding="@dimen/inner_padding_tiny">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"/>
+
+    <WebView
+        android:id="@+id/item_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/item_text"
+        style="@style/InfoLightBlackText"
+        android:layout_marginTop="@dimen/inner_padding_small"
+        android:visibility="gone"/>
+
+</RelativeLayout>

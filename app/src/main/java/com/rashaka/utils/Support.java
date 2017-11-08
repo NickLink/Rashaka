@@ -75,7 +75,7 @@ public class Support {
     public static String getNotyTimeFromDate(String date){
         Date mDate = null;
         try {
-            mDate = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.US).parse(date);
+            mDate = new SimpleDateFormat(DATE_FORMAT_FULL, getCurrentLocale(RaApp.getContext())).parse(date); //Locale.US
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -86,7 +86,7 @@ public class Support {
     public static String getNotyDateFromDate(String date){
         Date mDate = null;
         try {
-            mDate = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.US).parse(date);
+            mDate = new SimpleDateFormat(DATE_FORMAT_FULL, getCurrentLocale(RaApp.getContext())).parse(date); //Locale.US
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -106,7 +106,7 @@ public class Support {
     }
 
     public static Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.US);
+        Calendar cal = Calendar.getInstance(getCurrentLocale(RaApp.getContext())); //Locale.US
         cal.setTime(date);
         return cal;
     }
@@ -126,8 +126,8 @@ public class Support {
         CompoundButtonCompat.setButtonTintList(checkBox, new ColorStateList(states, colors));
     }
 
-    public static String getDateFromMillis(long dateInMillis){
-        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.US); //dd/MM/yyyy hh:mm:ss
+    public static String getDateFromMillis(long dateInMillis, String format){
+        SimpleDateFormat formatter = new SimpleDateFormat(format, getCurrentLocale(RaApp.getContext())); //Locale.US //DATE_FORMAT_FULL
         return formatter.format(new Date(dateInMillis));
     }
 
@@ -149,6 +149,18 @@ public class Support {
         TimeZone timeZone = TimeZone.getDefault();
         Log.e(TAG, "Default TimeZone -> " + timeZone.getDisplayName());
         return timeZone;
+    }
+
+    public static String getDateFromFullDate(@NonNull String date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getDateFromString(date, DATE_FORMAT_FULL));
+        return new StringBuilder()
+                .append(calendar.get(Calendar.YEAR))
+                .append("-")
+                .append(String.format("%02d", calendar.get(Calendar.MONTH) + 1)) //As in Android calendar month starts from 0
+                .append("-")
+                .append(String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)))
+                .toString();
     }
 
     public static Locale getCurrentLocale(Context context){

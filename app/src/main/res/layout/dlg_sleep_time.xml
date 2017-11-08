@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/background_white"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_title"
+        style="@style/InfoLightBlackTextBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/inner_padding"
+        android:layout_marginStart="@dimen/inner_padding_small"
+        android:text="LOG SLEEP"/>
+
+    <!--<View-->
+        <!--android:id="@+id/top_divider"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="@dimen/inner_padding_small"-->
+        <!--android:background="@color/light_gray"/>-->
+
+    <com.rashaka.utils.helpers.views.timepicker.CircleAlarmTimerView
+        android:id="@+id/circletimerview"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="40dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/picker_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/inner_padding"
+        android:visibility="visible"
+        android:orientation="horizontal">
+
+        <com.rashaka.utils.helpers.views.picker.MyNumberPicker
+            android:id="@+id/picker_hours"
+            def="9"
+            max="12"
+            min="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:theme="@style/AppTheme.Picker"/>
+
+        <TextView
+            style="@style/InfoLightBlackTextBold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/inner_padding_big"
+            android:layout_marginTop="@dimen/inner_padding_small"
+            android:text=":"
+            android:textColor="@color/progress_bar_green"/>
+
+        <com.rashaka.utils.helpers.views.picker.MyNumberPicker
+            android:id="@+id/picker_minutes"
+            def="0"
+            max="59"
+            min="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inner_padding_big"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:theme="@style/AppTheme.Picker"/>
+
+        <com.rashaka.utils.helpers.views.picker.MyStringPicker
+            android:id="@+id/picker_am"
+            def="0"
+            max="1"
+            min="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inner_padding_big"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:theme="@style/AppTheme.PickerString"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/inner_padding_small"
+        android:background="@color/light_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/inner_padding_small"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cancel_button"
+            style="@style/InfoLightBlackTextBold"
+            android:padding="@dimen/inner_padding_tiny"
+            android:text="CANCEL"
+            android:textColor="@color/progress_bar_green"/>
+
+        <TextView
+            android:id="@+id/save_button"
+            style="@style/InfoLightBlackTextBold"
+            android:padding="@dimen/inner_padding_tiny"
+            android:text="SAVE"
+            android:textColor="@color/progress_bar_green"/>
+    </LinearLayout>
+</LinearLayout>

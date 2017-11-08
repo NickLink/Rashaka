@@ -53,7 +53,6 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mTimeStamp = mPresenter.startOfDay();
     }
 
     @Override
@@ -70,6 +69,8 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        mTimeStamp = mPresenter.startOfDay();
 
         mSwipeLayout.setOnRefreshListener(() -> mPresenter.readData(true, mTimeStamp));
 
@@ -91,7 +92,9 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
             mPresenter.readData(false, mTimeStamp);
         });
 
-        //mStatusSteps.setOnClickListener(view15 -> mPresenter.onStepsClick());
+
+
+        mStatusSteps.setOnClickListener(view15 -> mPresenter.onStepsClick());
     }
 
     @Override

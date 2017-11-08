@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/item_exercise_parent"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingStart="@dimen/inner_padding"
+              android:paddingEnd="@dimen/inner_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/inner_padding_tiny"
+        android:paddingBottom="@dimen/inner_padding_tiny">
+
+        <ImageView
+            android:id="@+id/food_icon"
+            android:layout_width="12dp"
+            android:layout_height="8dp"
+            android:src="@drawable/icon_plus_log_food"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/inner_padding_small">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <Spinner
+                    android:id="@+id/food_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+
+
+            <TextView
+                android:id="@+id/item_datatext"
+                style="@style/InfoLightBlackText"
+                android:maxLines="1"
+                android:text="Today, 12 September, 2017"/>
+
+            <EditText
+                android:id="@+id/item_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inner_padding_micro"
+                android:background="@drawable/breeze_outline"
+                android:padding="@dimen/inner_padding_micro"
+                android:textSize="@dimen/text_size_standart"
+                android:maxLines="3"/>
+            <!--android:drawableStart="@drawable/icon_search"-->
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/recycler_divider"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/inner_padding_small"
+            android:layout_marginTop="@dimen/inner_padding_micro"
+            android:layout_marginBottom="@dimen/inner_padding_micro"
+            android:background="@color/main_button_divider"/>
+
+        <TextView
+            android:id="@+id/item_log_button"
+            style="@style/InfoBreezeBtnText"
+            android:layout_marginStart="@dimen/inner_padding_small"
+            android:text="Log"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/recycler_divider"
+        android:background="@color/main_button_divider"/>
+
+</LinearLayout>

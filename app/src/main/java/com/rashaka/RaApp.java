@@ -10,6 +10,7 @@ import android.support.multidex.MultiDexApplication;
 import com.crashlytics.android.Crashlytics;
 import com.rashaka.utils.database.RashakaBase;
 import com.rashaka.utils.database.RashakaBaseImpl;
+import com.squareup.leakcanary.LeakCanary;
 
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -29,6 +30,13 @@ public class RaApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
 
         mContext = this;
         Fabric.with(this, new Crashlytics());

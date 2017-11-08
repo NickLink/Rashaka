@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <!--<TextView-->
+        <!--android:text=""-->
+        <!--style="@style/WeightHorizontalText"/>-->
+    <!--<TextView-->
+        <!--android:text=""-->
+        <!--style="@style/WeightHorizontalText"/>-->
+    <TextView
+        android:text=""
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="40"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="35"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="30"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="25"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="20"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text="15"
+        style="@style/WeightHorizontalText"/>
+    <TextView
+        android:text=""
+        style="@style/WeightHorizontalText"
+        android:layout_height="60dp"/>
+
+</LinearLayout>

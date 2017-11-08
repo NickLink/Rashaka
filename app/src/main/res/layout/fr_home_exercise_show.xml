@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_white"
+              android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/inner_padding_small"
+            android:src="@drawable/main_button_exercise"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/inner_padding_tiny"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/distance_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total distance"/>
+            <TextView
+                android:id="@+id/distance_total"
+                style="@style/InfoLightBlackTextBold"
+                android:text="0 km"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total time"/>
+            <TextView
+                android:id="@+id/time_total"
+                style="@style/InfoLightBlackTextBold"
+                android:text="0 s"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/avg_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Average speed"/>
+            <TextView
+                android:id="@+id/avg_speed"
+                style="@style/InfoLightBlackTextBold"
+                android:text="0 km/h "/>
+        </LinearLayout>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/exercise_page_title"
+            style="@style/InfoLightBlackTextBold"
+            android:layout_marginBottom="@dimen/inner_padding_small"
+            android:layout_marginTop="@dimen/inner_padding_small"
+            android:layout_gravity="center_horizontal"
+            android:text="Track Exercise"
+            android:textSize="@dimen/text_size_giant"
+            android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/inner_padding_small"
+        android:background="@color/light_gray">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.google.android.gms.maps.MapView>
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

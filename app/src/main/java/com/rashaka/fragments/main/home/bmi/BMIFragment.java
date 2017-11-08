@@ -88,6 +88,11 @@ public class BMIFragment extends BaseFragment implements BMIView {
         mPageTitle.setText(RaApp.getLabel(LangKeys.key_my_bmi));
         mCurrentBmi.setText(RaApp.getLabel(LangKeys.key_current_bmi));
         mSimulateButton.setText(RaApp.getLabel(LangKeys.key_simulate_bmi));
+
+        mBmiGraphUn.setText(RaApp.getLabel(LangKeys.key_underweight));
+        mBmiGraphNo.setText(RaApp.getLabel(LangKeys.key_normal));
+        mBmiGraphOv.setText(RaApp.getLabel(LangKeys.key_overweight));
+        mBmiGraphOb.setText(RaApp.getLabel(LangKeys.key_obese));
     }
 
     @Override
@@ -197,5 +202,15 @@ public class BMIFragment extends BaseFragment implements BMIView {
     TextView mVal11;
     @BindView(R.id.p_val_12)
     TextView mVal12;
+
+    @BindView(R.id.bmi_graph_un)
+    TextView mBmiGraphUn;
+    @BindView(R.id.bmi_graph_no)
+    TextView mBmiGraphNo;
+    @BindView(R.id.bmi_graph_ov)
+    TextView mBmiGraphOv;
+    @BindView(R.id.bmi_graph_ob)
+    TextView mBmiGraphOb;
+
 
 }
