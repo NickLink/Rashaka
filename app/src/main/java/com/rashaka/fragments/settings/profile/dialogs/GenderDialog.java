@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,6 +23,7 @@ import com.rashaka.domain.profile.UserProfile;
 
 public class GenderDialog extends BottomSheetDialogFragment {
 
+    private static final String TAG = GenderDialog.class.getSimpleName();
     private SharedUserModel model;
     private int g_sex = -1;
 
@@ -62,10 +64,14 @@ public class GenderDialog extends BottomSheetDialogFragment {
         TextView cancel_button = dialog.findViewById(R.id.cancel_button);
         TextView save_button = dialog.findViewById(R.id.save_button);
 
-        if(model.getSelected().getValue().getSex().equals("0")){
-            gender_radiogroup.check(R.id.gender_radio_male);
-        } else if(model.getSelected().getValue().getSex().equals("1")){
-            gender_radiogroup.check(R.id.gender_radio_female);
+        Log.e(TAG, "Gender -> " + model.getSelected().getValue().toString());
+
+        if(model.getSelected().getValue().getSex() != null) {
+            if (model.getSelected().getValue().getSex().equals("0")) {
+                gender_radiogroup.check(R.id.gender_radio_male);
+            } else if (model.getSelected().getValue().getSex().equals("1")) {
+                gender_radiogroup.check(R.id.gender_radio_female);
+            }
         }
 
         gender_radiogroup.setOnCheckedChangeListener((radioGroup, i) -> {

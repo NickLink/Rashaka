@@ -9,6 +9,7 @@ import com.rashaka.domain.RestPageResponse;
 import com.rashaka.domain.RestResponse;
 import com.rashaka.domain.TermsData;
 import com.rashaka.domain.bmi.Bmi;
+import com.rashaka.domain.database.DailyList;
 import com.rashaka.domain.fake_models.FakeNews;
 import com.rashaka.domain.food.LogFood;
 import com.rashaka.domain.gallery.Gallery;
@@ -321,4 +322,16 @@ public interface JService {
 //    Call<BaseResponse> verifyPhone(@Field(RestKeys.KEY_CARD_ID) @NonNull String cardId,
 //                                    @Field(RestKeys.KEY_VERIFY_CODE) @NonNull String verifyCode);
 
+    //TODO Syncronization part
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_USERS + "/" + RestKeys.CALL_POST_DAILY_STEPS + "/{" + RestKeys.KEY_USER + "}")
+    Observable<RestResponse<DailyList>> postDailyItem(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String userId,
+            @Field(RestKeys.KEY_LIST) @NonNull String list);
+
+    @GET(RestKeys.PATH_MAIN + RestKeys.POINT_STAT + "/" + RestKeys.CALL_STEPS_STAT + "/{" + RestKeys.KEY_USER + "}")
+    Observable<RestResponse<DailyList>> getDailyItems(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String userId);
 }

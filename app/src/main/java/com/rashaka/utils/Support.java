@@ -60,6 +60,25 @@ public class Support {
 
     public static final int MEDIA_TYPE_IMAGE = 901;
 
+    public static long startOfDay() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTimeInMillis();
+    }
+
+    public static long startOfDay(long time) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTimeInMillis();
+    }
+
     public static double getBMI(@NonNull String weight, @NonNull String height){
         double mWeight, mHeight, bmi;
         try {

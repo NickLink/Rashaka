@@ -8,23 +8,27 @@ import android.provider.BaseColumns;
 
 public class DatabaseContract {
 
+    //TODO Table for Language labels
     public static final class LabelEntry implements BaseColumns {
         public static final String LABEL_TABLE_NAME = "lang";
         public static final String LABEL_COLUMN_KEY = "key_word";
         public static final String LABEL_COLUMN_TITLE = "title";
     }
 
+    //TODO Not Used
     public static final class StepsEntry implements BaseColumns {
         public static final String STEPS_TABLE_NAME = "steps";
         public static final String STEPS_COLUMN_TIME = "key_time";
         public static final String STEPS_COLUMN_STEPS = "key_steps";
     }
 
+    //TODO STEPS Table - saving timestamp of every step
     public static final class StepEntry implements BaseColumns {
         public static final String STEP_TABLE_NAME = "step";
         public static final String STEP_COLUMN_TIME = "key_time";
     }
 
+    //TODO Daily Steps element with converted by 72 parts day steps
     public static final class DailyStepEntry implements BaseColumns {
         public static final String DAILY_TABLE_NAME = "daily";
         public static final String DAILY_COLUMN_STEPS = "steps";
@@ -32,6 +36,7 @@ public class DatabaseContract {
         public static final String DAILY_COLUMN_ACTI = "acti";
         public static final String DAILY_COLUMN_SYNC = "sync";
     }
+
 
     public static final class ActivityEntry implements BaseColumns {
         public static final String ACTIVITY_TABLE_NAME = "activity";

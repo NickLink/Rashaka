@@ -70,7 +70,7 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        mTimeStamp = mPresenter.startOfDay();
+        mTimeStamp = Support.startOfDay();
 
         mSwipeLayout.setOnRefreshListener(() -> mPresenter.readData(true, mTimeStamp));
 

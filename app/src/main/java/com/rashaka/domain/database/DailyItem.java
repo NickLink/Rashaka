@@ -43,6 +43,7 @@ public class DailyItem {
                 "id=" + id +
                 ", steps=" + steps +
                 ", date='" + date + '\'' +
+                ", activities='" + activities + '\'' +
                 ", sync=" + sync +
                 '}';
     }

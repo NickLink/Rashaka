@@ -118,7 +118,7 @@ public class NotificationFragment extends BackFragment implements NotificationVi
 
     @Override
     public void setAdapterData(List<NotificationItem> list) {
-        if (false) { //list != null && list.size() > 0
+        if (list != null && list.size() > 0) {
             mEmptyList.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
             NotificationAdapter adapter = new NotificationAdapter(

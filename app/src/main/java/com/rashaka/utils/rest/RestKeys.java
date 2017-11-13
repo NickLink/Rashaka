@@ -53,7 +53,7 @@ public class RestKeys {
 
     public static final String CALL_ROUTES_ALL = "all_routes";
 
-    //public static final String CALL_STAT_WEIGHT = "weight_statistic";
+    public static final String CALL_STEPS_STAT = "steps_statistic";
     public static final String CALL_WEIGHT_WEEK = "week_weight_statistic";
     public static final String CALL_WEIGHT_MONTH = "month_weight_statistic";
     public static final String CALL_WEIGHT_YEAR = "weight_statistic";
@@ -110,6 +110,8 @@ public class RestKeys {
     public static final String KEY_DESC = "desc";
 
     public static final String KEY_TITLE = "title";
+
+    public static final String KEY_LIST = "list";
 
     //Headers
     public static final String HEADER_API_KEY = "API-KEY";

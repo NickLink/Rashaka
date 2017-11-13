@@ -337,7 +337,14 @@ public class RashakaBaseImpl implements RashakaBase {
                 values.put(DAILY_COLUMN_DATE, item.getDate());
                 values.put(DAILY_COLUMN_ACTI, item.getActivities());
                 values.put(DAILY_COLUMN_SYNC, item.getSync());
-                db.insert(DAILY_TABLE_NAME, null, values);
+                //TODO Check if this day exist - update it!
+                if(getDailyItemID(item.getDate()) == -1){
+                    //TODO Not exist - INSERT ITEM
+                    db.insert(DAILY_TABLE_NAME, null, values);
+                } else {
+                    //TODO Item exist - need to UPDATE it
+                    db.update(DAILY_TABLE_NAME, values, _ID + " = ?", new String[]{Long.toString(getDailyItemID(item.getDate()))});
+                }
                 db.setTransactionSuccessful();
                 success = true;
             } catch (Exception e) {
@@ -350,6 +357,15 @@ public class RashakaBaseImpl implements RashakaBase {
             Log.e(TAG, "saveDailySteps -> " + " Input data Error! ");
         }
         return success;
+    }
+
+    private long getDailyItemID(String date){
+        String selection = DAILY_COLUMN_DATE + " = ?";
+        String[] selectionArgs = {date};
+        Cursor c = db.query(DAILY_TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        if (c.moveToFirst()) //if the row exist then return the id
+            return c.getLong(c.getColumnIndex(_ID));
+        return -1;
     }
 
     private Cursor cDailyStepsById(long id) {
@@ -392,7 +408,7 @@ public class RashakaBaseImpl implements RashakaBase {
     public DailyItem getDailyItemByDate(String date) {
         DailyItem item = null;
         Cursor c = cDailyStepsByDate(date);
-        if(c.moveToFirst()){
+        if(c != null && c.moveToFirst()){
             item = getDailyItem(c);
         }
         if(c != null)
@@ -421,7 +437,7 @@ public class RashakaBaseImpl implements RashakaBase {
     }
 
     private Cursor cDailyStepsBySync(int sync) {
-        String selection = DAILY_COLUMN_DATE + " = ?";
+        String selection = DAILY_COLUMN_SYNC + " = ?";
         String[] selectionArgs = {String.valueOf(sync)};
         return db.query(DAILY_TABLE_NAME, null, selection, selectionArgs, null, null, null);
     }

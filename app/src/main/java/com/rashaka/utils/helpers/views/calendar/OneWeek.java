@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.rashaka.R;
+import com.rashaka.utils.Support;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -88,7 +89,7 @@ public class OneWeek extends LinearLayout {
                 inner.setBackground(gd);
             }
 
-            long mTime = mTimeShift - ((3 - i) * 24 * 60 * 60 * 1000l);
+            long mTime = mTimeShift - ((3 - i) * 24 * 60 * 60 * 1000l); //mTimeShift
             c.setTimeInMillis(mTime);
             int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
@@ -154,7 +155,10 @@ public class OneWeek extends LinearLayout {
     }
 
     private long startDay(long timestamp) {
-        return timestamp - timestamp % 86400000;
+        //return timestamp - timestamp % 86400000;
+        return Support.startOfDay(timestamp);
     }
+
+
 
 }
