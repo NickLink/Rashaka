@@ -54,21 +54,6 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="@dimen/recycler_divider"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/inner_padding_small"
-            android:layout_marginTop="@dimen/inner_padding_micro"
-            android:layout_marginBottom="@dimen/inner_padding_micro"
-            android:background="@color/main_button_divider"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/item_start_button"
-            style="@style/InfoBreezeBtnText"
-            android:layout_marginStart="@dimen/inner_padding_small"
-            android:text="Edit"
-            android:visibility="gone"/>
     </LinearLayout>
 
     <View

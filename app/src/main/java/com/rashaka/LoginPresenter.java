@@ -60,7 +60,7 @@ public class LoginPresenter {
         Log.e(TAG, "loadUserProfile with -> " + tocken + " " + userId);
         mCompositeDisposable.add(Rest.call().getUserById(userId, tocken).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> handleGetUserResponse(response), this::handleError));
+                .subscribe(response -> handleGetUserResponse(response), this::handleUserError));
     }
 
     private void handleGetUserResponse(RestResponse<UserProfile> response) {
@@ -68,11 +68,17 @@ public class LoginPresenter {
         if (response != null && response.getStatus()) {
             //TODO Save Profile data
             RaApp.getBase().setProfileUser(response.getMData());
-            //TODO Call for new Activity
+            //TODO Go to Main Activity
             new Handler().postDelayed(() -> mRouter.goMainActivity(), 200);
         } else {
             handleError(response.getMessage());
+
         }
+    }
+
+    private void handleUserError(Throwable throwable) {
+        //TODO Go to Main Activity anyway
+        new Handler().postDelayed(() -> mRouter.goMainActivity(), 200);
     }
 
 

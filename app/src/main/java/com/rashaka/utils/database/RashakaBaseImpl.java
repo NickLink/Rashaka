@@ -31,10 +31,17 @@ import static com.rashaka.utils.Consts.PREFS_LANG;
 import static com.rashaka.utils.Consts.PREFS_USER;
 import static com.rashaka.utils.Consts.PROFILE_EMAIL;
 import static com.rashaka.utils.Consts.PROFILE_USER;
+import static com.rashaka.utils.Consts.SLEEP_END_DEF;
+import static com.rashaka.utils.Consts.SLEEP_END_TIME;
+import static com.rashaka.utils.Consts.SLEEP_START_DEF;
+import static com.rashaka.utils.Consts.SLEEP_START_TIME;
 import static com.rashaka.utils.database.DatabaseContract.*;
 import static com.rashaka.utils.database.DatabaseContract.ActivityEntry.*;
 import static com.rashaka.utils.database.DatabaseContract.DailyStepEntry.*;
+import static com.rashaka.utils.database.DatabaseContract.LabelEntry.LABEL_TABLE_NAME;
 import static com.rashaka.utils.database.DatabaseContract.StepEntry.STEP_COLUMN_TIME;
+import static com.rashaka.utils.database.DatabaseContract.StepEntry.STEP_TABLE_NAME;
+import static com.rashaka.utils.database.DatabaseContract.StepsEntry.STEPS_TABLE_NAME;
 
 /**
  * Created by User on 23.08.2017.
@@ -92,7 +99,7 @@ public class RashakaBaseImpl implements RashakaBase {
                 for (LabelItem item : labelList) {
                     values.put(LabelEntry.LABEL_COLUMN_KEY, item.getKeyWord());
                     values.put(LabelEntry.LABEL_COLUMN_TITLE, item.getTitle());
-                    db.insert(LabelEntry.LABEL_TABLE_NAME, null, values);
+                    db.insert(LABEL_TABLE_NAME, null, values);
                 }
 
                 db.setTransactionSuccessful();
@@ -114,7 +121,7 @@ public class RashakaBaseImpl implements RashakaBase {
                 ContentValues values = new ContentValues();
                 values.put(StepsEntry.STEPS_COLUMN_TIME, stepsInMinute.getTime());
                 values.put(StepsEntry.STEPS_COLUMN_STEPS, stepsInMinute.getSteps());
-                db.insert(StepsEntry.STEPS_TABLE_NAME, null, values);
+                db.insert(STEPS_TABLE_NAME, null, values);
                 db.setTransactionSuccessful();
                 Log.e(TAG, "saveStepsInMinute -> setTransactionSuccessful time > " + stepsInMinute.getTime()
                 + " steps > " + stepsInMinute.getSteps());
@@ -154,7 +161,7 @@ public class RashakaBaseImpl implements RashakaBase {
             try{
                 ContentValues values = new ContentValues();
                 values.put(STEP_COLUMN_TIME, time);
-                db.insert(StepEntry.STEP_TABLE_NAME, null, values);
+                db.insert(STEP_TABLE_NAME, null, values);
                 db.setTransactionSuccessful();
                 Log.e(TAG, "saveSteP -> setTransactionSuccessful time > " + time);
             } catch (Exception e) {
@@ -172,26 +179,26 @@ public class RashakaBaseImpl implements RashakaBase {
 
     @Override
     public long getStepsCount() {
-        return DatabaseUtils.queryNumEntries(db, StepEntry.STEP_TABLE_NAME);
+        return DatabaseUtils.queryNumEntries(db, STEP_TABLE_NAME);
     }
 
     @Override
     public long getStepsCount(long from) {
         return DatabaseUtils.queryNumEntries(db,
-                StepEntry.STEP_TABLE_NAME, STEP_COLUMN_TIME + " > ?", new String[] {String.valueOf(from)});
+                STEP_TABLE_NAME, STEP_COLUMN_TIME + " > ?", new String[] {String.valueOf(from)});
     }
 
     @Override
     public long getStepsCount(long from, long to) {
         return DatabaseUtils.queryNumEntries(db,
-                StepEntry.STEP_TABLE_NAME, STEP_COLUMN_TIME + " > ? AND " + STEP_COLUMN_TIME + " < ?",
+                STEP_TABLE_NAME, STEP_COLUMN_TIME + " > ? AND " + STEP_COLUMN_TIME + " < ?",
                 new String[] {String.valueOf(from), String.valueOf(to)});
     }
 
     @Override
     public long getFirstStep() {
         long firstStepTime = 0;
-        Cursor cursor = db.query(StepEntry.STEP_TABLE_NAME, null, null, null, null, null, STEP_COLUMN_TIME, "1");
+        Cursor cursor = db.query(STEP_TABLE_NAME, null, null, null, null, null, STEP_COLUMN_TIME, "1");
         if(cursor != null)
         {
             if (cursor.moveToFirst()) {
@@ -206,7 +213,7 @@ public class RashakaBaseImpl implements RashakaBase {
     public boolean deleteSteps(long from, long to) {
         db.beginTransaction();
         if(db.delete(
-                StepEntry.STEP_TABLE_NAME,
+                STEP_TABLE_NAME,
                 DatabaseContract.StepEntry.STEP_COLUMN_TIME + " >= " + String.valueOf(from) + " AND "
                         + DatabaseContract.StepEntry.STEP_COLUMN_TIME + " <= " + String.valueOf(to), null) > 0) {
             db.setTransactionSuccessful();
@@ -458,6 +465,15 @@ public class RashakaBaseImpl implements RashakaBase {
         return list;
     }
 
+    @Override
+    public void clearAllTables() {
+        db.delete(LABEL_TABLE_NAME, null, null);
+        db.delete(STEPS_TABLE_NAME, null, null);
+        db.delete(STEP_TABLE_NAME, null, null);
+        db.delete(DAILY_TABLE_NAME, null, null);
+        db.delete(ACTIVITY_TABLE_NAME, null, null);
+    }
+
     private DailyItem getDailyItem(Cursor c){
         DailyItem item = new DailyItem();
         item.setId(c.getLong(c.getColumnIndex(DatabaseContract.DailyStepEntry._ID)));
@@ -472,7 +488,7 @@ public class RashakaBaseImpl implements RashakaBase {
 
     @Override
     public void clearLabelTable() {
-        db.delete(LabelEntry.LABEL_TABLE_NAME, null, null);
+        db.delete(LABEL_TABLE_NAME, null, null);
     }
 
     @Override
@@ -577,6 +593,26 @@ public class RashakaBaseImpl implements RashakaBase {
     }
 
     @Override
+    public void saveSleepStartTime(String startTime) {
+        RaApp.getPref().edit().putString(SLEEP_START_TIME, startTime).commit();
+    }
+
+    @Override
+    public void saveSleepEndTime(String endTime) {
+        RaApp.getPref().edit().putString(SLEEP_END_TIME, endTime).commit();
+    }
+
+    @Override
+    public String getSleepStartTime() {
+        return RaApp.getPref().getString(SLEEP_START_TIME, SLEEP_START_DEF);
+    }
+
+    @Override
+    public String getSleepEndTime() {
+        return RaApp.getPref().getString(SLEEP_END_TIME, SLEEP_END_DEF);
+    }
+
+    @Override
     public void saveAlarmList(List<DrinkAlarmItem> list) {
         RaApp.getPref().edit().putString(ALARM_LIST, gson.toJson(list)).commit();
     }
@@ -595,18 +631,18 @@ public class RashakaBaseImpl implements RashakaBase {
     private Cursor labelByKey(String key) {
         String selection = LabelEntry.LABEL_COLUMN_KEY + " = ?";
         String[] selectionArgs = {key};
-        return db.query(LabelEntry.LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        return db.query(LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, null);
     }
 
     private Cursor getStepsCursor() {
         //String selection = STEPS_COLUMN_TIME;
-        return db.query(LabelEntry.LABEL_TABLE_NAME, null, null, null, null, null, StepsEntry.STEPS_COLUMN_TIME);
+        return db.query(LABEL_TABLE_NAME, null, null, null, null, null, StepsEntry.STEPS_COLUMN_TIME);
     }
 
     private Cursor getStepsCursor(long dateFrom, long dateTo) {
         String selection = StepsEntry.STEPS_COLUMN_TIME + " > ?  AND " + StepsEntry.STEPS_COLUMN_TIME + " < ?";
         String[] selectionArgs = {String.valueOf(dateFrom), String.valueOf(dateTo)};
-        return db.query(LabelEntry.LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, StepsEntry.STEPS_COLUMN_TIME);
+        return db.query(LABEL_TABLE_NAME, null, selection, selectionArgs, null, null, StepsEntry.STEPS_COLUMN_TIME);
     }
 
 }

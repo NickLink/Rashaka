@@ -19,6 +19,7 @@ import android.util.Log;
 import com.rashaka.R;
 import com.rashaka.RaApp;
 import com.rashaka.domain.BaseResponse;
+import com.rashaka.domain.database.DailyItem;
 import com.rashaka.utils.Support;
 import com.rashaka.utils.rest.Rest;
 
@@ -33,11 +34,12 @@ import io.reactivex.schedulers.Schedulers;
 public class SensorService extends Service implements SensorEventListener, StepListener {
 
     private static final String TAG = SensorService.class.getSimpleName();
-    private int stepCounter = 0;
+    private int stepCounter = 0, syncedSteps = 0;
     private static StepDetector simpleStepDetector;
     private static SensorManager sensorManager;
     private static Sensor accelSensor, countSensor;
     private static final int NOTIFICATION_ID = 1;
+    private boolean isLogged = false;
 
     public SensorService(Context applicationContext) {
         super();
@@ -53,17 +55,10 @@ public class SensorService extends Service implements SensorEventListener, StepL
         super.onStartCommand(intent, flags, startId);
         Log.e(TAG, " onStartCommand!");
 
-        // Get an instance of the SensorManager
-        //getSensonManager
-        //getCountSensor
-        //getAccelSensor
-
         if (getCountSensor() != null) {
-            //hardwareSensor = true;
             //Toast.makeText(applicationContext, "Hardware count sensor found!", Toast.LENGTH_SHORT).show();
             registerCountSensor();
         } else {
-            //hardwareSensor = false;
             //Toast.makeText(applicationContext, "Hardware count sensor not available!", Toast.LENGTH_SHORT).show();
             registerAccelSensor();
         }
@@ -87,17 +82,6 @@ public class SensorService extends Service implements SensorEventListener, StepL
 //        sensorManager.registerListener(this, accelSensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        Log.e(TAG, "Sensor Service onDestroy!");
-//        CleanUp();
-//        Intent broadcastIntent = new Intent("com.rashaka.utils.steps.RestartSensor");
-//        sendBroadcast(broadcastIntent);
-//        stopSelf();
-//    }
-
-
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
@@ -117,21 +101,26 @@ public class SensorService extends Service implements SensorEventListener, StepL
 
     private void MainJob() {
         stepCounter++;
-        Log.e(TAG, "onStep happened -> " + " steps count = " + stepCounter
-                + " current timestamp -> " + System.currentTimeMillis());
         RaApp.getBase().saveStep(System.currentTimeMillis());
 
         long mStepsCount = RaApp.getBase().getStepsCount(startOfDay(), startOfDay() + 86399999);
         long mStepsGoal = -1;
         try {
             mStepsGoal = Long.parseLong(RaApp.getBase().getProfileUser().getStepsGoal());
-        } catch (NumberFormatException e){
+            String thisDay = Support.getDateFromMillis(System.currentTimeMillis(), Support.DATE_FORMAT);
+            Log.e(TAG, "This day -> " + thisDay);
+            DailyItem item = RaApp.getBase().getDailyItemByDate(thisDay);
+            if(item != null){
+                syncedSteps = item.getSteps();
+                Log.e(TAG, "syncedSteps -> " + syncedSteps);
+            }
+        } catch (NumberFormatException e) {
             Log.e(TAG, "onStep NumberFormatException -> " + e.getLocalizedMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "onStep Exception -> " + e.getLocalizedMessage());
         }
-
-        if (mStepsCount == mStepsGoal) {
+        Log.e(TAG, "mStepsCount -> " + (mStepsCount + syncedSteps) + " mStepsGoal -> " + mStepsGoal);
+        if ((mStepsCount + syncedSteps) == mStepsGoal) {
             NotifyStepsGoalReached();
             SendNotificationData();
         }
@@ -165,8 +154,8 @@ public class SensorService extends Service implements SensorEventListener, StepL
 
     @Override
     public void onStep(long timeNs) {
-        //MainJob();
-        performOnBackgroundThread(runnable);
+        if (isUserLogged())
+            performOnBackgroundThread(runnable);
     }
 
     @Override
@@ -255,11 +244,14 @@ public class SensorService extends Service implements SensorEventListener, StepL
         return accelSensor;
     }
 
-    private StepDetector getSimpleStepDetector(){
-        if(simpleStepDetector == null){
+    private StepDetector getSimpleStepDetector() {
+        if (simpleStepDetector == null) {
             simpleStepDetector = new StepDetector();
         }
         return simpleStepDetector;
+    }
 
+    private boolean isUserLogged(){
+        return RaApp.getBase().isUserLogged();
     }
 }

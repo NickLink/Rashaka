@@ -2,6 +2,9 @@ package com.rashaka.fragments.settings.profile.dialogs;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -50,22 +53,22 @@ public class DobDialog extends SimpleInitiallyExpandedBottomSheetFragment { //Bo
 
         model = ViewModelProviders.of(getActivity()).get(SharedUserModel.class);
 
-//        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
-//        CoordinatorLayout.Behavior behavior = params.getBehavior();
-//        ((BottomSheetBehavior)behavior).setState(BottomSheetBehavior.STATE_EXPANDED);
-//
-//        ((BottomSheetBehavior)behavior).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-//            @Override
-//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-//                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-//                    ((BottomSheetBehavior)behavior).setState(BottomSheetBehavior.STATE_EXPANDED);
-//                }
-//            }
-//
-//            @Override
-//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-//            }
-//        });
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
+        CoordinatorLayout.Behavior behavior = params.getBehavior();
+        ((BottomSheetBehavior)behavior).setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        ((BottomSheetBehavior)behavior).setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    ((BottomSheetBehavior)behavior).setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
 
 //        LinearLayout parent_layout = dialog.findViewById(R.id.parent_layout);
 //        parent_layout.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;

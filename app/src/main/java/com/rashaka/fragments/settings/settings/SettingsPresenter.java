@@ -6,12 +6,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.rashaka.LoginActivity;
 import com.rashaka.MainRouter;
 import com.rashaka.RaApp;
 import com.rashaka.domain.BaseResponse;
 import com.rashaka.fragments.settings.settings.change.ChangePasswordFragment;
+import com.rashaka.utils.database.DatabaseTask;
+import com.rashaka.utils.database.SyncResult;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.rest.Rest;
 import com.rashaka.utils.rest.RestKeys;
@@ -35,7 +38,8 @@ public class SettingsPresenter extends SuperPresenter<SettingsView, MainRouter> 
     private CompositeDisposable mCompositeDisposable;
     private String mToken, mUserId, mStatus;
 
-    public SettingsPresenter() {
+    public SettingsPresenter(MainRouter myRouter) {
+        setRouter(myRouter);
         mCompositeDisposable = new CompositeDisposable();
         mToken = RaApp.getBase().getLoggedUser().getTocken();
         mUserId = RaApp.getBase().getLoggedUser().getId();
@@ -83,18 +87,50 @@ public class SettingsPresenter extends SuperPresenter<SettingsView, MainRouter> 
     }
 
     public void LogoutAndRestart(FragmentActivity activity) {
+        //Check for unsynchronized data
+        if(RaApp.getBase().getStepsCount() > 0){
+            Log.e(TAG, "getStepsCount() > 0");
+            getRouter().showLoader();
+            //TODO Database preparation part
+            DatabaseTask dTask = new DatabaseTask(new SyncResult() {
+                @Override
+                public void SyncSuccess() {
+                    //TODO Go to Clean & Continue
+                    Log.e(TAG, "SyncSuccess Go to Clean & Continue");
+                    getRouter().hideLoader();
+                    CleanAndContinue(activity);
+                }
+
+                @Override
+                public void SyncError() {
+                    //TODO Need to show info that Synchronization Failed!
+                    Log.e(TAG, "SyncError ShowSyncFailedWarning");
+                    getRouter().hideLoader();
+                    ShowSyncFailedWarning();
+                }
+            });
+            dTask.Prepare();
+
+        } else {
+            CleanAndContinue(activity);
+        }
+    }
+
+    private void CleanAndContinue(FragmentActivity activity){
         //TODO Logout user first
         RaApp.getBase().removeLoggedUser();
-
+        //TODO Restart Service
+        getRouter().RestartService();
+        //TODO Clean existing tables in database
+        RaApp.getBase().clearAllTables();
         restart(activity);
-        //TODO Restart in AlarmManager Way
-//        Intent mStartActivity = new Intent(activity, LoginActivity.class);
-//        int mPendingIntentId = 989796;
-//        PendingIntent mPendingIntent = PendingIntent.getActivity(activity, mPendingIntentId, mStartActivity,
-//                PendingIntent.FLAG_CANCEL_CURRENT);
-//        AlarmManager mgr = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
-//        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
-//        System.exit(0);
+    }
+
+    private void ShowSyncFailedWarning() {
+        //TODO ShowSyncFailedWarning!
+        getRouter().showDialog("Alert!",
+                "You can loose your data. Please connect to Internet and try logout again.",
+                "Accept");
     }
 
     public boolean getNotificationStatus() {

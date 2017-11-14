@@ -50,7 +50,7 @@ public class SettingsFragment extends BackFragment implements SettingsView {
     public void onAttach(Context context) {
         super.onAttach(context);
         myRouter = (MainRouter) getActivity();
-        mPresenter = new SettingsPresenter();
+        mPresenter = new SettingsPresenter(myRouter);
     }
 
     @Override

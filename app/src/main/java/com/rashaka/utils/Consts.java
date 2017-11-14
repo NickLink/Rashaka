@@ -24,6 +24,11 @@ public class Consts {
     public static final String PREFS_USER_LOGGED = "PREFS_USER_LOGGED";
     public static final String PROFILE_EMAIL = "PROFILE_EMAIL";
 
+    public static final String SLEEP_START_TIME = "SLEEP_START_TIME";
+    public static final String SLEEP_END_TIME = "SLEEP_END_TIME";
+    public static final String SLEEP_START_DEF = "22:00:00";
+    public static final String SLEEP_END_DEF = "06:00:00";
+
     public static final String GSM_TOKEN = "GSM_TOKEN";
 
     //TODO Alarm data managment

@@ -22,6 +22,7 @@ import com.rashaka.domain.profile.UserProfile;
 import com.rashaka.domain.recipes.RecipeItem;
 import com.rashaka.domain.routes.RouteInfo;
 import com.rashaka.domain.routes.Routes;
+import com.rashaka.domain.sleep.Sleeps;
 import com.rashaka.domain.weight.WeightMonth;
 import com.rashaka.domain.weight.WeightWeek;
 import com.rashaka.domain.weight.WeightYear;
@@ -229,6 +230,26 @@ public interface JService {
             @Path(RestKeys.KEY_USER) String lang,
             @Path(RestKeys.KEY_OFFSET) String offset);
 
+    //TODO Post New User Log Sleep
+    @FormUrlEncoded
+    @POST(RestKeys.PATH_MAIN + RestKeys.POINT_SLEEP + "/" + RestKeys.CALL_NEW + "/{" + RestKeys.KEY_USER + "}")
+    Observable<BaseResponse> postUserLogSleep(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String userId,
+            @Field(RestKeys.KEY_SLEEP_START) @NonNull String start,
+            @Field(RestKeys.KEY_SLEEP_END) @NonNull String end,
+            @Field(RestKeys.KEY_DESCRIPTION) @NonNull String decs,
+            @Field(RestKeys.KEY_SLEEP_TIME) @NonNull String time);
+
+    //TODO Get All Log Sleep
+    @GET(RestKeys.PATH_MAIN
+            + RestKeys.POINT_SLEEP + "/" + RestKeys.CALL_SLEEP_ALL
+            + "/{" + RestKeys.KEY_USER + "}" + "/{" + RestKeys.KEY_OFFSET + "}")
+    Observable<RestPageResponse<Sleeps>> getAllSleepLog(
+            @Header(RestKeys.HEADER_API_KEY) String apiKey,
+            @Path(RestKeys.KEY_USER) String lang,
+            @Path(RestKeys.KEY_OFFSET) String offset);
+
 
     //TODO News part
     @GET(RestKeys.PATH_MAIN
@@ -316,11 +337,6 @@ public interface JService {
             //@Path(RestKeys.KEY_USER) @NonNull String userId,
             @Path(RestKeys.KEY_ID) @NonNull String id);
 
-
-//    @FormUrlEncoded
-//    @POST("http://lemall.cyberchisel.com/" + "/" + RestKeys.LOYALTY + "/" + RestKeys.CALL_VERIFY_PHONE)
-//    Call<BaseResponse> verifyPhone(@Field(RestKeys.KEY_CARD_ID) @NonNull String cardId,
-//                                    @Field(RestKeys.KEY_VERIFY_CODE) @NonNull String verifyCode);
 
     //TODO Syncronization part
     @FormUrlEncoded

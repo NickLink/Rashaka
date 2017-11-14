@@ -8,11 +8,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +27,9 @@ import com.rashaka.utils.Support;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
 import com.rashaka.utils.helpers.structure.helpers.Layout;
 import com.rashaka.utils.helpers.views.calendar.OneWeek;
+
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,9 +97,11 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
             mPresenter.readData(false, mTimeStamp);
         });
 
-
-
         mStatusSteps.setOnClickListener(view15 -> mPresenter.onStepsClick());
+    }
+
+    public void SyncRefresh(){
+        mPresenter.readData(false, mTimeStamp);
     }
 
     @Override
@@ -174,6 +181,51 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
         mStatusWeightUp.setImageResource(up ? R.drawable.main_status_up : R.drawable.main_status_down);
     }
 
+    @Override
+    public void setDailyGraph(List<Integer> mList) {
+        //int min = Collections.min(mList);
+        mGraphLayout.removeAllViews();
+        int max = Collections.max(mList);
+        Log.e(TAG, "max-> " + max);
+        int height = Support.dpToPx(110);
+        Log.e(TAG, "height-> " + height);
+        double scale = (double) max / (double) height;
+        Log.e(TAG, "scale-> " + scale);
+
+        for (int i = 0 ; i < mList.size() ; i++){
+            LinearLayout l = new LinearLayout(getActivity());
+            LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(Support.dpToPx(4), LinearLayout.LayoutParams.WRAP_CONTENT);
+            lParams.gravity = Gravity.BOTTOM;
+            l.setLayoutParams(lParams);
+            l.setOrientation(LinearLayout.VERTICAL);
+
+            ImageView c = new ImageView(getActivity());
+            c.setImageResource(R.drawable.dot_grey);
+            c.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            LinearLayout.LayoutParams cParams = new LinearLayout.LayoutParams(Support.dpToPx(2), Support.dpToPx(2));
+            if(i == 0 || i == 17 || i == 35 || i == 53 || i == 71){
+                cParams = new LinearLayout.LayoutParams(Support.dpToPx(3), Support.dpToPx(3));
+            }
+
+            cParams.gravity = Gravity.CENTER_HORIZONTAL;
+            cParams.setMargins(0, Support.dpToPx(2), 0, 0);
+            c.setLayoutParams(cParams);
+
+            View v = new View(getActivity());
+            LinearLayout.LayoutParams vParams = new LinearLayout.LayoutParams(Support.dpToPx(2), (int)(mList.get(i) / scale));
+            vParams.gravity = Gravity.CENTER_HORIZONTAL;
+            v.setLayoutParams (vParams);
+            v.setBackgroundColor(getResources().getColor(R.color.progress_green));
+
+            l.addView(v);
+            l.addView(c);
+
+
+            mGraphLayout.addView(l);
+        }
+    }
+
     @BindView(R.id.one_week)
     OneWeek mOneWeek;
 
@@ -243,5 +295,12 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
     TextView mButtonTipsText;
     @BindView(R.id.main_button_bmi_text)
     TextView mButtonBMIText;
+
+
+    @BindView(R.id.day_graph_layout)
+    LinearLayout mGraphLayout;
+
+    @BindView(R.id.daily_activity_text)
+    TextView mDailyActivityText;
 
 }

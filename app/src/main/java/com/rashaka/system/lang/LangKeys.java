@@ -6,6 +6,9 @@ package com.rashaka.system.lang;
 
 public class LangKeys {
 
+    public static final String key_ar = "ar";
+    public static final String key_en = "en";
+
     public static final String key_forgot_password = "key_forgot_password";
     public static final String key_partnership_with = "key_partnership_with";
     public static final String key_email = "key_email";

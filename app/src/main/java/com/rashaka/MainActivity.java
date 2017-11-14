@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -32,8 +33,10 @@ import com.rashaka.fragments.main.share.ShareBaseFragment;
 import com.rashaka.fragments.settings.notification.NotificationFragment;
 import com.rashaka.fragments.settings.profile.ProfileFragment;
 import com.rashaka.fragments.settings.settings.SettingsFragment;
+import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.Support;
 import com.rashaka.utils.database.DatabaseTask;
+import com.rashaka.utils.database.SyncResult;
 import com.rashaka.utils.dialogs.DialogBlueButton;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     private ProfileFragment profileFragment;
     private SettingsFragment settingsFragment;
     private NotificationFragment notificationFragment;
+    private HomeBaseFragment homeBaseFragment;
 
     private MainPresenter mPresenter;
 
@@ -77,16 +81,39 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO Database preparation part
-        DatabaseTask.Prepare();
-
         ButterKnife.bind(this);
         Support.setStatusBarColor(this, R.color.main_statusbar_color);
         mPresenter = new MainPresenter(this);
 
-        if (RaApp.getBase().getLangType().equals("ar")) {
+        if (RaApp.getBase().getLangType().equals(LangKeys.key_ar)) {
             ViewCompat.setLayoutDirection(findViewById(R.id.main_parent_layout), ViewCompat.LAYOUT_DIRECTION_RTL);
         }
+
+        //TODO Database preparation part
+        DatabaseTask dTask = new DatabaseTask(new SyncResult() {
+            @Override
+            public void SyncSuccess() {
+                Log.e(TAG, "SyncSuccess");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (getHomeBaseFragment() != null
+                                && getHomeBaseFragment().isAdded()
+                                && getHomeBaseFragment().isVisible()
+                                ) {
+                            getHomeBaseFragment().SyncRefresh();
+                        }
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void SyncError() {
+                //TODO Need to show info that Synchronization Failed!
+                Log.e(TAG, "SyncError");
+            }
+        });
+        dTask.Prepare();
 
         setSupportActionBar(myToolbar);
         myToolbar.setNavigationIcon(R.drawable.ic_abar_back);
@@ -135,18 +162,14 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
                 mNavController.clearStack();
             }
         });
-
         mPresenter.startService();
-
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.settings_main, menu);
-        if(RaApp.getBase().getLangType().equals("ar")){
+        if (RaApp.getBase().getLangType().equals("ar")) {
             menu.findItem(R.id.action_profile).setTitle(Support.getArMenu("key_profile"));
             menu.findItem(R.id.action_notification).setTitle(Support.getArMenu("key_notifications"));
             menu.findItem(R.id.action_settings).setTitle(Support.getArMenu("key_settings"));
@@ -204,6 +227,11 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     }
 
     @Override
+    public void RestartService() {
+
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mNavController != null) {
@@ -249,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     public Fragment getRootFragment(int index) {
         switch (index) {
             case INDEX_HOME:
-                return new HomeBaseFragment();
+                return getHomeBaseFragment(); //new HomeBaseFragment();
             case INDEX_NEWS:
                 return new NewsBaseFragment();
             case INDEX_PLUS:
@@ -272,14 +300,14 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     public void showError(String error) {
         IsKeyboardVisible(mParentLayout);
         Log.e(TAG, "IsKeyboardVisible -> " + isKeyVisible);
-        if(isKeyVisible){
+        if (isKeyVisible) {
             showToast(error);
         } else {
             showSnackBar(error);
         }
     }
 
-    private void showSnackBar(String error){
+    private void showSnackBar(String error) {
         Snackbar snackbar = Snackbar.make(mParentLayout, error, Snackbar.LENGTH_LONG);
         snackbar.setText(error);
         snackbar.setAction(error, null);
@@ -287,9 +315,9 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         snackbar.show();
     }
 
-    private void showToast(String error){
+    private void showToast(String error) {
         Log.e(TAG, "IsVisible -> " + isVisible);
-        if(isVisible){
+        if (isVisible) {
             Toast toast = Toast.makeText(this, error, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -306,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
 
     @Override
     public void hideLoader() {
-        if(loader != null && loader.isShowing()){
+        if (loader != null && loader.isShowing()) {
             loader.dismiss();
         }
     }
@@ -315,6 +343,13 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
     public void showDialog(String title, String text, String button) {
         DialogBlueButton dialog = new DialogBlueButton(this, title, text, button);
         dialog.show();
+    }
+
+    private HomeBaseFragment getHomeBaseFragment() {
+        if (homeBaseFragment == null) {
+            homeBaseFragment = new HomeBaseFragment();
+        }
+        return homeBaseFragment;
     }
 
     private ProfileFragment getProfileFragment() {
@@ -356,14 +391,11 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
         mPresenter.onDestroy();
         mPresenter.stopService();
         Log.e(TAG, "onDestroy!");
-
         startActivity(new Intent(this, DummyActivity.class));
-
         super.onDestroy();
-
     }
 
-    void IsKeyboardVisible(View contentView){
+    void IsKeyboardVisible(View contentView) {
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -375,8 +407,7 @@ public class MainActivity extends AppCompatActivity implements MainRouter, BaseF
                 if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
                     // keyboard is opened
                     isKeyVisible = true;
-                }
-                else {
+                } else {
                     // keyboard is closed
                     isKeyVisible = false;
                 }

@@ -29,8 +29,8 @@ public class DrinkAlarmPresenter extends SuperPresenter<DrinkAlarmView, MainRout
 
     private static final String TAG = DrinkAlarmPresenter.class.getSimpleName();
 
-    public DrinkAlarmPresenter() {
-
+    public DrinkAlarmPresenter(MainRouter myRouter) {
+        setRouter(myRouter);
     }
 
     @Override

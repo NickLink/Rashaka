@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/background_white">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background_white">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_new_alarm">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_white">
+
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/colapsing_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/inner_padding_small"
+        android:paddingTop="@dimen/inner_padding_small"
+        android:gravity="center_horizontal"
+        app:layout_collapseMode="parallax">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="@dimen/inner_padding"
-        android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/icon_plus_log_sleep"/>
 
     <TextView
@@ -19,23 +45,13 @@
         android:textSize="@dimen/text_size_giant"
         android:layout_marginTop="@dimen/inner_padding_small"
         android:layout_marginBottom="@dimen/inner_padding_small"
-        android:text="Log Sleep"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imageView"/>
-
-    <LinearLayout
-        android:id="@+id/items_parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/title">
+        android:text="Log Sleep"/>
 
         <include layout="@layout/item_log_sleep"
                  android:id="@+id/log_sleep_start"/>
 
         <include layout="@layout/item_log_sleep"
                  android:id="@+id/log_sleep_end"/>
-    </LinearLayout>
 
 
     <FrameLayout
@@ -44,8 +60,6 @@
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="@dimen/inner_padding"
         android:background="@drawable/button_breeze_selector"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/items_parent"
         android:clickable="true">
 
         <TextView
@@ -56,4 +70,24 @@
             android:text="Log"/>
     </FrameLayout>
 
+    </LinearLayout>
+    </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </android.support.v7.widget.RecyclerView>
+
+        <com.rashaka.utils.helpers.views.EmptyListView
+            android:id="@+id/empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="bottom"
+            android:layout_gravity="bottom"
+            android:visibility="gone"/>
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>

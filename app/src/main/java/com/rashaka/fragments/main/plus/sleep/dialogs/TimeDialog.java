@@ -8,17 +8,25 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.CoordinatorLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.rashaka.R;
+import com.rashaka.RaApp;
 import com.rashaka.domain.profile.UserProfile;
 import com.rashaka.fragments.main.plus.sleep.SleepLogFragment;
+import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.database.SharedUserModel;
 import com.rashaka.utils.helpers.views.picker.MyNumberPicker;
 import com.rashaka.utils.helpers.views.picker.MyStringPicker;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +42,7 @@ public class TimeDialog extends BottomSheetDialogFragment {
     private SharedUserModel model;
     private TimeResult myInterface;
     private String mTime;
-    private int to;
+    private int to = -1;
 
     public static TimeDialog newInstance(int start){
         TimeDialog dialog = new TimeDialog();
@@ -97,6 +105,8 @@ public class TimeDialog extends BottomSheetDialogFragment {
         });
 
 
+
+
         mHoursPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i1) {
@@ -124,7 +134,7 @@ public class TimeDialog extends BottomSheetDialogFragment {
                     break;
             }
         });
-        String[] amString = {"am", "pm"};
+        String[] amString = {RaApp.getLabel(LangKeys.key_am), RaApp.getLabel(LangKeys.key_pm)};
         mAmPicker.setDisplayedValues(amString);
 
         mButtonCancel.setOnClickListener(view1 -> onCancelClick());
@@ -133,20 +143,45 @@ public class TimeDialog extends BottomSheetDialogFragment {
             onSaveClick();
         });
 
-//        TextView title = dialog.findViewById(R.id.title);
-//        MyNumberPicker hMain = dialog.findViewById(R.id.height_picker_main);
-//        MyNumberPicker hExtra = dialog.findViewById(R.id.height_picker_extra);
-//        TextView height_def = dialog.findViewById(R.id.height_def);
-//        TextView cancel_button = dialog.findViewById(R.id.cancel_button);
-//        TextView save_button = dialog.findViewById(R.id.save_button);
-//
-//        cancel_button.setOnClickListener(view -> dismiss());
-//        save_button.setOnClickListener(view -> doSave(hMain.getValue(), hExtra.getValue()));
-//
-//        title.setText(RaApp.getLabel("key_select_height"));
-//        height_def.setText(RaApp.getLabel("key_cm"));
-//        cancel_button.setText(RaApp.getLabel("key_cancel"));
-//        save_button.setText(RaApp.getLabel("key_save"));
+        Log.e(TAG, "TO --->>> " + to);
+
+        if(to != -1){
+            setPickersValues(to, mHoursPicker, mMinutesPicker, mAmPicker);
+        }
+
+    }
+
+    private void setPickersValues(int to, MyNumberPicker mHoursPicker, MyNumberPicker mMinutesPicker, MyStringPicker mAmPicker) {
+        String mTime = null;
+        if(to == SleepLogFragment.M_START){
+            mTime = RaApp.getBase().getSleepStartTime();
+        } else if(to == SleepLogFragment.M_END){
+            mTime = RaApp.getBase().getSleepEndTime();
+        }
+        if(!TextUtils.isEmpty(mTime)){
+            Log.e(TAG, "TIME STRING IS - > " + mTime);
+
+            try {
+                DateFormat sdf = new SimpleDateFormat("HH:mm");
+                Date date = sdf.parse(mTime);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);
+                int hours = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+                if(hours > 12){
+                    mHoursPicker.setValue(hours - 12);
+                    mAmPicker.setValue(1);
+                } else {
+                    mHoursPicker.setValue(hours);
+                    mAmPicker.setValue(0);
+                }
+                mMinutesPicker.setValue(minute);
+
+            }catch (Exception e){
+                Log.e(TAG, "Parse Exception - > " + e.getLocalizedMessage());
+            }
+
+        }
 
     }
 
@@ -155,8 +190,10 @@ public class TimeDialog extends BottomSheetDialogFragment {
                 + String.format("%02d", mMinutesPicker.getValue());
         Log.e(TAG, "OnSaveClick -> " + mTime);
         if(to == SleepLogFragment.M_START){
+            RaApp.getBase().saveSleepStartTime(mTime);
             myInterface.TimeStartSet(mTime);
-        } else {
+        } else if(to == SleepLogFragment.M_END){
+            RaApp.getBase().saveSleepEndTime(mTime);
             myInterface.TimeEndSet(mTime);
         }
         dismiss();

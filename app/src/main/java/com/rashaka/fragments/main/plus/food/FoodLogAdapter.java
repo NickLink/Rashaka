@@ -8,15 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rashaka.RaApp;
+import com.rashaka.R;
 import com.rashaka.domain.food.LogFoodItem;
-import com.rashaka.system.lang.LangKeys;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import com.rashaka.R;
 
 /**
  * Created by User on 29.08.2017.
@@ -53,7 +50,7 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.ViewHold
         holder.mTime.setText(getTimeFrom(mList.get(position).getDateTime()));
         holder.mText.setText(mList.get(position).getDescription());
         holder.mType.setText(mList.get(position).getFoodType());
-        holder.mButton.setText(RaApp.getLabel(LangKeys.key_edit));
+        //holder.mButton.setText(RaApp.getLabel(LangKeys.key_edit));
     }
 
     private String getTimeFrom(String dateTime) {
@@ -90,7 +87,7 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.ViewHold
         TextView mTime;
         TextView mType;
         TextView mText;
-        TextView mButton;
+        //TextView mButton;
 
         public ViewHolder(View v) {
             super(v);
@@ -98,8 +95,7 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.ViewHold
             mTime = v.findViewById(R.id.item_time);
             mType = v.findViewById(R.id.item_type);
             mText = v.findViewById(R.id.item_text);
-            mButton = v.findViewById(R.id.item_start_button);
-
+//            mButton = v.findViewById(R.id.item_start_button);
 //            mShare = v.findViewById(R.id.item_share);
 //            mMore = v.findViewById(R.id.item_read_more);
 //            mShare.setOnClickListener(view -> mListener.onClick(getAdapterPosition()));

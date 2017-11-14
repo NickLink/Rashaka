@@ -36,7 +36,7 @@ public class DateDialog extends BottomSheetDialogFragment {
     private String mDate;
     private int to;
 
-    public static DateDialog newInstance(int start){
+    public static DateDialog newInstance(int start) {
         DateDialog dialog = new DateDialog();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY, start);
@@ -73,7 +73,7 @@ public class DateDialog extends BottomSheetDialogFragment {
 
         ButterKnife.bind(this, contentView);
 
-        if(getArguments() != null && getArguments().containsKey(KEY)){
+        if (getArguments() != null && getArguments().containsKey(KEY)) {
             to = getArguments().getInt(KEY);
         }
 
@@ -105,7 +105,13 @@ public class DateDialog extends BottomSheetDialogFragment {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 Log.e(TAG, "Date selected day = " + date.getDay() + " month = " + date.getMonth() + " year = " + date.getYear());
-                mDate = date.getYear() + "-" + (date.getMonth()+ 1) + "-" + date.getDay() + " 00:00:00";
+                mDate = new StringBuilder()
+                        .append(String.valueOf(date.getYear()))
+                        .append("-")
+                        .append(String.format("%02d", date.getMonth() + 1))
+                        .append("-")
+                        .append(String.format("%02d", date.getDay())) // + " 00:00:00";
+                        .toString();
                 mButtonSave.setEnabled(true);
             }
         });
@@ -121,7 +127,7 @@ public class DateDialog extends BottomSheetDialogFragment {
     }
 
     private void onSaveClick() {
-        if(to == SleepLogFragment.M_START){
+        if (to == SleepLogFragment.M_START) {
             myInterface.DateStartSet(mDate);
         } else {
             myInterface.DateEndSet(mDate);

@@ -34,9 +34,16 @@ public class DatabaseTask {
     public static final int SYNCHRONIZED_TRUE = 1;
     public static final int SYNCHRONIZED_FALSE = 0;
     private static CompositeDisposable mCompositeDisposable;
+    private SyncResult result;
 
+    public DatabaseTask() {
+    }
 
-    public static void Prepare() {
+    public DatabaseTask(SyncResult listener) {
+        this.result = listener;
+    }
+
+    public void Prepare() {
         String dateOfReg = Support.getDateFromFullDate(
                 RaApp.getBase().getProfileUser().getRegisterDate());
         Log.e(TAG, "User Reg date -> " + dateOfReg);
@@ -81,7 +88,7 @@ public class DatabaseTask {
         }
     }
 
-    private static void GoLoad() {
+    private void GoLoad() {
         String tocken = RaApp.getBase().getLoggedUser().getTocken();
         String userId = RaApp.getBase().getLoggedUser().getId();
         mCompositeDisposable = new CompositeDisposable();
@@ -94,7 +101,7 @@ public class DatabaseTask {
         );
     }
 
-    public static DailyItem OneDayConvert(long startOfThisDay, long endOfThisDay, boolean today) {
+    public DailyItem OneDayConvert(long startOfThisDay, long endOfThisDay, boolean today) {
         long stepsCountInFirstDayStep = RaApp.getBase().getStepsCount(startOfThisDay, endOfThisDay); //getCountFromStepsDatabase(startOfThisDay, endOfThisDay);
         List<Integer> list = getListOfStepsByPeriod(startOfThisDay);
         Log.e(TAG, "NEW  Array is --->>> " + list.toString());
@@ -104,18 +111,18 @@ public class DatabaseTask {
             DailyItem mDailyItem = RaApp.getBase()
                     .getDailyItemByDate(Support.getDateFromMillis(startOfThisDay, Support.DATE_FORMAT));
 
-            if(mDailyItem != null){
+            if (mDailyItem != null) {
                 saved = mDailyItem.getSteps();
                 Log.e(TAG, "Previously on this day was -> " + saved + " steps");
 
                 Type listType = new TypeToken<List<Integer>>() {}.getType();
                 List<Integer> numbers = new Gson().fromJson(mDailyItem.getActivities(), listType);
                 Log.e(TAG, "SAVED Array is --->>> " + numbers.toString());
-                if (numbers != null && numbers.size() == PARTS_COUNT)
+                if (numbers != null && numbers.size() == PARTS_COUNT) {
                     for (int i = 0; i < PARTS_COUNT; i++)
                         list.set(i, list.get(i) + numbers.get(i));
-
-                Log.e(TAG, "FINAL Array is --->>> " + list.toString());
+                    Log.e(TAG, "FINAL Array is --->>> " + list.toString());
+                }
             }
         }
 
@@ -139,7 +146,7 @@ public class DatabaseTask {
         return item;
     }
 
-    private static void GoSynk(DailyList list) {
+    private void GoSynk(DailyList list) {
         String tocken = RaApp.getBase().getLoggedUser().getTocken();
         String userId = RaApp.getBase().getLoggedUser().getId();
         String mList = new Gson().toJson(list.getList());
@@ -154,21 +161,23 @@ public class DatabaseTask {
         );
     }
 
-    private static void handleResponse(RestResponse<DailyList> response) {
+    private void handleResponse(RestResponse<DailyList> response) {
         Log.e(TAG, "handleResponse -> " + response.toString());
 
         for (DailyItem item : response.getMData().getList()) {
             RaApp.getBase().saveDailySteps(item);
         }
         mCompositeDisposable.dispose();
+        result.SyncSuccess();
     }
 
-    private static void handleError(Throwable error) {
+    private void handleError(Throwable error) {
         Log.e(TAG, "handleError -> " + error.getLocalizedMessage());
         mCompositeDisposable.dispose();
+        result.SyncError();
     }
 
-    private static String getJsonFromArray(List<Integer> list) {
+    private String getJsonFromArray(List<Integer> list) {
         JSONArray x = new JSONArray();
         for (Integer item : list) {
             x.put(item);
@@ -177,7 +186,7 @@ public class DatabaseTask {
         return x.toString();
     }
 
-    private static List<Integer> getListOfStepsByPeriod(long startOfThisDay) {
+    private List<Integer> getListOfStepsByPeriod(long startOfThisDay) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < PARTS_COUNT; i++) {
             long s = startOfThisDay + i * PERIOD;
@@ -187,7 +196,7 @@ public class DatabaseTask {
     }
 
 
-    public static long startOfDay(long millis) {
+    public long startOfDay(long millis) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(millis);
         c.set(Calendar.HOUR_OF_DAY, 0);

@@ -42,7 +42,6 @@ public class MainPresenter {
     }
 
     public void startService() {
-
         if (!isMyServiceRunning(SensorService.class)) {
             mSensorService = new SensorService(getContext());
             mServiceIntent = new Intent(getContext(), mSensorService.getClass());

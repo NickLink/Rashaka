@@ -45,6 +45,12 @@ public interface RashakaBase {
     void saveGsmToken(String tocken);
     String getGsmToken();
 
+    //TODO LogSleep parts
+    void saveSleepStartTime(String startTime);
+    void saveSleepEndTime(String endTime);
+    String getSleepStartTime();
+    String getSleepEndTime();
+
     //TODO Alarms list part
     void saveAlarmList(List<DrinkAlarmItem> list);
     List<DrinkAlarmItem> loadAlarmList();
@@ -75,5 +81,5 @@ public interface RashakaBase {
     List<DailyItem> getDailyItems(int sync);
 
 
-
+    void clearAllTables();
 }

@@ -16,4 +16,5 @@ public interface MainRouter {
     void showDialog(String title, String text, String button);
 
     void onBackPressed();
+    void RestartService();
 }

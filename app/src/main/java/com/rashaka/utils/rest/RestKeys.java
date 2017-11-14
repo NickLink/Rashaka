@@ -20,6 +20,7 @@ public class RestKeys {
     public static final String POINT_GALLERY = "api_gallery";
     public static final String POINT_RECIPE = "api_food";
     public static final String POINT_FOOD = "log_food";
+    public static final String POINT_SLEEP = "log_sleep";
     public static final String POINT_TRACKER = "tracker";
     public static final String POINT_STAT = "statistic";
     public static final String POINT_NOTIF = "notification_log";
@@ -50,6 +51,7 @@ public class RestKeys {
     public static final String CALL_GALLERY_ALL = "all_events";
 
     public static final String CALL_FOOD_ALL = "all_food";
+    public static final String CALL_SLEEP_ALL = "all";
 
     public static final String CALL_ROUTES_ALL = "all_routes";
 
@@ -90,6 +92,11 @@ public class RestKeys {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_DATE_TIME = "date_time";
     public static final String KEY_FOOD_TYPE = "food_type";
+
+    public static final String KEY_SLEEP_START = "sleep_start";
+    public static final String KEY_SLEEP_END = "sleep_end";
+    public static final String KEY_SLEEP_TIME = "sleep_time";
+
 
     public static final String KEY_WEIGHT_GOAL = "weight_goal";
     public static final String KEY_STEPS_GOAL = "steps_goal";

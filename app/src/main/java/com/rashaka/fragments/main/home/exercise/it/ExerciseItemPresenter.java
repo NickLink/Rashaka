@@ -78,7 +78,7 @@ public class ExerciseItemPresenter extends SuperPresenter<ExerciseItemView, Main
             point.setLat(location.getLatitude());
             point.setLon(location.getLongitude());
             point.setAcc(location.getAccuracy());
-            point.setTime(Support.GetDateTimeForAPI());
+            point.setTime(Support.GetDateTimeForAPI(Support.DATE_FORMAT_FULL));
 
             if (pos == 0) {
                 routeInfo.getPoints().add(point);

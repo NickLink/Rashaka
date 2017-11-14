@@ -35,11 +35,14 @@ public class FoodLogPresenter extends SuperPresenter<FoodLogView, MainRouter> {
     private boolean isLoading, isLastPage;
     private int pageNum = 0;
     private String mToken, userId;
-    private String[] mFoodTypes = {RaApp.getLabel(LangKeys.key_breakfast),
+    private String[] mFoodTypes = {
+            RaApp.getLabel(LangKeys.key_breakfast),
             RaApp.getLabel(LangKeys.key_lunch),
-            RaApp.getLabel(LangKeys.key_diner)};
+            RaApp.getLabel(LangKeys.key_diner)
+    };
 
-    public FoodLogPresenter() {
+    public FoodLogPresenter(MainRouter router) {
+        setRouter(router);
         mToken = RaApp.getBase().getLoggedUser().getTocken();
         userId = RaApp.getBase().getLoggedUser().getId();
 
@@ -63,8 +66,8 @@ public class FoodLogPresenter extends SuperPresenter<FoodLogView, MainRouter> {
 
     public void onLogClick(String foodType, String foodDescription, String foodDateTime) {
         mCompositeDisposable.add(Rest.call().postUserLogFood(
-                RaApp.getBase().getLoggedUser().getTocken(),
-                RaApp.getBase().getLoggedUser().getId(),
+                mToken,
+                userId,
                 foodDescription,
                 foodDateTime,
                 foodType
@@ -89,15 +92,15 @@ public class FoodLogPresenter extends SuperPresenter<FoodLogView, MainRouter> {
     public void refreshLogFoodList(){
         pageNum = 0;
         isLastPage = false;
-        refreshLogFoodList(mToken, userId, pageNum);
+        refreshLogFoodList(pageNum);
     }
 
-    public void refreshLogFoodList(String token, String id, int page) {
-        Log.e(TAG, "refreshLogFoodList page = " + page);
+    public void refreshLogFoodList(int page) {
+        Log.e(TAG, "refreshLogSleepList page = " + page);
         isLoading = true;
         mCompositeDisposable.add(Rest.call().getAllFoodLog(
-                token,
-                id,
+                mToken,
+                userId,
                 String.valueOf(page)
                 ).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -135,7 +138,7 @@ public class FoodLogPresenter extends SuperPresenter<FoodLogView, MainRouter> {
                     && firstVisibleItemPosition >= 0
                     && totalItemCount >= Consts.PAGE_SIZE_10) {
                 Log.e(TAG, "onScrolled  totalItemCount = " + totalItemCount + " visibleItemCount " + visibleItemCount);
-                refreshLogFoodList(mToken, userId, pageNum);
+                refreshLogFoodList(pageNum);
             }
         }
     }

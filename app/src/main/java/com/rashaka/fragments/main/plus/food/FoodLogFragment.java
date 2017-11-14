@@ -52,7 +52,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
     public void onAttach(Context context) {
         super.onAttach(context);
         myRouter = (MainRouter) getActivity();
-        mPresenter = new FoodLogPresenter();
+        mPresenter = new FoodLogPresenter(myRouter);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
                 mPresenter.onLogClick(
                         (String) mAddLayout.mFoodSpinner.getSelectedItem(),
                         mAddLayout.mItemEditText.getText().toString(),
-                        Support.GetDateTimeForAPI());
+                        Support.GetDateTimeForAPI(Support.DATE_FORMAT_FULL));
             }
         });
 
@@ -159,7 +159,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
     @Override
     public void setAdapterData(List<LogFoodItem> list) {
         if (list != null && list.size() > 0) {//
-            Utility.setCollapseScroll(mExerciseToolbarLayout);
+            Utility.setCollapseScroll(mToolbarLayout);
             mEmptyList.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
             FoodLogAdapter adapter = new FoodLogAdapter(getActivity(),
@@ -175,7 +175,7 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
                     });
             mRecyclerView.setAdapter(adapter);
         } else {
-            Utility.setSnagScroll(mExerciseToolbarLayout);
+            Utility.setSnagScroll(mToolbarLayout);
             mEmptyList.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
         }
@@ -193,7 +193,10 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
 //    @BindView(R.id.log_text)
 //    TextView mLogText;
     @BindView(R.id.colapsing_title)
-    CollapsingToolbarLayout mExerciseToolbarLayout;
+    CollapsingToolbarLayout mToolbarLayout;
+
+    @BindView(R.id.title)
+    TextView mTitle;
 
     @BindView(R.id.add_food_layout)
     View mAddFoodLayout;
@@ -203,9 +206,6 @@ public class FoodLogFragment extends BaseFragment implements FoodLogView {
 
     @BindView(R.id.empty_list)
     EmptyListView mEmptyList;
-
-    @BindView(R.id.title)
-    TextView mTitle;
 //
 //    @BindView(R.id.share_text)
 //    TextView share_text;

@@ -157,9 +157,18 @@ public class Support {
         return dateFormat.format(presentTime_Date);
     }
 
-    public static String GetDateTimeForAPI(){
+    public static String GetDateTimeForAPI(String format){
         Date presentTime_Date = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_FULL);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(getDefaultTimeZone());
+        return dateFormat.format(presentTime_Date);
+    }
+
+    public static String GetPreviousDateForAPI(String format){
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(c.getTimeInMillis() - 1000 * 60 * 60 *24);
+        Date presentTime_Date = c.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         dateFormat.setTimeZone(getDefaultTimeZone());
         return dateFormat.format(presentTime_Date);
     }
@@ -217,6 +226,24 @@ public class Support {
             e.printStackTrace();
         } finally {
             return d;
+        }
+    }
+
+    public static String getPreviousDayDate(boolean time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(calendar.getTimeInMillis() - 1000 * 60 * 60 * 24);
+        int thisYear = calendar.get(Calendar.YEAR);
+        int thisMonth = calendar.get(Calendar.MONTH);
+        int thisDay = calendar.get(Calendar.DAY_OF_MONTH);
+        if(time){
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int min = calendar.get(Calendar.MINUTE);
+            int sec = calendar.get(Calendar.SECOND);
+            return thisDay + " " + getMonthByInt(thisMonth) + " "
+                    + thisYear + " "
+                    + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+        } else {
+            return thisDay + " " + getMonthByInt(thisMonth) + " " + thisYear;
         }
     }
 

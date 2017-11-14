@@ -55,7 +55,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
     public void onAttach(Context context) {
         super.onAttach(context);
         myRouter = (MainRouter) getActivity();
-        mPresenter = new DrinkAlarmPresenter();
+        mPresenter = new DrinkAlarmPresenter(myRouter);
     }
 
     @Override
@@ -93,11 +93,8 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
             @Override
             public void editClick(int pos) {
                 editedItemPosition = pos;
-                //model.select(list.get(pos));
                 BottomSheetDialogFragment bottomDialog = AlarmItem.newInstance(list.get(pos));
                 bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
-
-                //mFragmentNavigation.pushFragment(new AlarmEditFragment());
             }
 
             @Override
@@ -105,6 +102,7 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
                 Log.e(TAG, "Switched to " + b + " on position " + pos);
                 list.get(pos).setEnabled(b);
                 mPresenter.setAlarm(getActivity(), list.get(pos));
+                mPresenter.saveAlarmListChanges(list);
             }
         }));
 
@@ -127,62 +125,12 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
             }
         };
 
-//        model.getSelected().observe(this, o -> {
-//
-//            if(editedItemPosition != -1) {
-//                if (added) {
-//                    list.set(editedItemPosition, o);
-//                    mRecyclerView.getAdapter().notifyDataSetChanged();
-//                    Log.e(TAG, "saveAlarmListChanges");
-//                    mPresenter.saveAlarmListChanges(list);
-//                } else {
-//                    list.remove(editedItemPosition);
-//                    mPresenter.saveAlarmListChanges(list);
-//                }
-//            }
-
-
-//            Log.e(TAG, "Observed Changes!!!");
-//            if(editedItemPosition != -1 && o == null && !removed){
-//                Log.e(TAG, "Observed o == null list size = " + list.size());
-//                list.remove(editedItemPosition);
-//                mPresenter.saveAlarmListChanges(list);
-//                removed = true;
-//            } else {
-//                if (editedItemPosition != -1 && !removed) {
-//                    list.set(editedItemPosition, o);
-//                    mRecyclerView.getAdapter().notifyDataSetChanged();
-//                    Log.e(TAG, "saveAlarmListChanges");
-//                    mPresenter.saveAlarmListChanges(list);
-//                }
-//            }
-
-
-//        });
-
         mButtonAdd.setOnClickListener(view1 -> {
-
-
-//            removed = false;
-//            DrinkAlarmItem item = new DrinkAlarmItem();
-//            item.setId(Consts.ALARM_START_VALUE + list.size());
-//            list.add(item);
-//            editedItemPosition = list.size() - 1;
-//            Log.e(TAG, "LIST SIZE NOW -> " + list.size());
-//            model.select(list.get(editedItemPosition));
-
-
             DrinkAlarmItem item = new DrinkAlarmItem();
             list.add(item);
             editedItemPosition = list.size() - 1;
             BottomSheetDialogFragment bottomDialog = AlarmItem.newInstance(item);
             bottomDialog.show(getChildFragmentManager(), bottomDialog.getTag());
-
-//            AlarmEditFragment fragment = new AlarmEditFragment();
-//
-//            mFragmentNavigation.pushFragment(new AlarmEditFragment());
-
-
         });
     }
 
@@ -194,15 +142,10 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
         mPresenter.setAlarm(getActivity(), item);
 
         list.remove(pos);
-        //mRecyclerView.getAdapter().notifyDataSetChanged();
         swipeHelper.clearSwipe();
         mRecyclerView.getAdapter().notifyItemRemoved(pos);
         Log.e(TAG, "saveAlarmListChanges");
         mPresenter.saveAlarmListChanges(list);
-
-        //mRecyclerView.getRecycledViewPool().clear();
-        //mRecyclerView.getAdapter().notifyDataSetChanged();
-        //swipeHelper.clearSwipe();
     }
 
     @NonNull
@@ -216,20 +159,6 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
         mTitle.setText(RaApp.getLabel(LangKeys.key_drink_alarm));
         mButtonAddText.setText(RaApp.getLabel(LangKeys.key_add_new));
     }
-
-
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
-    @BindView(R.id.title)
-    TextView mTitle;
-
-    @BindView(R.id.add_new_alarm)
-    FrameLayout mButtonAdd;
-
-
-    @BindView(R.id.add_new_text)
-    TextView mButtonAddText;
 
     @Override
     public void alarmSaved(Bundle bundle) {
@@ -252,4 +181,17 @@ public class DrinkAlarmFragment extends BaseFragment implements DrinkAlarmView, 
     public void alarmCancel() {
         //added = false;
     }
+
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.title)
+    TextView mTitle;
+
+    @BindView(R.id.add_new_alarm)
+    FrameLayout mButtonAdd;
+
+
+    @BindView(R.id.add_new_text)
+    TextView mButtonAddText;
 }

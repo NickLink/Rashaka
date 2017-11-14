@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rashaka.MainRouter;
 import com.rashaka.RaApp;
 import com.rashaka.domain.database.DailyItem;
@@ -17,6 +19,9 @@ import com.rashaka.system.lang.LangKeys;
 import com.rashaka.utils.Support;
 import com.rashaka.utils.database.DatabaseTask;
 import com.rashaka.utils.helpers.structure.SuperPresenter;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Created by User on 24.08.2017.
@@ -77,12 +82,7 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
     }
 
     public void readData(boolean refresh, long start) {
-
         long mStepsCount = 0;
-
-        Log.e(TAG, "Start from OneWeek -> " + start + " Start from Start of Day -> " + Support.startOfDay());
-        Log.e(TAG, "Start from OneWeek -> " + Support.getDateFromMillis(start, Support.DATE_FORMAT_FULL)
-                + " Start from Start of Day -> " + Support.getDateFromMillis(Support.startOfDay(), Support.DATE_FORMAT_FULL));
         //TODO Check if present day go for steps database
         if(start == Support.startOfDay()){
             //TODO Check for existing day in database & find out is it synchronized?
@@ -94,9 +94,9 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
                 mStepsCount = today.getSteps() + RaApp.getBase().getStepsCount(start, start + 86399999);
                 Log.e(TAG, "Current day with sync - DailySteps + data from Steps database");
             } else {
-                //TODO No synchronization today - just get data from Steps database
-                mStepsCount = RaApp.getBase().getStepsCount(start, start + 86399999); //startOfDay()
-                Log.e(TAG, "Current day without sync - just get data from Steps database");
+                //TODO Item not existed -> create it from Steps database
+                mStepsCount = new DatabaseTask().OneDayConvert(start, start + 86399999, false).getSteps();
+                Log.e(TAG, "Current day without sync - convert it & SAVE");
             }
 
         } else {
@@ -116,10 +116,17 @@ public class HomeBasePresenter extends SuperPresenter<HomeBaseView, MainRouter> 
                 if(ifStepsCount > 0) {
                     //TODO  -> convert to Daily Item -> Return DailyItem
                     Log.e(TAG, "convert to Daily Item -> Return DailyItem");
-                    item = DatabaseTask.OneDayConvert(start, start + 86399999, false);
+                    item = new DatabaseTask().OneDayConvert(start, start + 86399999, false);
                     mStepsCount = item.getSteps();
                 }
             }
+            //TODO Show daily graph
+            if(item != null && !TextUtils.isEmpty(item.getActivities())){
+                Type listType = new TypeToken<List<Integer>>() {}.getType();
+                List<Integer> numbers = new Gson().fromJson(item.getActivities(), listType);
+                getView().setDailyGraph(numbers);
+            }
+
         }
 
 
