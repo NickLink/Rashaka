@@ -183,14 +183,10 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
 
     @Override
     public void setDailyGraph(List<Integer> mList) {
-        //int min = Collections.min(mList);
         mGraphLayout.removeAllViews();
         int max = Collections.max(mList);
-        Log.e(TAG, "max-> " + max);
         int height = Support.dpToPx(110);
-        Log.e(TAG, "height-> " + height);
         double scale = (double) max / (double) height;
-        Log.e(TAG, "scale-> " + scale);
 
         for (int i = 0 ; i < mList.size() ; i++){
             LinearLayout l = new LinearLayout(getActivity());
@@ -220,10 +216,9 @@ public class HomeBaseFragment extends BaseFragment implements HomeBaseView {
 
             l.addView(v);
             l.addView(c);
-
-
             mGraphLayout.addView(l);
         }
+        mDailyActivityText.setText(RaApp.getLabel(LangKeys.key_daily_activity));
     }
 
     @BindView(R.id.one_week)
